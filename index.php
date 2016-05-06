@@ -19,9 +19,6 @@ $options = [
 $uri = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
 
 switch (true) {
-    /*case ('/test' === $uri):
-        require_once 'test/index.php';
-        break;*/
     case (in_array($uri, ['/index.php', '/']) !== FALSE):
         (new HomeController($options))->indexAction();
         break;
