@@ -8,6 +8,7 @@
   },
   "dependencies": {
     "bootstrap": "^3.3.6",
+    "bower": "^1.7.9",
     "jquery": "^2.2.3"
   },
   "devDependencies": {},
