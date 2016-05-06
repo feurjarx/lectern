@@ -1,0 +1,12 @@
+{
+  "name": "lectern",
+  "description": "",
+  "main": "",
+  "license": "MIT",
+  "homepage": "lectern",
+  "dependencies": {
+    "bootstrap-checkbox-x": "^1.5.4",
+    "cropper": "^2.3.0",
+    "blueimp-load-image": "^2.6.1"
+  }
+}
