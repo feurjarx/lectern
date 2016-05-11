@@ -31,7 +31,7 @@
 
 <body>
 
-    <div class="container-fluid height-100">
+    <div class="container-fluid min-height-100 height-100">
 
         <!-- Header -->
         <div class="row header">
@@ -136,13 +136,10 @@
         </div>
 
         <!-- Footer -->
-        <div class="navbar-fixed-bottom row-fluid">
-            <div class="navbar-inner well well-sm" style="margin-bottom: 0">
-                <div class="container text-center">
-                    <span class="label label-primary pull-right">АлтГТУ им. И.И. Ползунова, 2016</span>
-                </div>
-            </div>
+        <div id="footer" class="row well well-sm">
+            <span class="label label-primary pull-right">АлтГТУ им. И.И. Ползунова, 2016</span>
         </div>
+
 
     </div>
 

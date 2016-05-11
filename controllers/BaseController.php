@@ -6,6 +6,7 @@
  */
 
 use Doctrine\ORM\EntityManager;
+use Entity\User;
 
 require_once __DIR__ . '/../model/Cryptograph.php';
 
@@ -65,11 +66,9 @@ class BaseController
     {
         session_start();
 
-        require_once __DIR__ . '/../model/Cryptograph.php';
-        
-        if (isset($_SESSION['current_user']) && $_SESSION['current_user'] && ($_SESSION['current_user'] instanceof User)) {
+        if (isset($_SESSION['current_user_id']) && $_SESSION['current_user_id']) {
 
-            $this->currentUser = $_SESSION['current_user'];
+            $this->currentUser = $this->em->find('Entity\User', $_SESSION['current_user_id']);
 
         } else {
 
@@ -87,13 +86,15 @@ class BaseController
 
                     $qb
                         ->select('u')
-                        ->from('User', 'u')
+                        ->from('Entity\User', 'u')
                         ->where($qb->expr()->eq('u', $currentUserId))
                     ;
 
                     $this->currentUser = $qb->getQuery()->getOneOrNullResult();
 
-                    $_SESSION['current_user'] = $this->currentUser;
+                    if ($this->currentUser) {
+                        $_SESSION['current_user_id'] = $currentUserId;
+                    }
 
                 } else {
 
@@ -129,9 +130,4 @@ class BaseController
         $this->conf = $conf;
         return $this;
     }
-
-    
-
-
-
 }

@@ -6,7 +6,6 @@
  */
 ?>
 
-
 <div class="row">
 
     <div class="col-lg-6 col-xs-12">
@@ -31,31 +30,42 @@
 
 <div class="tab-content">
     <div id="ads" class="tab-pane fade in active">
-        <div class="list-group ads">
+        <ul class="list-group ads">
 
-            <a href="#" class="col-lg-12 list-group-item ad">
-                <div class="col-lg-1 col-xs-1 checkbox-block">
-                    <input type="checkbox" placeholder="" data-toggle="checkbox-x" data-three-state="false">
+            <?php if (isset($ads) && count($ads)): ?>
+
+                <?php foreach ($ads as $ad): ?>
+
+                    <li class="col-lg-12 list-group-item ad">
+                        <div class="col-lg-1 col-xs-1 checkbox-block">
+                            <input type="checkbox" placeholder="" data-toggle="checkbox-x" data-three-state="false">
+                        </div>
+
+                        <div class="col-lg-11">
+                            <h4 class="list-group-item-heading">
+                                <?php echo $ad->getName(); ?>
+                            </h4>
+                            <p class="list-group-item-text">
+                                <?php echo $ad->getDetails(); ?>
+                            </p>
+                        </div>
+                    </li>
+
+                <?php endforeach; ?>
+
+            <?php else: ?>
+
+                <div class="col-lg-12 alert alert-warning list-group-item">
+                    <strong>
+                        <span class="glyphicon glyphicon-ok"></span>
+                        <span class="sr-only">Внимание!</span>
+                        Объявлений не найдено
+                    </strong>
                 </div>
 
-                <div class="col-lg-11">
-                    <h4 class="list-group-item-heading">List group item heading</h4>
-                    <p class="list-group-item-text">text</p>
-                </div>
-            </a>
+            <?php endif ?>
 
-            <a href="#" class="col-lg-12 list-group-item ad">
-                <div class="col-lg-1 col-xs-1 checkbox-block">
-                    <input type="checkbox" placeholder="" data-toggle="checkbox-x" data-three-state="false">
-                </div>
-
-                <div class="col-lg-11">
-                    <h4 class="list-group-item-heading">List group item heading</h4>
-                    <p class="list-group-item-text">text</p>
-                </div>
-            </a>
-
-        </div>
+        </ul>
     </div>
 
     <div id="cvs" class="tab-pane fade">

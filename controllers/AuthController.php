@@ -7,6 +7,8 @@
  */
 require_once __DIR__ . '/../entity/User.php';
 
+use Entity\User;
+
 class AuthController extends BaseController
 {
     /**
@@ -29,7 +31,7 @@ class AuthController extends BaseController
         if ($login && $password) {
 
             /** @var User $user */
-            $user = $this->em->getRepository('User')->findOneBy([
+            $user = $this->em->getRepository('Entity\User')->findOneBy([
                 'email' => $login
             ]);
 
@@ -39,7 +41,7 @@ class AuthController extends BaseController
                 setcookie('uid', $crypto->encrypt($user->getId(), $_SERVER['HTTP_HOST']), time() + 24*3600);
                 setcookie('vid', $crypto->getIvToBase64(), time() + 24*3600);
 
-                $_SESSION['current_user'] = $user;
+                $_SESSION['current_user'] = $user->getId();
 
                 header('Location: ' . Constants::getHttpHost());
                 exit();

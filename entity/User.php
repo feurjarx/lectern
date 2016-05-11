@@ -5,6 +5,11 @@
  * Time: 23:04
  */
 
+namespace Entity;
+
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\ORM\PersistentCollection;
+
 /**
  * @Entity @Table(name="user")
  **/
@@ -38,6 +43,12 @@ class User
 
     /** @Column(name="img_url", type="string") **/
     private $imgUrl = null;
+
+    /**
+     * @var PersistentCollection
+     * @OneToMany(targetEntity="Ad", mappedBy="user")
+     */
+    private $ads;
 
     /**
      * @return int
@@ -157,5 +168,23 @@ class User
     public function setimgUrl($imgUrl)
     {
         $this->imgUrl = $imgUrl;
+    }
+
+    /**
+     * @return PersistentCollection
+     */
+    public function getAds()
+    {
+        return $this->ads;
+    }
+
+    /**
+     * @param PersistentCollection $ads
+     * @return $this
+     */
+    public function setAds($ads)
+    {
+        $this->ads = $ads;
+        return $this;
     }
 }
