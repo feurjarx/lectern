@@ -2,6 +2,10 @@ html, body, .container {
     height: 100%;
 }
 
+a {
+    text-decoration: none;
+}
+
 .main {
     height: auto;
     /*header it is 73px and footer is is 35px*/

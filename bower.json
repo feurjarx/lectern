@@ -7,6 +7,9 @@
   "dependencies": {
     "bootstrap-checkbox-x": "^1.5.4",
     "cropper": "^2.3.0",
-    "blueimp-load-image": "^2.6.1"
+    "blueimp-load-image": "^2.6.1",
+    "components-font-awesome": "^4.6.1",
+    "jquery-serialize-object": "^2.5.0",
+    "noty": "^2.3.8"
   }
 }

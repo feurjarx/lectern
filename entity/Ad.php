@@ -140,17 +140,17 @@ class Ad
     }
 
     /**
-     * @param Company $company
+     * @param $company
      * @return $this
      */
-    public function setCompany(Company $company)
+    public function setCompany($company)
     {
         $this->company = $company;
         return $this;
     }
 
     /**
-     * @return Proxy
+     * @return User
      */
     public function getUser()
     {
@@ -158,10 +158,10 @@ class Ad
     }
 
     /**
-     * @param Proxy $user
+     * @param $user
      * @return $this
      */
-    public function setUser(Proxy $user)
+    public function setUser($user)
     {
         $this->user = $user;
         return $this;

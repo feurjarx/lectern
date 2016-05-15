@@ -19,9 +19,13 @@ $options = [
 $uri = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
 
 switch (true) {
+
+    // INDEX
     case (in_array($uri, ['/index.php', '/']) !== FALSE):
         (new HomeController($options))->indexAction();
         break;
+
+    // SIGNUP
     case ('/signup' === $uri):
         (new SignUpController($options))->signUpAction([
             'post'  => $_POST,
@@ -34,26 +38,34 @@ switch (true) {
     case ('/signup/confirm' === $uri && isset($_GET['id']) && isset($_GET['hash'])):
         (new SignUpController($options))->signUpConfirmAction($_GET);
         break;
+
     case ('/auth' === $uri && isset($_POST['login']) && isset($_POST['password'])):
         (new AuthController($options))->signInAction($_POST);
         break;
     case ('/logout' === $uri && isset($_POST['flash'])):
         (new AuthController($options))->logoutAction($_POST);
         break;
+
+    // UPLOAD
     case ('/upload' === $uri && isset($_POST) && isset($_FILES)):
         (new UploadAjaxContoller($options))->uploadAction([
             'post'  => $_POST,
             'files' => $_FILES
         ]);
         break;
+
+    // CABINET
     case ('/'. Constants::STUDENT_ROLE . '/cabinet' === $uri):
-        $options['is_verify'] = true;
         (new CabinetController($options))->indexAction(Constants::STUDENT_ROLE);
         break;
     case ('/'. Constants::EMPLOYER_ROLE . '/cabinet' === $uri):
-        $options['is_verify'] = true;
         (new CabinetController($options))->indexAction(Constants::EMPLOYER_ROLE);
         break;
+    case ('/employer/ad/plus' === $uri && isset($_POST)):
+        (new CabinetController($options))->createAjaxAction($_POST);
+        break;
+
+    // ERRORS
     case ('/access/denied' === $uri):
         (new ErrorController($options))->errorRenderAction(Constants::ERROR_ACCESS_DENIED);
         break;

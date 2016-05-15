@@ -17,7 +17,7 @@
 
     <div class="col-lg-6 hidden-xs">
         <div class="cabinet-actions btn-group btn-group-md pull-right">
-            <button class="btn btn-success" type="button">
+            <button class="btn btn-success" type="button" data-toggle="modal" data-target="#add-plus-modal">
                 <em class="glyphicon glyphicon glyphicon-plus"></em> Добавить
             </button>
             <button class="btn btn-danger" type="button">
@@ -30,24 +30,28 @@
 
 <div class="tab-content">
     <div id="ads" class="tab-pane fade in active">
-        <ul class="list-group ads">
+        <ul class="list-group panel-group ads">
 
             <?php if (isset($ads) && count($ads)): ?>
 
-                <?php foreach ($ads as $ad): ?>
+                <?php /** @var \Entity\Ad[] $ads */ ?>
+                <?php foreach ($ads as $index => $ad): ?>
 
-                    <li class="col-lg-12 list-group-item ad">
+                    <li class="col-lg-12 list-group-item panel panel-default ad">
                         <div class="col-lg-1 col-xs-1 checkbox-block">
-                            <input type="checkbox" placeholder="" data-toggle="checkbox-x" data-three-state="false">
+                            <input type="checkbox" placeholder=""  data-toggle="checkbox-x"
+                                   data-three-state="false"  value="<?php $ad->getId(); ?>">
                         </div>
 
                         <div class="col-lg-11">
                             <h4 class="list-group-item-heading">
-                                <?php echo $ad->getName(); ?>
+                                <a href="#ad-details-<?php echo $index + 1; ?>" data-toggle="collapse">
+                                    <?php echo $ad->getName(); ?>
+                                </a>
                             </h4>
-                            <p class="list-group-item-text">
+                            <div id="ad-details-<?php echo $index + 1; ?>" class="list-group-item-text panel-collapse collapse">
                                 <?php echo $ad->getDetails(); ?>
-                            </p>
+                            </div>
                         </div>
                     </li>
 
@@ -73,4 +77,4 @@
     </div>
 </div>
 
-
+<?php include 'adPlusModal.php' ?>
