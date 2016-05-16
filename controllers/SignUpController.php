@@ -7,6 +7,8 @@
 
 require_once __DIR__ . '/../entity/User.php';
 
+use Entity\User;
+
 class SignUpController extends BaseController
 {
     /**
@@ -39,7 +41,7 @@ class SignUpController extends BaseController
 
             $em = $this->em;
 
-            $user = $em->getRepository('User')->findBy([
+            $user = $em->getRepository('Entity\User')->findBy([
                 'email' => $email
             ]);
 
