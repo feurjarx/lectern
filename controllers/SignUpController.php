@@ -60,6 +60,8 @@ class SignUpController extends BaseController
                     $user->setFirstName($firstName);
                     $user->setEmail($email);
                     $user->setRole($role);
+                    // TODO: make company
+                    $user->setCompany('');
 
                     $user->setLastName($lastName);
                     $user->setimgUrl($imgName ? Constants::UPLOAD_PHOTOS_URL . $imgName : Constants::DEFAULT_PHOTO_URL);
