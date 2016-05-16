@@ -120,7 +120,7 @@ class SignUpController extends BaseController
         $userId = $request['id'];
         $confirmHash = $request['hash'];
 
-        $user = $this->em->find('User', $userId);
+        $user = $this->em->find('Entity\User', $userId);
 
         /** @var User $user */
         if ($user && $confirmHash === md5( strval($user->getCreatedAt()) . $user->getPassword() )) {
