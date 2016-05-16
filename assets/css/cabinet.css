@@ -18,6 +18,21 @@
     width: auto;
 }
 
+.ads .badge-salary {
+    position: absolute;
+    right: 10px;
+    top: 10px;
+}
+
+.ads > .ad {
+    cursor: pointer;
+}
+
+.ads > .ad:hover {
+    background-color: lightyellow;
+    font-weight: 600;
+}
+
 .ads {
     display: inline-block;
     padding: 15px 0;
@@ -27,3 +42,9 @@
     width: 100%;
     margin-bottom: 0;
 }
+
+
+a[href^="#ad-details-"] {
+    vertical-align: sub;
+}
+

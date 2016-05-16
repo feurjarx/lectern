@@ -85,19 +85,6 @@
                                     </li>
 
                                 <?php endif ?>
-                                
-                                <!--<li class="dropdown">
-                                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Другое <span class="caret"></span></a>
-                                    <ul class="dropdown-menu" role="menu">
-                                        <li><a href="#">Действие 1</a></li>
-                                        <li><a href="#">Действие 2</a></li>
-                                        <li><a href="#">Действие 3</a></li>
-                                        <li class="divider"></li>
-                                        <li><a href="#">Другое действие</a></li>
-                                        <li class="divider"></li>
-                                        <li><a href="#">Еще действие</a></li>
-                                    </ul>
-                                </li>-->
 
                             <?php endif; ?>
 

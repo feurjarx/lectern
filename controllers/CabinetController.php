@@ -69,15 +69,16 @@ class CabinetController extends BaseController
                 ->setDetails($params['details'])
                 ->setUser($this->em->getReference('Entity\User', $this->currentUser->getId()))
             ;
-
-            if (isset($params['salary']) && $params['salary']) {
-                $ad->setSalary($params['salary']);
+            
+            if (isset($request['salary']) && $request['salary']) {
+                $ad->setSalary($request['salary']);
             }
 
             $this->em->persist($ad);
             $this->em->flush();
 
             $jsonResult = json_encode([
+                'complete_id' => $ad->getId(),
                 'type' => 'success',
                 'message' => 'Объявление о работе успешно создано и опубликовано!'
             ]);
@@ -90,6 +91,52 @@ class CabinetController extends BaseController
             ]);
         }
         
+        echo $jsonResult;
+    }
+
+    /**
+     * @param $request
+     * @throws \Doctrine\ORM\ORMException
+     */
+    public function removeAjaxAction($request)
+    {
+        if (isset($request['ids']) && $request['ids']) {
+
+            /** @var Ad[] $ads */
+            $em = $this->em;
+            $ads = $this->em->getRepository('Entity\Ad')->findBy([
+                'id' => $request['ids']
+            ]);
+
+            try {
+
+                foreach ($ads as $ad) {
+                    $em->remove($ad);
+                }
+
+                $em->flush();
+
+                $jsonResult = json_encode([
+                    'type' => 'success',
+                    'message' => 'Объявления успешно удалены!'
+                ]);
+
+            } catch (Exception $e){
+
+                $jsonResult = json_encode([
+                    'type' => 'error',
+                    'message' => 'Серверная ошибка!'
+                ]);
+            }
+
+        } else {
+
+            $jsonResult = json_encode([
+                'type' => 'error',
+                'message' => 'Неверные данные'
+            ]);
+        }
+
         echo $jsonResult;
     }
 }

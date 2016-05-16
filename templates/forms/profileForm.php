@@ -2,7 +2,7 @@
     
     <span><span class="hidden-xs">Вы авторизованы как </span><?php echo ucfirst($this->currentUser->getFirstName()); ?></span>
 
-    <img src="<?php echo $this->currentUser->getImgUrl() ?>" class="img-circle" style="max-width: 35px">
+    <img src="<?php echo $this->currentUser->getImgUrl() ?>" class="img-circle" style="max-width: 35px; max-height: 35px;">
 
     <button class="btn btn-sm btn-default">
         <small><b>Выйти</b></small>

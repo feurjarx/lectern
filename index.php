@@ -64,6 +64,9 @@ switch (true) {
     case ('/employer/ad/plus' === $uri && isset($_POST)):
         (new CabinetController($options))->createAjaxAction($_POST);
         break;
+    case ('/employer/ad/remove' === $uri && isset($_POST)):
+        (new CabinetController($options))->removeAjaxAction($_POST);
+        break;
 
     // ERRORS
     case ('/access/denied' === $uri):

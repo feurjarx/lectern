@@ -6,6 +6,11 @@
  */
 ?>
 
+<?php ob_start() ?>
+    <script src="<?php echo Constants::getHttpHost(); ?>/assets/js/ad-plus.js"></script>
+    <script src="<?php echo Constants::getHttpHost(); ?>/assets/js/ad-remove.js"></script>
+<?php $afterJs = ob_get_clean(); ?>
+
 <div class="row">
 
     <div class="col-lg-6 col-xs-12">
@@ -17,10 +22,10 @@
 
     <div class="col-lg-6 hidden-xs">
         <div class="cabinet-actions btn-group btn-group-md pull-right">
-            <button class="btn btn-success" type="button" data-toggle="modal" data-target="#add-plus-modal">
+            <button class="btn btn-success" type="button" data-toggle="modal" data-target="#ad-plus-modal">
                 <em class="glyphicon glyphicon glyphicon-plus"></em> Добавить
             </button>
-            <button class="btn btn-danger" type="button">
+            <button class="btn btn-danger" type="button" id="ad-remove-button">
                 <em class="glyphicon glyphicon-trash"></em> Удалить
             </button>
         </div>
@@ -30,29 +35,29 @@
 
 <div class="tab-content">
     <div id="ads" class="tab-pane fade in active">
-        <ul class="list-group panel-group ads">
+        <ul class="list-group ads">
 
             <?php if (isset($ads) && count($ads)): ?>
 
                 <?php /** @var \Entity\Ad[] $ads */ ?>
                 <?php foreach ($ads as $index => $ad): ?>
 
-                    <li class="col-lg-12 list-group-item panel panel-default ad">
-                        <div class="col-lg-1 col-xs-1 checkbox-block">
-                            <input type="checkbox" placeholder=""  data-toggle="checkbox-x"
-                                   data-three-state="false"  value="<?php $ad->getId(); ?>">
+                    <li class="col-lg-12 list-group-item ad" href="#ad-details-<?php echo $index + 1; ?>" data-toggle="collapse">
+                        <div class="col-lg-1 col-xs-2 checkbox-block">
+                            <input type="checkbox" placeholder=""  data-toggle="checkbox-x" data-size="sm"
+                                   data-three-state="false" data-ad-id="<?php echo $ad->getId(); ?>">
                         </div>
 
-                        <div class="col-lg-11">
-                            <h4 class="list-group-item-heading">
-                                <a href="#ad-details-<?php echo $index + 1; ?>" data-toggle="collapse">
-                                    <?php echo $ad->getName(); ?>
-                                </a>
-                            </h4>
+                        <div class="col-lg-11 col-xs-10">
+                            <a class="list-group-item-heading">
+                                <?php echo ucfirst($ad->getName()); ?>
+                            </a>
+
                             <div id="ad-details-<?php echo $index + 1; ?>" class="list-group-item-text panel-collapse collapse">
-                                <?php echo $ad->getDetails(); ?>
+                                <?php echo ucfirst($ad->getDetails()); ?>
                             </div>
                         </div>
+                        <span class="badge badge-salary pull-right"><?php echo $ad->getSalary() ? $ad->getSalary() : 'Не указано'; ?></span>
                     </li>
 
                 <?php endforeach; ?>

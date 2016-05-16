@@ -3,6 +3,17 @@
  */
 function notification(options) {
     noty($.extend({}, {
+        template: $('<div>', {
+            class: 'noty_message',
+            html: [
+                $('<strong>', {
+                    class: 'noty_text'
+                }),
+                $('<div>', {
+                    class: 'noty_close'
+                })
+            ]
+        }),
         layout: 'topRight',
         closeWith: ['click', 'hover'],
         timeout: 2000,
@@ -12,3 +23,8 @@ function notification(options) {
         }
     }, options));
 }
+
+String.prototype.ucfirst = function()
+{
+    return this.charAt(0).toUpperCase() + this.substr(1);
+};
