@@ -150,7 +150,7 @@ class SignUpController extends BaseController
 
         if ($userId) {
 
-            $user = $this->em->find('User', $userId);
+            $user = $this->em->find('Entity\User', $userId);
 
             if ($user && md5( $user->getFirstName() . $user->getEmail()) === $newPassSession) {
 
