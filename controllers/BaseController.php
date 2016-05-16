@@ -17,12 +17,12 @@ class BaseController
      * @param $options
      */
     function __construct($options) {
-        
+
         $this->em = $options['em'];
         $this->conf = $options['conf'];
 
         $this->initCurrentUser($_COOKIE);
-        
+
         if (isset($options['is_verify']) && $options['is_verify'] && is_null($this->currentUser)) {
             header('Location: ' . Constants::getHttpHost() . '/' . 'access/denied');
             exit();
@@ -68,7 +68,7 @@ class BaseController
 
         if (isset($_SESSION['current_user_id']) && $_SESSION['current_user_id']) {
 
-            $this->currentUser = $this->em->find('Entity\User', $_SESSION['current_user_id']);
+            $this->currentUser = $this->em->getRepository('Entity\User')->find($_SESSION['current_user_id']);
 
         } else {
 

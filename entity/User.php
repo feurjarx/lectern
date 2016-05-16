@@ -7,7 +7,6 @@
 
 namespace Entity;
 
-use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\PersistentCollection;
 
 /**
@@ -44,8 +43,10 @@ class User
     /** @Column(name="img_url", type="string") **/
     private $imgUrl = null;
 
+    /** @Column(name="company", type="string") **/
+    private $company;
+
     /**
-     * @var PersistentCollection
      * @OneToMany(targetEntity="Ad", mappedBy="user")
      */
     private $ads;
@@ -185,6 +186,24 @@ class User
     public function setAds($ads)
     {
         $this->ads = $ads;
+        return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function getCompany()
+    {
+        return $this->company;
+    }
+
+    /**
+     * @param $company
+     * @return $this
+     */
+    public function setCompany($company)
+    {
+        $this->company = $company;
         return $this;
     }
 }

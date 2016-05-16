@@ -7,7 +7,6 @@
 
 namespace Entity;
 
-use Doctrine\Common\Proxy\Proxy;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -36,17 +35,9 @@ class Ad
 
     /** @Column(name="details", type="string") **/
     private $details;
-
+    
     /**
-     * @var Company
-     *
-     * @ManyToOne(targetEntity="Company", cascade={"persist", "remove"})
-     * @JoinColumn(name="company_id", referencedColumnName="id")
-     */
-    private $company;
-
-    /**
-     * @ManyToOne(targetEntity="User")
+     * @ManyToOne(targetEntity="User", inversedBy="ads")
      * @JoinColumn(name="user_id", referencedColumnName="id")
      */
     private $user;
@@ -128,24 +119,6 @@ class Ad
     public function setDetails($details)
     {
         $this->details = $details;
-        return $this;
-    }
-
-    /**
-     * @return Company
-     */
-    public function getCompany()
-    {
-        return $this->company;
-    }
-
-    /**
-     * @param $company
-     * @return $this
-     */
-    public function setCompany($company)
-    {
-        $this->company = $company;
         return $this;
     }
 
