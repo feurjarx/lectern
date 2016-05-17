@@ -26,17 +26,17 @@ $('#ad-plus-modal')
                 var notyConf = {
                     text: data['message'],
                     type: data['type'],
-                    timeout: 5000,
+                    timeout: 5000
                 };
 
                 if ('success' === data['type']) {
-
-                    var lastDetailsBlock = $('div[id^="ad-details"]').get(-1),
+                    
+                    var lastDetailsBlock = $('pre[id^="ad-details"]').get(-1),
                         $adsList = $('#ads').find('ul');
 
                     if (lastDetailsBlock) {
 
-                        nextDetailsId = parseInt(lastDetailsBlock.id.match(/\d/g).join()) + 1;
+                        nextDetailsId = parseInt(lastDetailsBlock.id.match(/\d/g).join('')) + 1;
 
                     } else {
 
@@ -66,7 +66,7 @@ $('#ad-plus-modal')
                                         class: 'list-group-item-heading',
                                         text: sendData['name'].ucfirst()
                                     }),
-                                    $('<div>', {
+                                    $('<pre>', {
                                         id: 'ad-details-' + nextDetailsId,
                                         class: 'list-group-item-text panel-collapse collapse',
                                         text: sendData['details'].ucfirst()

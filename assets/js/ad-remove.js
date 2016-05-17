@@ -6,7 +6,7 @@ $('#ad-remove-button').on('click', function () {
 
     var adsIds = $('#ads').find('input:checked').map(function (_, it) {
         return it.dataset.adId;
-    });
+    }).get();
 
     if (adsIds.length) {
 
@@ -24,7 +24,7 @@ $('#ad-remove-button').on('click', function () {
             killer: true,
             buttons: [{
                 addClass: 'btn btn-danger',
-                text: 'Ok',
+                text: 'Да',
                 onClick: function($noty) {
 
                     var $okButton = $(this);
@@ -40,7 +40,18 @@ $('#ad-remove-button').on('click', function () {
                             $okButton.prop('disabled', true);
                         },
                         success: function (data) {
-                            debugger
+
+                            var notyConf = {
+                                text: data['message'],
+                                type: data['type'],
+                                timeout: 5000
+                            };
+
+                            if ('success' === data['type']) {
+
+                                
+                            }
+
                         },
                         error: function () {
 
@@ -58,7 +69,7 @@ $('#ad-remove-button').on('click', function () {
                 }
             }, {
                 addClass: 'btn btn-default',
-                text: 'Cancel',
+                text: 'Отмена',
                 onClick: function($noty) {
                     $noty.close();
                 }

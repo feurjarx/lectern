@@ -53,9 +53,7 @@
                                 <?php echo ucfirst($ad->getName()); ?>
                             </a>
 
-                            <div id="ad-details-<?php echo $index + 1; ?>" class="list-group-item-text panel-collapse collapse">
-                                <?php echo ucfirst($ad->getDetails()); ?>
-                            </div>
+                            <pre id="ad-details-<?php echo $index + 1; ?>" class="list-group-item-text panel-collapse collapse"><?php echo trim(strip_tags(ucfirst($ad->getDetails()))); ?></pre>
                         </div>
                         <span class="badge badge-salary pull-right"><?php echo $ad->getSalary() ? $ad->getSalary() : 'Не указано'; ?></span>
                     </li>

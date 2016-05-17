@@ -18,6 +18,10 @@ class SignUpController extends BaseController
     function __construct($options)
     {
         parent::__construct($options);
+        if ($this->currentUser) {
+            header('Location: ' . Constants::getHttpHost() . '/' . 'access/denied');
+            exit();
+        }
     }
 
     private $templatePath = __DIR__ . '/../templates/signup.php';

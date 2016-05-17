@@ -108,25 +108,53 @@ class CabinetController extends BaseController
                 'id' => $request['ids']
             ]);
 
-            try {
+            $badAdsIds = [];
+            foreach ($ads as $ad) {
 
-                foreach ($ads as $ad) {
+                try {
+
                     $em->remove($ad);
+                    $em->flush();
+
+                } catch (Exception $e) {
+
+                    $badAdsIds[] = $ad->getId();
+                    continue;
                 }
+            }
 
-                $em->flush();
+            switch(true) {
+                case (count($request['ids']) == count($badAdsIds)):
 
-                $jsonResult = json_encode([
-                    'type' => 'success',
-                    'message' => 'Объявления успешно удалены!'
-                ]);
+                    $jsonResult = json_encode([
+                        'type' => 'error',
+                        'message' => 'Внимание! Ни одно объявление не удалено. Обратитесь в тех. поддержку'
+                    ]);
+                    break;
 
-            } catch (Exception $e){
+                case (count($badAdsIds) > 0):
 
-                $jsonResult = json_encode([
-                    'type' => 'error',
-                    'message' => 'Серверная ошибка!'
-                ]);
+                    $jsonResult = json_encode([
+                        'type' => 'warning',
+                        'message' => 'Внимание! Некоторые объявление не были удалены. Обратитесь в тех. поддержку',
+                        'complete_ids' => array_diff($request['ids'], $badAdsIds)
+                    ]);
+                    break;
+
+                case (count($badAdsIds) == 0):
+
+                    $jsonResult = json_encode([
+                        'type' => 'success',
+                        'message' => 'Успешно! Отмеченные объявления были удалены',
+                        'complete_ids' => $request['ids']
+                    ]);
+                    break;
+
+                default:
+                    $jsonResult = json_encode([
+                        'type' => 'error',
+                        'message' => 'Серверная ошибка!'
+                    ]);
             }
 
         } else {

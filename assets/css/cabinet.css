@@ -48,3 +48,7 @@ a[href^="#ad-details-"] {
     vertical-align: sub;
 }
 
+pre[id^="ad-details-"] {
+    width: 95%;
+    margin-top: 10px;
+}
