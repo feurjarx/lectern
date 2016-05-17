@@ -12,7 +12,6 @@ $('#ad-plus-modal')
             sendData = $addPlusModal.serializeObject()
         ;
 
-
         $.ajax({
             url: '/employer/ad/plus',
             type: 'post',
@@ -30,22 +29,11 @@ $('#ad-plus-modal')
                 };
 
                 if ('success' === data['type']) {
-                    
-                    var lastDetailsBlock = $('pre[id^="ad-details"]').get(-1),
-                        $adsList = $('#ads').find('ul');
 
-                    if (lastDetailsBlock) {
-
-                        nextDetailsId = parseInt(lastDetailsBlock.id.match(/\d/g).join('')) + 1;
-
-                    } else {
-
-                        $adsList.empty();
-                        nextDetailsId = 1;
-                    }
+                    var $adsList = $('#ads').find('ul');
 
                     var $newAd = $('<li>', {
-                        href: '#ad-details-' + nextDetailsId,
+                        href: '#ad-details-' + data['complete_id'],
                         'data-toggle': 'collapse',
                         class: 'col-lg-12 list-group-item ad',
                         html: [
@@ -67,7 +55,7 @@ $('#ad-plus-modal')
                                         text: sendData['name'].ucfirst()
                                     }),
                                     $('<pre>', {
-                                        id: 'ad-details-' + nextDetailsId,
+                                        id: 'ad-details-' + data['complete_id'],
                                         class: 'list-group-item-text panel-collapse collapse',
                                         text: sendData['details'].ucfirst()
                                     })
@@ -82,7 +70,10 @@ $('#ad-plus-modal')
 
                     $newAd.find('input[type="checkbox"]').checkboxX();
 
-                    $adsList.append($newAd);
+                    $adsList
+                        .append($newAd)
+                        .find('.alert').remove()
+                    ;
 
                     $addPlusModal
                         .modal('hide')

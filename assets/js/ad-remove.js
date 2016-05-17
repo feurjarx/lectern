@@ -49,9 +49,39 @@ $('#ad-remove-button').on('click', function () {
 
                             if ('success' === data['type']) {
 
-                                
+                                data['complete_ids'].forEach(function (id) {
+                                    $('#ad-details-' + id).closest('li').remove();
+                                });
+
+                                var $adsList = $('#ads').find('ul');
+                                if (!$adsList.html().trim()) {
+
+                                    $adsList.append($('<div>', {
+                                        class: 'col-lg-12 alert alert-info list-group-item',
+                                        html: $('<strong>', {
+                                            html: [
+                                                $('<span>', {
+                                                    class: 'glyphicon glyphicon-info-sign'
+                                                }),
+                                                $('<span>', {
+                                                    class: 'sr-only',
+                                                    text: 'Информация!'
+                                                }),
+                                                $('<span>', {
+                                                    text: 'Объявлений не найдено'
+                                                })
+                                            ]
+                                        })
+                                    }));
+                                }
+
+                                notyConf.animation = {
+                                    open: 'animated bounceInRight',
+                                    close: 'animated bounceOutRight'
+                                };
                             }
 
+                            notification(notyConf);
                         },
                         error: function () {
 

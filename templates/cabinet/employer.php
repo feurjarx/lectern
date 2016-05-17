@@ -42,7 +42,7 @@
                 <?php /** @var \Entity\Ad[] $ads */ ?>
                 <?php foreach ($ads as $index => $ad): ?>
 
-                    <li class="col-lg-12 list-group-item ad" href="#ad-details-<?php echo $index + 1; ?>" data-toggle="collapse">
+                    <li class="col-lg-12 list-group-item ad" href="#ad-details-<?php echo $ad->getId(); ?>" data-toggle="collapse">
                         <div class="col-lg-1 col-xs-2 checkbox-block">
                             <input type="checkbox" placeholder=""  data-toggle="checkbox-x" data-size="sm"
                                    data-three-state="false" data-ad-id="<?php echo $ad->getId(); ?>">
@@ -53,7 +53,7 @@
                                 <?php echo ucfirst($ad->getName()); ?>
                             </a>
 
-                            <pre id="ad-details-<?php echo $index + 1; ?>" class="list-group-item-text panel-collapse collapse"><?php echo trim(strip_tags(ucfirst($ad->getDetails()))); ?></pre>
+                            <pre id="ad-details-<?php echo $ad->getId(); ?>" class="list-group-item-text panel-collapse collapse"><?php echo trim(strip_tags(ucfirst($ad->getDetails()))); ?></pre>
                         </div>
                         <span class="badge badge-salary pull-right"><?php echo $ad->getSalary() ? $ad->getSalary() : 'Не указано'; ?></span>
                     </li>
@@ -62,10 +62,10 @@
 
             <?php else: ?>
 
-                <div class="col-lg-12 alert alert-warning list-group-item">
+                <div class="col-lg-12 alert alert-info list-group-item">
                     <strong>
-                        <span class="glyphicon glyphicon-ok"></span>
-                        <span class="sr-only">Внимание!</span>
+                        <span class="glyphicon glyphicon-info-sign"></span>
+                        <span class="sr-only">Информация!</span>
                         Объявлений не найдено
                     </strong>
                 </div>
