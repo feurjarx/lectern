@@ -32,16 +32,16 @@ class SignUpController extends BaseController
     public function signUpAction($request)
     {
         $post = $request['post'];
-        $files = $request['files'];
 
         $firstName = isset($post['first_name']) && $post['first_name'] ? $post['first_name'] : null;
         $email = isset($post['email']) && $post['email'] ? $post['email'] : null;
         $role = isset($post['role']) && $post['role'] ? $post['role'] : null;
+        $organisation = isset($post['organisation']) && $post['organisation'] ? $post['organisation'] : null;
 
         $lastName = isset($post['last_name']) && $post['last_name'] ? $post['last_name'] : '';
         $imgName = isset($post['img_name']) && $post['img_name'] ? $post['img_name'] : null;
-
-        if ($firstName && $email && $role) {
+        
+        if ($firstName && $email && $role && $organisation) {
 
             $em = $this->em;
 
@@ -64,8 +64,7 @@ class SignUpController extends BaseController
                     $user->setFirstName($firstName);
                     $user->setEmail($email);
                     $user->setRole($role);
-                    // TODO: make company
-                    $user->setCompany('');
+                    $user->setOrganisation($organisation);
 
                     $user->setLastName($lastName);
                     $user->setimgUrl($imgName ? Constants::UPLOAD_PHOTOS_URL . $imgName : Constants::DEFAULT_PHOTO_URL);

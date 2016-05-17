@@ -43,8 +43,8 @@ class User
     /** @Column(name="img_url", type="string") **/
     private $imgUrl = null;
 
-    /** @Column(name="company", type="string") **/
-    private $company;
+    /** @Column(name="organisation", type="string") **/
+    private $organisation;
 
     /**
      * @OneToMany(targetEntity="Ad", mappedBy="user")
@@ -192,18 +192,18 @@ class User
     /**
      * @return string
      */
-    public function getCompany()
+    public function getOrganisation()
     {
-        return $this->company;
+        return $this->organisation;
     }
 
     /**
-     * @param $company
+     * @param $organisation
      * @return $this
      */
-    public function setCompany($company)
+    public function setOrganisation($organisation)
     {
-        $this->company = $company;
+        $this->organisation = $organisation;
         return $this;
     }
 }

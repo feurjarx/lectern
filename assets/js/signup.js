@@ -10,7 +10,6 @@ function checkPasswords()
 
     submit.disabled = passl.val() !== pass2.val();
 }
-
 // Methods
 $(function () {
 
@@ -153,6 +152,27 @@ $(function () {
                     }
                 });
             }
+        }
+    });
+
+    // Change role
+    $('input[name="role"]').change(function () {
+
+        var $orgLabel = $('label[for="organisation-input"]'),
+            $organisationInput = $('#organisation-input')
+        ;
+
+        switch(this.value) {
+            case 'student':
+
+                $organisationInput.attr('placeholder', 'Введите название учебного заведения');
+                $orgLabel.text('Учебное заведение');
+                break;
+            case 'employer':
+
+                $organisationInput.attr('placeholder', 'Введите название компании или предприятия');
+                $orgLabel.text('Компания');
+                break;
         }
     });
 });

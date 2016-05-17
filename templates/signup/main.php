@@ -53,31 +53,41 @@
                 <span disabled id="crop-button" class="btn btn-success input-group-addon">
                     <i class="glyphicon glyphicon-scissors"></i>
                 </span>
-                
             </div>
         </div>
         
         <div class="form-group">
             <label>Статус</label>
             <br>
-            <div class="col-lg-7" style="padding: 0">
-                <div class="btn-group" data-toggle="buttons">
-                    <label class="btn btn-default active">
-                        <input type="radio" name="role" id="is-student-input" value="student" autocomplete="off" checked> Студент
-                    </label>
-                    <label class="btn btn-default">
-                        <input type="radio" name="role" id="is-employer-input" value="employer" autocomplete="off"> Работодатель
-                    </label>
+            <div class="btn-group" data-toggle="buttons">
+                <label class="btn btn-default active">
+                    <input type="radio" name="role" id="is-student-input" value="student" autocomplete="off" checked> Студент
+                </label>
+                <label class="btn btn-default">
+                    <input type="radio" name="role" id="is-employer-input" value="employer" autocomplete="off"> Работодатель
+                </label>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label for="organisation-input">Учебное заведение</label>
+            <br>
+            <div class="col-lg-9" style="padding: 0">
+                <div class="input-group">
+                    <span class="input-group-addon"><i class="glyphicon glyphicon-envelope"></i></span>
+                    <input type="text" class="form-control" name="organisation" id="organisation-input"
+                           placeholder="Введите название учебного заведения" required>
+                    <span class="input-group-addon"><span class="glyphicon glyphicon-asterisk"></span></span>
                 </div>
             </div>
 
-            <div class="col-lg-5" style="padding: 0">
+            <div class="col-lg-3" style="padding: 0">
                 <div class="input-group pull-right">
                     <input type="submit" name="submit" id="submit" value="Продолжить" class="btn btn-primary pull-right">
                 </div>
             </div>
-
         </div>
+
     </div>
 
     <div class="col-lg-6 col-xs-12" style="margin-bottom: 15px">
