@@ -1,0 +1,17 @@
+.navbar {
+    color: #34495e;
+    border: 0;
+    border-radius: 0;
+}
+
+.navbar .navbar-header .navbar-brand {
+    padding: 0 15px;
+}
+.navbar .navbar-header .navbar-brand img {
+    max-height: 100%;
+}
+
+.navbar-form.signin {
+    margin-top: 10px;
+    margin-bottom: 10px;
+}

@@ -16,29 +16,24 @@
 
 <?php ob_start() ?>
 
-    <div class="container">
-        <div class="row">
-            
-            <?php if (isset($isSuccess) && $isSuccess): ?>
 
-                <?php include 'signup/success.php' ?>
+    <?php if (isset($isSuccess) && $isSuccess): ?>
 
-            <?php elseif (isset($isConfirmError) && $isConfirmError): ?>
+        <?php include 'signup/success.php' ?>
 
-                <?php include 'signup/error.php' ?>
+    <?php elseif (isset($isConfirmError) && $isConfirmError): ?>
 
-            <?php elseif (isset($isConfirmSuccess) && $isConfirmSuccess): ?>
+        <?php include 'signup/error.php' ?>
 
-                <?php include 'signup/finally.php' ?>
+    <?php elseif (isset($isConfirmSuccess) && $isConfirmSuccess): ?>
 
-            <?php else: ?>
+        <?php include 'signup/finally.php' ?>
 
-                <?php include 'signup/main.php' ?>
+    <?php else: ?>
 
-            <?php endif; ?>
+        <?php include 'signup/main.php' ?>
 
-        </div>
-    </div>
+    <?php endif; ?>
 
 <?php $content = ob_get_clean() ?>
 

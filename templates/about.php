@@ -1,7 +1,6 @@
 <?php $title = 'Доска объявлений'; ?>
 
 <?php ob_start() ?>
-    <link href='http://fonts.googleapis.com/css?family=Muli' rel='stylesheet' type='text/css'>
     <link href="../assets/css/about.css" rel="stylesheet" type="text/css">
 <?php $css = ob_get_clean() ?>
 

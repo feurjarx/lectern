@@ -10,6 +10,7 @@
     "blueimp-load-image": "^2.6.1",
     "components-font-awesome": "^4.6.1",
     "jquery-serialize-object": "^2.5.0",
-    "noty": "^2.3.8"
+    "noty": "^2.3.8",
+    "google-fonts": "*"
   }
 }

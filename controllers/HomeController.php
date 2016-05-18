@@ -41,15 +41,15 @@ class HomeController extends BaseController
 
         $active_item = 'home';
         
-        $isContainer = true;
-        
         require $this->templatePath;
     }
 
     public function aboutAction()
     {
         $active_item = 'about';
-        $isContainer = true;
+
+        $offContent = true;
+
         require __DIR__ . '/../templates/about.php';
     }
 }

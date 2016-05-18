@@ -4,27 +4,30 @@ html, body, .container {
     color: #ecf0f1;
 }
 
+.main {
+    /*header it is 73px and footer is is 34px*/
+    height: auto;
+    min-height: calc(100% - 73px - 34px);
+}
+
+.content {
+    color: #34495e;
+    background-color: #eee;
+
+    height: auto;
+    min-height: calc(100% - 15px);
+
+    padding: 0 15px;
+    margin-bottom: 15px;
+}
+
 .modal, .jumbotron {
     color: #34495e;
 }
 
-.navbar {
-    color: #34495e;
-}
-
-.navbar-form.signin {
-    margin-top: 10px;
-    margin-bottom: 10px;
-}
 
 a {
     text-decoration: none !important;
-}
-
-.main {
-    height: auto;
-    /*header it is 73px and footer is is 35px*/
-    min-height: calc(100% - 73px - 35px);
 }
 
 .height-100 {
@@ -37,10 +40,4 @@ a {
 
 .height-auto {
     height: auto;
-}
-
-#footer {
-    margin-bottom: 0;
-    padding-right: 15px;
-    padding-left: 15px;
 }

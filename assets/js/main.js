@@ -15,7 +15,7 @@ function notification(options) {
             ]
         }),
         layout: 'topRight',
-        closeWith: ['click', 'hover'],
+        closeWith: ['click'],
         timeout: 2000,
         animation: {
             open: 'animated wobble',

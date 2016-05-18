@@ -16,21 +16,17 @@
 
 <?php ob_start() ?>
 
-    <div class="container cabinet-box">
+    <?php if (isset($role)): ?>
+        <?php if ($role === Constants::STUDENT_ROLE): ?>
 
-        <?php if (isset($role)): ?>
-            <?php if ($role === Constants::STUDENT_ROLE): ?>
+            <?php include 'cabinet/student.php' ?>
 
-                <?php include 'cabinet/student.php' ?>
+        <?php elseif ($role === Constants::EMPLOYER_ROLE): ?>
 
-            <?php elseif ($role === Constants::EMPLOYER_ROLE): ?>
+            <?php include 'cabinet/employer.php' ?>
 
-                <?php include 'cabinet/employer.php' ?>
-
-            <?php endif; ?>
         <?php endif; ?>
-
-    </div>
+    <?php endif; ?>
 
 <?php $content = ob_get_clean() ?>
 

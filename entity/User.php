@@ -206,4 +206,12 @@ class User
         $this->organisation = $organisation;
         return $this;
     }
+
+    /**
+     * @return string
+     */
+    public function getFullName()
+    {
+        return $this->firstName . ($this->lastName ? (' ' .$this->lastName) : '');
+    }
 }
