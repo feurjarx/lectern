@@ -42,22 +42,10 @@
                 <?php /** @var \Entity\Ad[] $ads */ ?>
                 <?php foreach ($ads as $index => $ad): ?>
 
-                    <li class="col-lg-12 list-group-item ad" href="#ad-details-<?php echo $ad->getId(); ?>" data-toggle="collapse">
-                        <div class="col-lg-1 col-xs-2 checkbox-block">
-                            <input type="checkbox" placeholder=""  data-toggle="checkbox-x" data-size="sm"
-                                   data-three-state="false" data-ad-id="<?php echo $ad->getId(); ?>">
-                        </div>
-
-                        <div class="col-lg-11 col-xs-10">
-                            <a class="list-group-item-heading">
-                                <?php echo ucfirst($ad->getName()); ?>
-                            </a>
-
-                            <pre id="ad-details-<?php echo $ad->getId(); ?>" class="list-group-item-text panel-collapse collapse"><?php echo trim(strip_tags(ucfirst($ad->getDetails()))); ?></pre>
-                        </div>
-                        <span class="badge badge-salary pull-right"><?php echo $ad->getSalary() ? $ad->getSalary() : 'Не указано'; ?></span>
+                    <li class="col-lg-12 col-md-12 col-xs-12 list-group-item ad" href="#ad-details-<?php echo $ad->getId(); ?>" data-toggle="collapse">
+                        <?php include __DIR__ . '/../blocks/adBlock.php'?>
                     </li>
-
+                    
                 <?php endforeach; ?>
 
             <?php else: ?>
@@ -69,7 +57,7 @@
                         Объявлений не найдено
                     </strong>
                 </div>
-
+                
             <?php endif ?>
 
         </ul>

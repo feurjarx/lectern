@@ -1,15 +1,9 @@
-.cabinet-box {
+.home-box {
     background-color: #F8F8F8;
     height: auto;
     min-height: calc(100% - 15px);
     padding: 0 20px;
     margin-bottom: 20px;
-}
 
-.cabinet-menu-block {
-    margin: 15px 0 0;
-}
-
-.cabinet-actions {
-    margin-top: 20px;
+    color: #34495e;
 }

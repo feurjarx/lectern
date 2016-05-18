@@ -63,30 +63,30 @@
                                 <a href="/">Главная<span class="sr-only">(current)</span></a>
                             </li>
 
-                            <?php if ($this->currentUser): ?>
+                            <li class="<?php echo isset($active_item) && $active_item === 'about' ? 'active' : '' ?>">
+                                <a href="/about">О нас<span class="sr-only">(current)</span></a>
+                            </li>
+                            
+                            <?php if (isset($this->currentUser) && $this->currentUser): ?>
 
-                                <?php if (isset($this->currentUser) && $this->currentUser): ?>
+                                <li class="<?php echo isset($active_item) && $active_item === 'cabinet' ? 'active' : '' ?>">
+                                    <a href="/<?php echo $this->currentUser->getRole(); ?>/cabinet">
 
-                                    <li class="<?php echo isset($active_item) && $active_item === 'cabinet' ? 'active' : '' ?>">
-                                        <a href="/<?php echo $this->currentUser->getRole(); ?>/cabinet">
+                                        <?php if ($this->currentUser->getRole() === Constants::STUDENT_ROLE): ?>
 
-                                            <?php if ($this->currentUser->getRole() === Constants::STUDENT_ROLE): ?>
+                                            <span class="glyphicon glyphicon-education"></span>
 
-                                                <span class="glyphicon glyphicon-education"></span>
+                                        <?php else: ?>
 
-                                            <?php else: ?>
+                                            <span class="glyphicon glyphicon-briefcase"></span>
 
-                                                <span class="glyphicon glyphicon-briefcase"></span>
+                                        <?php endif ?>
 
-                                            <?php endif ?>
+                                        <span>Личный кабинет</span>
+                                    </a>
+                                </li>
 
-                                            <span>Личный кабинет</span>
-                                        </a>
-                                    </li>
-
-                                <?php endif ?>
-
-                            <?php endif; ?>
+                            <?php endif ?>
 
                         </ul>
 
@@ -108,24 +108,10 @@
 
         <!-- Main -->
         <div class="row main">
-            <div class="col-lg-12 col-md-12 col-xs-12 height-100">
+            <div class="<?php if (isset($isContainer) and $isContainer): ?>container<?php else: ?>col-lg-12 col-md-12 col-xs-12<?php endif ?> height-100">
 
                 <?php if (isset($content) && $content): ?>
                     <?php echo $content ?>
-                <?php else: ?>
-
-                    <div class="jumbotron">
-                        <h2>
-                            Добро пожаловать на кафедру!
-                        </h2>
-                        <p>
-                            Если ты студент - найди себе работу, если ты работодатель - предложь вакансию.
-                        </p>
-                        <p>
-                            <a class="btn btn-primary btn-large" href="/signup">Регистрация</a>
-                        </p>
-                    </div>
-
                 <?php endif ?>
 
             </div>

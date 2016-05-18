@@ -9,6 +9,7 @@
 
 <?php ob_start() ?>
     <link href="../assets/css/cabinet.css" rel="stylesheet">
+    <link href="../assets/css/ads.css" rel="stylesheet">
 <?php $css = ob_get_clean() ?>
 
 <?php $active_item = 'cabinet' ?>

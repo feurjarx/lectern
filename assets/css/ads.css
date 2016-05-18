@@ -1,0 +1,38 @@
+.ads > .ad > .checkbox-block {
+    width: auto;
+}
+
+.ads .badge-salary {
+    position: absolute;
+    right: 10px;
+    top: 10px;
+}
+
+.ads > .ad {
+    cursor: pointer;
+}
+
+.ads > .ad:hover {
+    background-color: lightyellow;
+    font-weight: 600;
+}
+
+.ads {
+    display: inline-block;
+    padding: 15px 0;
+}
+
+.list-group.ads {
+    width: 100%;
+    margin-bottom: 0;
+}
+
+
+a[href^="#ad-details-"] {
+    vertical-align: sub;
+}
+
+pre[id^="ad-details-"] {
+    width: 95%;
+    margin-top: 10px;
+}

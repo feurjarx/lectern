@@ -24,6 +24,10 @@ switch (true) {
     case (in_array($uri, ['/index.php', '/']) !== FALSE):
         (new HomeController($options))->indexAction();
         break;
+    case ('/about' === $uri):
+        (new HomeController($options))->aboutAction();
+        break;
+    
 
     // SIGNUP
     case ('/signup' === $uri):

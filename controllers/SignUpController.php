@@ -84,7 +84,7 @@ class SignUpController extends BaseController
                     $message
                         ->setTo([ $email => $firstName ])
                         ->setSubject("Подтверждение регистрации")
-                        ->setBody($firstName . ', добро пожаловать на <a href="http://lectern/">lectern</a>. Для подтверждения регистрации перейдите по <a href="' . $confirmUrl . '">ссылке</a>', 'text/html');
+                        ->setBody($firstName . ', добро пожаловать на <a href="http://lectern/">lectern</a>. Для подтверждения регистрации перейдите по <a href="' . $confirmUrl . '">http://'. $confirmUrl .'</a>', 'text/html');
 
                     $message->setFrom("yakoann03@gmail.com", "Ваш lectern");
 

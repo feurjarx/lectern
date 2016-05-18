@@ -1,5 +1,20 @@
 html, body, .container {
     height: 100%;
+    background-color: #34495e;
+    color: #ecf0f1;
+}
+
+.modal, .jumbotron {
+    color: #34495e;
+}
+
+.navbar {
+    color: #34495e;
+}
+
+.navbar-form.signin {
+    margin-top: 10px;
+    margin-bottom: 10px;
 }
 
 a {

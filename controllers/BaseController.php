@@ -42,7 +42,7 @@ class BaseController
     /**
      * @var User
      */
-    protected $currentUser;
+    protected $currentUser = null;
 
     /**
      * @var string
