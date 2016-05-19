@@ -1,3 +1,7 @@
+.ads {
+    display: inline-block;
+}
+
 .ads > .ad > .checkbox-block {
     width: auto;
 }
@@ -16,22 +20,25 @@
     background-color: lightyellow;
 }
 
-.ads {
-    display: inline-block;
-    padding: 15px 0;
-}
-
 .list-group.ads {
     width: 100%;
-    margin-bottom: 0;
+    margin-bottom: -5px;
+    margin-top: 10px;
 }
-
 
 a[href^="#ad-details-"] {
     vertical-align: sub;
 }
 
-pre[id^="ad-details-"] {
-    width: 95%;
+div[id^="ad-details-"] {
+    width: 100%;
     margin-top: 10px;
+}
+
+.ad .thumbnail {
+    margin-bottom: 0;
+}
+
+.thumbnail img {
+    width: 80%;
 }

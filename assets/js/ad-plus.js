@@ -33,12 +33,10 @@ $('#ad-plus-modal')
                     var $adsList = $('#ads').find('ul');
 
                     var $newAd = $('<li>', {
-                        href: '#ad-details-' + data['complete_id'],
-                        'data-toggle': 'collapse',
-                        class: 'col-lg-12 list-group-item ad',
+                        class: 'col-lg-12 col-md-12 col-xs-12 list-group-item ad',
                         html: [
                             $('<div>', {
-                                class: 'col-lg-1 col-xs-1 checkbox-block',
+                                class: 'col-lg-1 col-md-1 col-xs-2 checkbox-block padding-none',
                                 html: $('<input>', {
                                     type: 'checkbox',
                                     'data-toggle': 'checkbox-x',
@@ -48,22 +46,52 @@ $('#ad-plus-modal')
                                 })
                             }),
                             $('<div>', {
-                                class: 'col-lg-11',
+                                class: 'col-lg-11 col-lg-11 col-xs-10',
                                 html: [
-                                    $('<a>', {
+                                    $('<div>', {
                                         class: 'list-group-item-heading',
-                                        text: sendData['name'].ucfirst()
-                                    }),
-                                    $('<pre>', {
-                                        id: 'ad-details-' + data['complete_id'],
-                                        class: 'list-group-item-text panel-collapse collapse',
-                                        text: sendData['details'].ucfirst()
+                                        'data-target': '#ad-details-' + data['complete_id'],
+                                        'data-toggle': 'collapse',
+                                        'aria-expanded': 'false',
+                                        html: [
+                                            $('<a>', {
+                                                href: '#',
+                                                class: 'ellipsis-box',
+                                                style: 'width: 75%',
+                                                html: $('<b>', {
+                                                    text: sendData['name'].ucfirst()
+                                                })
+                                            }),
+                                            $('<small>', {
+                                                class: 'text-muted',
+                                                text: 'размещено: только что'
+                                            })
+                                        ]
                                     })
                                 ]
                             }),
+                            $('<div>', {
+                                class: 'col-lg-12 col-md-12 col-xs-12 padding-none',
+                                html: $('<div>', {
+                                    class: 'collapse list-group-item-text',
+                                    id: 'ad-details-' + data['complete_id'],
+                                    html: $('<pre>', {
+                                        class: 'well margin-none',
+                                        text: sendData['details'].ucfirst()
+                                    })
+                                })
+                            }),
                             $('<span>', {
                                 class: 'badge badge-salary pull-right',
-                                text: sendData['salary'] ? sendData['salary'] : 'Не указано'
+                                html: [
+                                    $('<span>', {
+                                        text: sendData['salary'] ? (sendData['salary'] + ' ') : 'Не указано'
+                                    }),
+                                    $('<i>', {
+                                        class: sendData['salary'] ? 'fa fa-rub' : '',
+                                        'aria-hidden': 'true'
+                                    })
+                                ]
                             })
                         ]
                     });

@@ -6,16 +6,22 @@
  */
 ?>
 
-<nav class="navbar navbar-default">
+<nav class="navbar navbar-default margin-none-xs">
     <div class="container-fluid">
 
         <div class="navbar-header">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
             <a class="navbar-brand" href="/">
                 <img src="/assets/img/logo.gif" class="img-rounded" alt="Кафедра">
             </a>
         </div>
 
-        <div class="collapse navbar-collapse">
+        <div class="collapse navbar-collapse" id="navbar">
             <ul class="nav navbar-nav">
 
                 <li class="<?php echo isset($active_item) && $active_item === 'home' ? 'active' : '' ?>">

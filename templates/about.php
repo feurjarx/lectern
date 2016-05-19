@@ -13,24 +13,26 @@
 <?php ob_start() ?>
 
     <div class="content-effect hidden-xs" style="top: inherit; bottom: 0">
-        <div class="visible-effect" style="width: 440px">
-            <p class="effect">Кафедра это:</p>
-            <ul class="effect" style="padding-left: 215px">
-                <li>простота</li>
-                <li>польза</li>
-                <li>удобство</li>
-                <li>комфорт</li>
+        <div class="visible-effect" style="width: 405px">
+            <p class="effect">Кафедра
+                <span class="glyphicon glyphicon-hand-right" style="vertical-align: middle"></span>
+            </p>
+            <ul class="effect" style="padding-left: 210px">
+                <li>теперь</li>
+                <li>найти</li>
+                <li>работу</li>
+                <li>просто</li>
             </ul>
         </div>
     </div>
 
-    <div class="jumbotron" style="font-family: 'Muli'">
+    <div class="jumbotron" style="font-family: 'Muli'; margin-top: 10px">
         <h2>Добро пожаловать на кафедру!</h2>
         <p>Если ты студент - найди себе работу, если ты работодатель - предложи вакансию студентам!</p>
 
         <?php if (is_null($this->currentUser)): ?>
 
-            <p>
+            <p class="text-center">
                 <a class="btn btn-primary btn-large" href="/signup">Регистрация</a>
             </p>
 

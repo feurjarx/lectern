@@ -13,7 +13,7 @@ body {
     transform: translate(-50%, -50%);
     font-size: 35px;
     line-height: 40px;
-    font-family: 'Muli';
+    font-family: 'Muli', sans-serif;
     color: #ecf0f1;
     height: 160px;
     overflow: hidden;

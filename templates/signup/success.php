@@ -6,7 +6,7 @@
  */
 ?>
 
-<div class="alert alert-success" style="padding: 10px">
+<div class="alert alert-success" style="padding: 10px; margin: 10px 0;">
     <strong>
         <span class="glyphicon glyphicon-ok"></span>
         <span class="sr-only">Успешно!</span>

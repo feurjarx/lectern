@@ -15,46 +15,65 @@ $isCabinet = '/'. Constants::EMPLOYER_ROLE . '/cabinet' === parse_url($_SERVER['
 
     <?php if ($isCabinet): ?>
 
-        <div class="col-lg-1 col-xs-2 checkbox-block">
+        <div class="col-lg-1 col-md-1 col-xs-2 checkbox-block padding-none">
             <input type="checkbox" placeholder=""  data-toggle="checkbox-x" data-size="sm"
                    data-three-state="false" data-ad-id="<?php echo $ad->getId(); ?>">
         </div>
 
-    <?php endif; ?>
+    <?php else: ?>
 
-    <div class="<?php echo $isCabinet ? 'col-lg-11 col-xs-10' : 'col-lg-12 col-xs-12' ?>">
-        <a class="list-group-item-heading">
-            <strong><?php echo ucfirst($ad->getName()); ?></strong>
+        <div class="col-lg-1 col-md-1 col-xs-2 thumbnail">
+            <img src="<?php echo $ad->getUser()->getImgUrl(); ?>" alt="<?php echo $ad->getUser()->getLastName(); ?>">
+        </div>
 
-            <br>
+    <?php endif ?>
 
-            <?php if (!$isCabinet): ?>
+    <div class="col-lg-11 col-lg-11 col-xs-10">
 
-                <span class="text-muted">размещено от <?php echo $ad->getUser()->getFullName(); ?></span>
+        <div class="list-group-item-heading" data-target="#ad-details-<?php echo $ad->getId(); ?>" data-toggle="collapse" aria-expanded="false">
+
+            <?php if ($isCabinet): ?>
+
+                <a href="#" class="ellipsis-box" style="width: 75%">
+                    <b><?php echo ucfirst($ad->getName()); ?></b>
+                </a>
+
+            <?php else: ?>
+
+                <h2 class="margin-none">
+                    <a href="#" class="ellipsis-box" style="width: 75%"><?php echo ucfirst($ad->getName()); ?></a>
+                </h2>
+                <?php echo $ad->getUser()->getFullName(); ?>
 
                 <?php if ($org = $ad->getUser()->getOrganisation()): ?>
 
-                    <span class="text-muted">(<?php echo $org; ?>)</span>
+                    (<?php echo $org; ?>)
 
                 <?php endif; ?>
+
+                <br>
 
             <?php endif; ?>
 
             <?php if ($ad->getPublishedAt()): ?>
 
-                <small class="text-muted"><?php echo date('d/m/Y H:i:s', $ad->getPublishedAt()); ?></small>
+                <small class="text-muted">размещено: <?php echo date('d/m/Y H:i:s', $ad->getPublishedAt()); ?></small>
 
             <?php endif; ?>
 
-        </a>
-
-        <pre id="ad-details-<?php echo $ad->getId(); ?>" class="list-group-item-text panel-collapse collapse"><?php echo trim(strip_tags(ucfirst($ad->getDetails()))); ?></pre>
+        </div>
     </div>
+
+    <div class="col-lg-12 col-md-12 col-xs-12 padding-none">
+        <div class="collapse list-group-item-text" id="ad-details-<?php echo $ad->getId(); ?>">
+            <pre class="well margin-none"><?php echo trim(strip_tags(ucfirst($ad->getDetails()))); ?></pre>
+        </div>
+    </div>
+
     <span class="badge badge-salary pull-right">
 
         <?php if ($ad->getSalary()): ?>
-
-            <?php echo $ad->getSalary(); ?>&nbsp;
+            <?php echo $ad->getSalary(); ?>
 
             <i class="fa fa-rub" aria-hidden="true"></i>
 

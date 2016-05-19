@@ -5,9 +5,43 @@ html, body, .container {
 }
 
 .main {
-    /*header it is 73px and footer is is 34px*/
     height: auto;
-    min-height: calc(100% - 73px - 34px);
+}
+
+@media (min-width: 768px) {
+    .content {
+        padding: 15px;
+        margin-bottom: 15px;
+        border-radius: 5px;
+    }
+
+    .content .content-title {
+        padding: 10px 0;
+    }
+
+    .main {
+        min-height: calc(100% - 73px - 32px);
+    }
+}
+
+@media (max-width: 768px) {
+    .content {
+        padding: 0;
+        margin-bottom: 0;
+        border-radius: 0;
+    }
+
+    .content .content-title {
+        padding: 10px;
+    }
+
+    .margin-none-xs {
+        margin: 0 !important;
+    }
+
+    .main {
+        min-height: calc(100% - 73px - 11px);
+    }
 }
 
 .content {
@@ -16,15 +50,15 @@ html, body, .container {
 
     height: auto;
     min-height: calc(100% - 15px);
+}
 
-    padding: 0 15px;
-    margin-bottom: 15px;
+.content .content-title {
+    margin: 0;
 }
 
 .modal, .jumbotron {
     color: #34495e;
 }
-
 
 a {
     text-decoration: none !important;
@@ -40,4 +74,24 @@ a {
 
 .height-auto {
     height: auto;
+}
+
+.margin-none {
+    margin: 0 !important;
+}
+
+.padding-none {
+    padding: 0 !important;
+}
+
+.ellipsis-box {
+    display: block;
+
+    text-overflow: ellipsis;
+    overflow: hidden;
+
+    white-space: nowrap;
+
+    max-width: 100%;
+    width: 100%;
 }

@@ -9,13 +9,18 @@
     color: white;
 }
 
+@media (min-width: 768px) {
+    .img-container {
+        margin-top: 40px;
+    }
+}
+
 .img-container {
     border-radius: 3px;
     border-width: 3px;
     border-color: black;
     border-style: double;
 
-    margin-top: 25px;
     overflow: hidden;
 
     height: 330px;
@@ -23,4 +28,8 @@
 
 .img-container img, .img-container canvas {
     max-height: 100%;
+}
+
+.form-content {
+    padding: 15px;
 }

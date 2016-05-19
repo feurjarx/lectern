@@ -112,6 +112,7 @@ class SignUpController extends BaseController
             }
         }
 
+        $active_item = 'none';
         $signinFormOff = 1;
         require $this->templatePath;
     }

@@ -11,23 +11,26 @@
     <script src="<?php echo Constants::getHttpHost(); ?>/assets/js/ad-remove.js"></script>
 <?php $afterJs = ob_get_clean(); ?>
 
-<div class="row">
+<div class="col-lg-12 col-md-12 col-xs-12 padding-none">
 
-    <div class="col-lg-6 col-xs-12">
-        <ul class="nav nav-pills cabinet-menu-block">
+    <div class="col-lg-9 col-xs-12 cabinet-menu-block">
+        <ul class="nav nav-pills">
             <li class="active"><a data-toggle="pill" href="#ads">Объявления</a></li>
             <li><a data-toggle="pill" href="#cvs">Заявки</a></li>
         </ul>
     </div>
 
-    <div class="col-lg-6 hidden-xs">
-        <div class="cabinet-actions btn-group btn-group-md pull-right">
-            <button class="btn btn-success" type="button" data-toggle="modal" data-target="#ad-plus-modal">
-                <em class="glyphicon glyphicon glyphicon-plus"></em> Добавить
-            </button>
-            <button class="btn btn-danger" type="button" id="ad-remove-button">
-                <em class="glyphicon glyphicon-trash"></em> Удалить
-            </button>
+    <div class="col-lg-3 col-xs-12 padding-none">
+        <div class="pull-right cabinet-actions-block">
+            <div class="btn-group btn-group-md cabinet-actions">
+
+                <button class="btn btn-success" type="button" data-toggle="modal" data-target="#ad-plus-modal">
+                    <em class="glyphicon glyphicon glyphicon-plus"></em> Добавить
+                </button>
+                <button class="btn btn-danger" type="button" id="ad-remove-button">
+                    <em class="glyphicon glyphicon-trash"></em> Удалить
+                </button>
+            </div>
         </div>
     </div>
 
@@ -42,7 +45,7 @@
                 <?php /** @var \Entity\Ad[] $ads */ ?>
                 <?php foreach ($ads as $index => $ad): ?>
 
-                    <li class="col-lg-12 col-md-12 col-xs-12 list-group-item ad" href="#ad-details-<?php echo $ad->getId(); ?>" data-toggle="collapse">
+                    <li class="col-lg-12 col-md-12 col-xs-12 list-group-item ad">
                         <?php include __DIR__ . '/../blocks/adBlock.php'?>
                     </li>
                     

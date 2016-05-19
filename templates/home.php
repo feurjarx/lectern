@@ -12,8 +12,8 @@
 
 <?php ob_start() ?>
 
-    <div class="row" style="margin: 0">
-        <h1>Свежие объявления</h1>
+    <div class="row margin-none">
+        <h1 class="content-title">Свежие объявления</h1>
     </div>
 
     <ul class="list-group ads">
@@ -21,7 +21,7 @@
         <?php /** @var \Entity\Ad[] $ads */ ?>
         <?php foreach ($ads as $index => $ad): ?>
 
-            <li class="col-lg-12 col-md-12 col-xs-12 list-group-item ad" href="#ad-details-<?php echo $ad->getId(); ?>" data-toggle="collapse">
+            <li class="col-lg-12 col-md-12 col-xs-12 list-group-item ad">
 
                 <?php include __DIR__ . '/blocks/adBlock.php'?>
 

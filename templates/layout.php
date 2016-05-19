@@ -17,9 +17,10 @@
     <link href="<?php echo Constants::getHttpHost(); ?>/bower_components/noty/demo/animate.css" rel="stylesheet">
 
     <!--  vendor font styles  -->
-    
+
     <!--  custom styles  -->
     <link href="<?php echo Constants::getHttpHost(); ?>/assets/css/layout.css" rel="stylesheet">
+    <link href="<?php echo Constants::getHttpHost(); ?>/assets/css/bootstrap-overload.css" rel="stylesheet">
     <link href="<?php echo Constants::getHttpHost(); ?>/assets/css/header.css" rel="stylesheet">
     <link href="<?php echo Constants::getHttpHost(); ?>/assets/css/footer.css" rel="stylesheet">
 

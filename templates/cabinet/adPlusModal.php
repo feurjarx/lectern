@@ -46,8 +46,10 @@
             </div>
 
             <div class="modal-footer">
-                <button type="button" class="btn btn-default" data-dismiss="modal">Закрыть</button>
-                <button type="submit" class="btn btn-primary">Опубликовать</button>
+                <div class="btn-group">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Закрыть</button>
+                    <button type="submit" class="btn btn-primary">Опубликовать</button>
+                </div>
             </div>
             
         </div>

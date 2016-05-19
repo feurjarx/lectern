@@ -170,7 +170,7 @@ $(function () {
                 break;
             case 'employer':
 
-                $organisationInput.attr('placeholder', 'Введите название компании или предприятия');
+                $organisationInput.attr('placeholder', 'Введите название компании');
                 $orgLabel.text('Компания');
                 break;
         }

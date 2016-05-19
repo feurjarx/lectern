@@ -8,7 +8,17 @@
 
 <form role="form" method="post" enctype="multipart/form-data">
 
-    <div class="col-lg-6 col-xs-12">
+    <div class="form-content col-lg-6 col-xs-12">
+
+        <div class="form-group">
+            <label for="last-name-input">Фамилия</label>
+            <div class="input-group">
+                <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
+                <input type="text" class="form-control" name="last_name" id="last-name-input"
+                       value="<?php echo isset($lastName) && $lastName ? $lastName : '' ?>"
+                       placeholder="Введите фамилию">
+            </div>
+        </div>
 
         <div class="form-group">
             <label for="first-name-input">Имя</label>
@@ -18,16 +28,6 @@
                        value="<?php echo isset($firstName) && $firstName ? $firstName : '' ?>"
                        placeholder="Введите имя" required>
                 <span class="input-group-addon"><span class="glyphicon glyphicon-asterisk"></span></span>
-            </div>
-        </div>
-
-        <div class="form-group">
-            <label for="last-name-input">Фамилия</label>
-            <div class="input-group">
-                <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
-                <input type="text" class="form-control" name="last_name" id="last-name-input"
-                       value="<?php echo isset($lastName) && $lastName ? $lastName : '' ?>"
-                       placeholder="Введите фамилию">
             </div>
         </div>
 
@@ -69,23 +69,19 @@
             </div>
         </div>
 
-        <div class="form-group">
-            <label for="organisation-input">Учебное заведение</label>
-            <br>
-            <div class="col-lg-9" style="padding: 0">
-                <div class="input-group">
-                    <span class="input-group-addon"><i class="glyphicon glyphicon-envelope"></i></span>
-                    <input type="text" class="form-control" name="organisation" id="organisation-input"
-                           placeholder="Введите название учебного заведения" required>
-                    <span class="input-group-addon"><span class="glyphicon glyphicon-asterisk"></span></span>
-                </div>
+        <label for="organisation-input">Учебное заведение</label>
+        <br>
+        <div class="form-group col-lg-9 col-xs-12 padding-none">
+             <div class="input-group">
+                <span class="input-group-addon"><i class="glyphicon glyphicon-envelope"></i></span>
+                <input type="text" class="form-control" name="organisation" id="organisation-input"
+                       placeholder="Введите название учебного заведения" required>
+                <span class="input-group-addon"><span class="glyphicon glyphicon-asterisk"></span></span>
             </div>
+        </div>
 
-            <div class="col-lg-3" style="padding: 0">
-                <div class="input-group pull-right">
-                    <input type="submit" name="submit" id="submit" value="Продолжить" class="btn btn-primary pull-right">
-                </div>
-            </div>
+        <div class="form-group col-lg-3 col-xs-12 padding-none">
+            <input type="submit" name="submit" id="submit" value="Продолжить" class="btn btn-primary btn-block pull-right">
         </div>
 
     </div>
