@@ -13,15 +13,15 @@
 <?php ob_start() ?>
 
     <div class="content-effect hidden-xs" style="top: inherit; bottom: 0">
-        <div class="visible-effect" style="width: 405px">
-            <p class="effect">Кафедра
+        <div class="visible-effect" style="width: 625px">
+            <p class="effect">Теперь найти работу
                 <span class="glyphicon glyphicon-hand-right" style="vertical-align: middle"></span>
             </p>
-            <ul class="effect" style="padding-left: 210px">
-                <li>теперь</li>
-                <li>найти</li>
-                <li>работу</li>
+            <ul class="effect" style="padding-left: 420px">
+                <li>легко</li>
                 <li>просто</li>
+                <li>удобно</li>
+                <li>быстро</li>
             </ul>
         </div>
     </div>

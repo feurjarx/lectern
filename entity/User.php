@@ -21,13 +21,7 @@ class User
 
     /** @Id @Column(name="id", type="integer") @GeneratedValue **/
     private $id;
-
-    /** @Column(name="first_name", type="string") **/
-    private $firstName;
-
-    /** @Column(name="last_name", type="string") **/
-    private $lastName;
-
+    
     /** @Column(name="email", type="string") **/
     private $email;
 
@@ -41,15 +35,7 @@ class User
     private $createdAt;
 
     /** @Column(name="img_url", type="string") **/
-    private $imgUrl = null;
-
-    /** @Column(name="organisation", type="string") **/
-    private $organisation;
-
-    /**
-     * @OneToMany(targetEntity="Ad", mappedBy="user")
-     */
-    private $ads;
+    private $imgUrl;
 
     /**
      * @return int
@@ -57,38 +43,6 @@ class User
     public function getId()
     {
         return $this->id;
-    }
-
-    /**
-     * @return string
-     */
-    public function getFirstName()
-    {
-        return $this->firstName;
-    }
-
-    /**
-     * @param $firstName
-     */
-    public function setFirstName($firstName)
-    {
-        $this->firstName = $firstName;
-    }
-
-    /**
-     * @return string
-     */
-    public function getLastName()
-    {
-        return $this->lastName;
-    }
-
-    /**
-     * @param $lastName
-     */
-    public function setLastName($lastName)
-    {
-        $this->lastName = $lastName;
     }
 
     /**
@@ -101,10 +55,12 @@ class User
 
     /**
      * @param mixed $email
+     * @return $this
      */
     public function setEmail($email)
     {
         $this->email = $email;
+        return $this;
     }
 
     /**
@@ -117,10 +73,12 @@ class User
 
     /**
      * @param mixed $password
+     * @return $this
      */
     public function setPassword($password)
     {
         $this->password = $password;
+        return $this;
     }
 
     /**
@@ -132,11 +90,13 @@ class User
     }
 
     /**
-     * @param mixed $role
+     * @param $role
+     * @return $this
      */
     public function setRole($role)
     {
         $this->role = $role;
+        return $this;
     }
 
     /**
@@ -149,10 +109,12 @@ class User
 
     /**
      * @param int $createdAt
+     * @return $this
      */
     public function setCreatedAt($createdAt)
     {
         $this->createdAt = $createdAt;
+        return $this;
     }
 
     /**
@@ -165,53 +127,11 @@ class User
 
     /**
      * @param mixed $imgUrl
+     * @return $this
      */
     public function setimgUrl($imgUrl)
     {
         $this->imgUrl = $imgUrl;
-    }
-
-    /**
-     * @return PersistentCollection
-     */
-    public function getAds()
-    {
-        return $this->ads;
-    }
-
-    /**
-     * @param PersistentCollection $ads
-     * @return $this
-     */
-    public function setAds($ads)
-    {
-        $this->ads = $ads;
         return $this;
-    }
-
-    /**
-     * @return string
-     */
-    public function getOrganisation()
-    {
-        return $this->organisation;
-    }
-
-    /**
-     * @param $organisation
-     * @return $this
-     */
-    public function setOrganisation($organisation)
-    {
-        $this->organisation = $organisation;
-        return $this;
-    }
-
-    /**
-     * @return string
-     */
-    public function getFullName()
-    {
-        return $this->firstName . ($this->lastName ? (' ' .$this->lastName) : '');
     }
 }

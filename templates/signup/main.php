@@ -81,7 +81,7 @@
         </div>
 
         <div class="form-group col-lg-3 col-xs-12 padding-none">
-            <input type="submit" name="submit" id="submit" value="Продолжить" class="btn btn-primary btn-block pull-right">
+            <input type="submit" name="submit" id="submit" value="Продолжить" class="btn btn-primary pull-right">
         </div>
 
     </div>

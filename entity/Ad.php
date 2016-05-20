@@ -37,10 +37,10 @@ class Ad
     private $details;
     
     /**
-     * @ManyToOne(targetEntity="User", inversedBy="ads")
-     * @JoinColumn(name="user_id", referencedColumnName="id")
+     * @ManyToOne(targetEntity="Person", inversedBy="ads")
+     * @JoinColumn(name="person_id", referencedColumnName="id")
      */
-    private $user;
+    private $person;
 
     /**
      * @return int
@@ -123,20 +123,20 @@ class Ad
     }
 
     /**
-     * @return User
+     * @return Person
      */
-    public function getUser()
+    public function getPerson()
     {
-        return $this->user;
+        return $this->person;
     }
 
     /**
-     * @param $user
+     * @param $person
      * @return $this
      */
-    public function setUser($user)
+    public function setPerson($person)
     {
-        $this->user = $user;
+        $this->person = $person;
         return $this;
     }
 }
