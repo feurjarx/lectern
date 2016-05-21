@@ -10,14 +10,16 @@
         <input required type="password" class="form-control" name="password" placeholder="Пароль">
     </div>
 
-    <button type="submit" class="btn btn-primary btn-sm">
-        <small><b>Войти</b></small>
-        <span class="glyphicon glyphicon-log-in"></span>
-    </button>
+    <div class="btn-group">
+        <button type="submit" class="btn btn-primary btn-sm">
+            <small><b>Войти</b></small>
+            <span class="glyphicon glyphicon-log-in"></span>
+        </button>
 
-    <a href="/signup" class="btn btn-success btn-sm">
-        <small><b>Регистрация</b></small>
-        <span class="glyphicon glyphicon-plus"></span>
-    </a>
+        <a href="/signup" class="btn btn-success btn-sm">
+            <small><b>Регистрация</b></small>
+            <span class="glyphicon glyphicon-plus"></span>
+        </a>
+    </div>
 
 </form>

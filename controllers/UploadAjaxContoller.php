@@ -19,10 +19,10 @@ class UploadAjaxContoller extends BaseController
 
     public function uploadAction($request)
     {
-        $filename = md5(basename($request['post']['name'])) . '.' . $request['post']['ext'];
+        $filename = md5(basename($request['POST']['name'])) . '.' . $request['POST']['ext'];
         $uploadFile = Constants::UPLOAD_PHOTOS_DIR . $filename;
 
-        if (move_uploaded_file($request['files']['data']['tmp_name'], $uploadFile)) {
+        if (move_uploaded_file($request['FILES']['data']['tmp_name'], $uploadFile)) {
 
             $result = [
                 'type' => 'success',

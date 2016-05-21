@@ -9,6 +9,8 @@ namespace Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 
+require_once __DIR__ . '/../entity/Address.php';
+
 /**
  * @Entity @Table(name="contact")
  **/

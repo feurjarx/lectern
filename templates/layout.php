@@ -49,7 +49,7 @@
 
 <body>
 
-    <div class="container-fluid min-height-100 height-100">
+    <div class="container-fluid min-height-100 height-100" style="overflow: auto">
 
         <!-- Header -->
         <div class="row header">

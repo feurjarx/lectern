@@ -6,6 +6,7 @@
  */
 require_once __DIR__ . '/../entity/User.php';
 require_once __DIR__ . '/../entity/Ad.php';
+require_once __DIR__ . '/../entity/Person.php';
 
 use Entity\Ad;
 
@@ -46,7 +47,7 @@ class CabinetController extends BaseController
             case Constants::EMPLOYER_ROLE:
 
                 /** @var Ad[] $ads */
-                $ads = $this->currentUser->getAds();
+                $ads = $this->currentUser->getPerson()->getAds();
                 break;
         }
 
@@ -59,20 +60,22 @@ class CabinetController extends BaseController
      */
     public function createAjaxAction($request)
     {
-        $params['name'] = isset($request['name']) ? $request['name'] : null;
-        $params['details'] = isset($request['details']) ? $request['details'] : null;
+        $params = Utils::arraySerialization([
+            'name',
+            'details'
+
+        ], $request);
 
         if (!in_array(null, $params)) {
+
+            $params = Utils::arraySerialization(['salary'], $request, $params);
 
             $ad = (new Ad())
                 ->setName($params['name'])
                 ->setDetails($params['details'])
-                ->setUser($this->em->getReference('Entity\User', $this->currentUser->getId()))
+                ->setPerson($this->em->getReference('Entity\Person', $this->currentUser->getPerson()->getId()))
+                ->setSalary($params['salary'])
             ;
-            
-            if (isset($request['salary']) && $request['salary']) {
-                $ad->setSalary($request['salary']);
-            }
 
             $this->em->persist($ad);
             $this->em->flush();
@@ -104,7 +107,8 @@ class CabinetController extends BaseController
 
             /** @var Ad[] $ads */
             $em = $this->em;
-            $ads = $this->em->getRepository('Entity\Ad')->findBy([
+
+            $ads = $em->getRepository('Entity\Ad')->findBy([
                 'id' => $request['ids']
             ]);
 

@@ -1,6 +1,7 @@
 <?php
 require_once 'bootstrap.php';
 require_once 'model/Constants.php';
+require_once 'model/Utils.php';
 require_once 'controllers/BaseController.php';
 
 foreach (scandir(__DIR__ . '/controllers') as $f) {
@@ -32,8 +33,8 @@ switch (true) {
     // SIGNUP
     case ('/signup' === $uri):
         (new SignUpController($options))->signUpAction([
-            'post'  => $_POST,
-            'files' => $_FILES
+            'POST'  => $_POST,
+            'FILES' => $_FILES
         ]);
         break;
     case ('/signup/confirm' === $uri && isset($_GET['id']) && isset($_POST['password']) && isset($_POST['new_pass_session'])):
@@ -53,8 +54,8 @@ switch (true) {
     // UPLOAD
     case ('/upload' === $uri && isset($_POST) && isset($_FILES)):
         (new UploadAjaxContoller($options))->uploadAction([
-            'post'  => $_POST,
-            'files' => $_FILES
+            'POST'  => $_POST,
+            'FILES' => $_FILES
         ]);
         break;
 

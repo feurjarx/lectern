@@ -7,7 +7,7 @@
 
 namespace Entity;
 
-use Doctrine\ORM\PersistentCollection;
+use Constants;
 
 /**
  * @Entity @Table(name="user")
@@ -36,6 +36,14 @@ class User
 
     /** @Column(name="img_url", type="string") **/
     private $imgUrl;
+
+    /** @Column(name="is_confirmed", type="boolean") **/
+    private $isConfirmed;
+
+    /**
+     * @OneToOne(targetEntity="Person", mappedBy="user")
+     */
+    private $person;
 
     /**
      * @return int
@@ -122,7 +130,7 @@ class User
      */
     public function getImgUrl()
     {
-        return $this->imgUrl;
+        return Constants::getHttpHost() . ( $this->imgUrl ? (Constants::UPLOAD_PHOTOS_URL . $this->imgUrl) : Constants::DEFAULT_PHOTO_URL);
     }
 
     /**
@@ -133,5 +141,31 @@ class User
     {
         $this->imgUrl = $imgUrl;
         return $this;
+    }
+
+    /**
+     * @return bool
+     */
+    public function getIsConfirmed()
+    {
+        return $this->isConfirmed;
+    }
+
+    /**
+     * @param bool $isConfirmed
+     * @return $this
+     */
+    public function setIsConfirmed($isConfirmed)
+    {
+        $this->isConfirmed = $isConfirmed;
+        return $this;
+    }
+
+    /**
+     * @return Person
+     */
+    public function getPerson()
+    {
+        return $this->person;
     }
 }

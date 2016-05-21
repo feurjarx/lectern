@@ -100,6 +100,19 @@ ALTER TABLE `ad` ADD FOREIGN KEY (`person_id`) REFERENCES `lectern`.`person` (`i
 
 DROP TABLE category;
 
+ALTER TABLE `person` CHANGE `organisation` `organisation` VARCHAR(70) CHARACTER SET utf8 COLLATE utf8_general_ci NULL;
+
+ALTER TABLE `person` CHANGE `gender` `gender` ENUM('man','foman') CHARACTER SET utf8 COLLATE utf8_general_ci NULL;
+
+ALTER TABLE `person` CHANGE `contact_id` `contact_id` INT(11) NULL;
+
+ALTER TABLE `user` ADD `is_confirmed` BOOLEAN NOT NULL AFTER `img_url`;
+
+ALTER TABLE `person` DROP FOREIGN KEY `person_ibfk_2`; ALTER TABLE `person` ADD CONSTRAINT `person_ibfk_2` FOREIGN KEY (`contact_id`) REFERENCES `lectern`.`contact`(`id`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+ALTER TABLE `contact` DROP FOREIGN KEY `contact_ibfk_1`; ALTER TABLE `contact` ADD CONSTRAINT `contact_ibfk_1` FOREIGN KEY (`address_id`) REFERENCES `lectern`.`address`(`id`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+
 
 
 

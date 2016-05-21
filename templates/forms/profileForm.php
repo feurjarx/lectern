@@ -1,8 +1,11 @@
+<?php
+/** @var $this BaseController */
+?>
 <form class="navbar-form navbar-right" role="form" method="post" action="/logout">
     
-    <span><span class="hidden-xs">Вы авторизованы как </span><?php echo ucfirst($this->currentUser->getFirstName()); ?></span>
+    <span><span class="hidden-xs">Вы авторизованы как </span><?php echo ucfirst($this->getCurrentUser()->getPerson()->getFirstName()); ?></span>
 
-    <img src="<?php echo $this->currentUser->getImgUrl() ?>" class="img-circle" style="max-width: 35px; max-height: 34px;">
+    <img src="<?php echo  $this->getCurrentUser()->getImgUrl(); ?>" class="img-circle" style="max-width: 35px; max-height: 34px;">
 
     <button class="btn btn-sm btn-default">
         <small><b>Выйти</b></small>

@@ -61,6 +61,7 @@ $(function () {
                     file = files[0];
 
                     if (/^image\/\w+$/.test(file.type)) {
+
                         blobURL = URL.createObjectURL(file);
                         $image
                             .one('built.cropper', function () {
@@ -71,6 +72,12 @@ $(function () {
                             .cropper('replace', blobURL);
 
                         $inputImage.val('');
+
+                        notification({
+                            text: 'Информация! <br> Не забудьте обрезать фотографию',
+                            type: 'info',
+                            timeout: 3000
+                        });
                     }
                 }
 
@@ -144,35 +151,33 @@ $(function () {
                     dataType: 'json',
                     processData: false,
                     contentType: false,
+                    beforeSend: function() {
+
+                        $this.prop('disabled', true);
+                    },
                     success: function (data) {
-                        (data['type'] === 'success') && $('#image-name-input').val(data['name']);
+                        
+                        (data['type'] === 'success') && $('input[name="img_url"]').val(data['name']);
                     },
                     error: function (err) {
+                        notification({
+                            text: 'Ошибка! <br> Отказ сервера',
+                            type: 'error'
+                        });
                         console.error(err);
+                    },
+                    complete: function () {
+                        $this.prop('disabled', false);
                     }
                 });
             }
         }
     });
 
-    // Change role
-    $('input[name="role"]').change(function () {
-
-        var $orgLabel = $('label[for="organisation-input"]'),
-            $organisationInput = $('#organisation-input')
-        ;
-
-        switch(this.value) {
-            case 'student':
-
-                $organisationInput.attr('placeholder', 'Введите название учебного заведения');
-                $orgLabel.text('Учебное заведение');
-                break;
-            case 'employer':
-
-                $organisationInput.attr('placeholder', 'Введите название компании');
-                $orgLabel.text('Компания');
-                break;
+    $('form').submit(function(event){
+        if(this.checkValidity())
+        {
+            $(this).find('[type="submit"]').prop('disabled', true);
         }
     });
 });

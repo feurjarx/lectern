@@ -48,6 +48,7 @@
                             <?php endif; ?>
 
                             <span>Личный кабинет</span>
+                            
                         </a>
                     </li>
 
@@ -59,7 +60,7 @@
 
                 <?php include __DIR__ . '/../forms/profileForm.php'; ?>
 
-            <?php elseif (!(isset($signinFormOff) && $signinFormOff)): ?>
+            <?php elseif (isset($active_item) && $active_item !== 'none'): ?>
 
                 <?php include __DIR__ . '/../forms/signinForm.php'; ?>
 

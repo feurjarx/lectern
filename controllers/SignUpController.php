@@ -6,8 +6,14 @@
  */
 
 require_once __DIR__ . '/../entity/User.php';
+require_once __DIR__ . '/../entity/Person.php';
+require_once __DIR__ . '/../entity/Address.php';
+require_once __DIR__ . '/../entity/Contact.php';
 
 use Entity\User;
+use Entity\Person;
+use Entity\Address;
+use Entity\Contact;
 
 class SignUpController extends BaseController
 {
@@ -31,45 +37,42 @@ class SignUpController extends BaseController
      */
     public function signUpAction($request)
     {
-        $post = $request['post'];
+        $post = $request['POST'];
 
-        $firstName = isset($post['first_name']) && $post['first_name'] ? $post['first_name'] : null;
-        $email = isset($post['email']) && $post['email'] ? $post['email'] : null;
-        $role = isset($post['role']) && $post['role'] ? $post['role'] : null;
-        $organisation = isset($post['organisation']) && $post['organisation'] ? $post['organisation'] : null;
+        $params = Utils::arraySerialization(['email', 'role'], $post);
 
-        $lastName = isset($post['last_name']) && $post['last_name'] ? $post['last_name'] : '';
-        $imgName = isset($post['img_name']) && $post['img_name'] ? $post['img_name'] : null;
-        
-        if ($firstName && $email && $role && $organisation) {
+        if (count($params) && !in_array(null, $params)) {
 
             $em = $this->em;
 
             $user = $em->getRepository('Entity\User')->findBy([
-                'email' => $email
+                'email' => $params['email']
             ]);
 
             if ($user) {
 
-                $errMsg = 'Пользователь с почтовым ящиком ' . $email . ' уже существует. Введите другой.';
+                $errMsg = 'Пользователь с почтовым ящиком ' . $params['email'] . ' уже существует. Введите другой.';
 
                 unset($email);
 
             } else {
 
+                $user = new User();
+                $person = new Person();
+
                 try {
 
-                    $user = new User();
+                    $user
+                        ->setEmail($params['email'])
+                        ->setRole($params['role'])
+                        ->setIsConfirmed(false)
+                    ;
 
-                    $user->setFirstName($firstName);
-                    $user->setEmail($email);
-                    $user->setRole($role);
-                    $user->setOrganisation($organisation);
-
-                    $user->setLastName($lastName);
-                    $user->setimgUrl($imgName ? Constants::UPLOAD_PHOTOS_URL . $imgName : Constants::DEFAULT_PHOTO_URL);
-                    
                     $em->persist($user);
+
+                    $person->setUser($user);
+                    $em->persist($person);
+
                     $em->flush();
 
                     $transport = Swift_SmtpTransport::newInstance('smtp.gmail.com', 465, 'ssl')
@@ -82,38 +85,40 @@ class SignUpController extends BaseController
 
                     $message = Swift_Message::newInstance();
                     $message
-                        ->setTo([ $email => $firstName ])
+                        ->setTo([ $params['email'] => '' ])
+                        ->setFrom("yakoann03@gmail.com", "Ваш lectern")
                         ->setSubject("Подтверждение регистрации")
-                        ->setBody($firstName . ', добро пожаловать на <a href="http://lectern/">lectern</a>. Для подтверждения регистрации перейдите по <a href="' . $confirmUrl . '">http://'. $confirmUrl .'</a>', 'text/html');
+                        ->setBody('Добро пожаловать на <a href="http://lectern/">lectern</a>. Для подтверждения регистрации перейдите по <a href="' . $confirmUrl . '">http://'. $confirmUrl .'</a>', 'text/html')
+                    ;
 
-                    $message->setFrom("yakoann03@gmail.com", "Ваш lectern");
+                    $mailer->send($message);
 
-                    try {
+                    $isSuccess = 1;
+                    $doneMsg = 'Заявка принята. На почтовый ящик ' . $params['email'] . ' отправлено письмо с подтверждением.';
 
-                        $mailer->send($message);
+                } catch (Exception $exp) {
 
-                        $isSuccess = 1;
-                        $doneMsg = 'Заявка принята. На почтовый ящик ' . $email . ' отправлено письмо с подтверждением.';
+                    switch (true) {
+                        case $exp instanceof \Doctrine\DBAL\Exception\DriverException:
+                            header('error: db');
+                            break;
+                        case $exp instanceof Swift_TransportException:
 
-                    } catch (Exception $exp2) {
+                            $em->remove($person);
+                            $em->remove($user);
+                            $em->flush();
 
-                        $em->remove($user);
-                        $em->flush();
+                            header('error: smtp');
+                            break;
 
-                        $errMsg = 'Ошибка на сервере' . ($exp2->getCode() ? (' (' . $exp2->getCode() .').') : '.');
-                        header('Error: smtp');
                     }
 
-                } catch (Exception $exp1) {
-
-                    $errMsg = 'Ошибка на сервере' . ($exp1->getCode() ? (' (' . $exp1->getCode() .').') : '.');
-                    header('Error: db');
+                    $errMsg = 'Ошибка на сервере' . ($exp->getCode() ? (' (' . $exp->getCode() .').') : '.');
                 }
             }
         }
 
         $active_item = 'none';
-        $signinFormOff = 1;
         require $this->templatePath;
     }
 
@@ -123,48 +128,36 @@ class SignUpController extends BaseController
      */
     public function signUpConfirmAction($request)
     {
-        $userId = $request['id'];
-        $confirmHash = $request['hash'];
+        $params = Utils::arraySerialization([
+            'id',
+            'hash'
+        ], $request);
 
-        $user = $this->em->find('Entity\User', $userId);
+        if (!in_array(null, $params)) {
 
-        /** @var User $user */
-        if ($user && $confirmHash === md5( strval($user->getCreatedAt()) . $user->getPassword() )) {
+            $user = $this->em->find('Entity\User', $params['id']);
 
-            $newPassSession = md5($user->getFirstName() . $user->getEmail() . $user->getPassword());
-            $isConfirmSuccess = 1;
+            /** @var User $user */
+            if ($user && $params['hash'] === md5( strval($user->getCreatedAt()) . $user->getPassword() )) {
 
-        } else {
+                if ($user->getIsConfirmed()) {
 
-            $isConfirmError = 1;
-            $errMsg = 'Неверные данные.';
-        }
+                    $isConfirmError = 1;
+                    $errMsg = 'Вы уже подтверждали свою регистрацию. Если нет, тогда обратитесь в техническую поддержку сайта.';
 
-        $signinFormOff = 1;
-        require $this->templatePath;
-    }
+                    $em = $this->em;
+                    $em->remove($user);
+                    $em->flush();
 
-    /**
-     * @param $request
-     * @throws \Doctrine\ORM\NonUniqueResultException
-     */
-    public function signUpFinallyAction($request)
-    {
-        $userId = $request['id'];
-        $password = $request['password'];
-        $newPassSession = $request['new_pass_session'];
+                } else {
 
-        if ($userId) {
+                    $user->setIsConfirmed(true);
+                    
+                    $newPassSession = md5($user->getEmail() . $user->getPassword());
+                    $isConfirmSuccess = 1;
 
-            $user = $this->em->find('Entity\User', $userId);
-
-            if ($user && md5( $user->getFirstName() . $user->getEmail()) === $newPassSession) {
-
-                $user->setPassword(md5($password));
-                $this->em->flush();
-
-                header('Location: ' . Constants::getHttpHost());
-                exit();
+                    $this->em->flush();
+                }
 
             } else {
 
@@ -178,7 +171,126 @@ class SignUpController extends BaseController
             $errMsg = 'Неверные данные.';
         }
 
-        $signinFormOff = 1;
+        $active_item = 'none';
+        require $this->templatePath;
+    }
+
+    /**
+     * @param $request
+     * @throws \Doctrine\ORM\NonUniqueResultException
+     */
+    public function signUpFinallyAction($request)
+    {
+
+        $params = Utils::arraySerialization([
+            'id',
+            'password',
+            'new_pass_session'
+
+        ], $request);
+
+        if (!in_array(null, $params) && is_numeric($params['id'])) {
+
+            /** @var User $user */
+            $user = $this->em->find('Entity\User', $params['id']);
+
+            if ($user && md5($user->getEmail()) === $params['new_pass_session']) {
+
+                $params = Utils::arraySerialization([
+                    'last_name',
+                    'first_name',
+                    'gender',
+                    'organisation',
+                    'phone',
+                    'city'
+                ], $request, $params);
+                
+                if (!in_array(null, $params)) {
+
+                    $em = $this->em;
+
+                    $params = Utils::arraySerialization([
+                        'street',
+                        'house_number',
+                        'apartment_number',
+                        'websites',
+                        'date_birth',
+                        'father_name',
+                        'img_url'
+
+                    ], $request, $params);
+                    
+                    $address = new Address();
+                    $address
+                        ->setCity($params['city'])
+                        ->setStreet($params['street'])
+                        ->setHouseNumber($params['house_number'])
+                        ->setApartmentNumber($params['apartment_number'])
+                    ;
+
+                    $em->persist($address);
+
+                    $contact = new Contact();
+                    $contact
+                        ->setAddress($address)
+                        ->setPhone($params['phone'])
+                        ->setWebsites($params['websites'])
+                    ;
+
+                    $em->persist($contact);
+
+                    $person = $user->getPerson();
+
+                    $person
+                        ->setContact($contact)
+                        ->setGender($params['gender'])
+                        ->setOrganisation($params['organisation'])
+                        ->setLastName($params['last_name'])
+                        ->setFirstName($params['first_name'])
+                        ->setFatherName($params['father_name'])
+                        ->setDateBirth(new DateTime($params['date_birth']))
+                    ;
+
+                    $user
+                        ->setimgUrl($params['img_url'])
+                        ->setPassword(md5($params['password']))
+                        ->setIsConfirmed(true)
+                    ;
+
+                    try {
+
+                        $this->em->flush();
+
+                        header('Location: ' . Constants::getHttpHost());
+                        exit();
+
+                    } catch(Exception $exp) {
+
+                        $isConfirmError = 1;
+                        header('error: db');
+                    }
+
+                } else {
+
+                    $isConfirmError = 1;
+                }
+
+            } else {
+
+                $isConfirmError = 1;
+            }
+
+        } else {
+
+            $isConfirmError = 1;
+
+        }
+
+        if ($isConfirmError) {
+            $errMsg = isset($errMsg) ? $errMsg : 'Неверные данные.';
+        }
+
+        $active_item = 'none';
         require $this->templatePath;
     }
 }

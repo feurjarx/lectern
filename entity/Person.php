@@ -10,6 +10,12 @@ namespace Entity;
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\ORM\PersistentCollection;
 
+use Entity\Contact;
+use Entity\Cv;
+
+require_once __DIR__ . '/../entity/Contact.php';
+require_once __DIR__ . '/../entity/Cv.php';
+
 /**
  * @Entity @Table(name="person")
  **/
@@ -45,7 +51,7 @@ class Person
     /** @Column(name="father_name", type="string") **/
     private $fatherName;
 
-    /** @Column(name="father_name", type="datetime") **/
+    /** @Column(name="date_birth", type="datetime") **/
     private $dateBirth;
 
     /**

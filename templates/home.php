@@ -13,21 +13,35 @@
 <?php ob_start() ?>
 
     <div class="row margin-none">
-        <h1 class="content-title">Свежие объявления</h1>
+        <h2 class="content-title">Свежие объявления</h2>
     </div>
 
     <ul class="list-group ads">
 
-        <?php /** @var \Entity\Ad[] $ads */ ?>
-        <?php foreach ($ads as $index => $ad): ?>
+        <?php if (isset($ads) and count($ads)):?>
 
-            <li class="col-lg-12 col-md-12 col-xs-12 list-group-item ad">
+            <?php /** @var \Entity\Ad[] $ads */ ?>
+            <?php foreach ($ads as $index => $ad): ?>
 
-                <?php include __DIR__ . '/blocks/adBlock.php'?>
+                <li class="col-lg-12 col-md-12 col-xs-12 list-group-item ad">
 
-            </li>
+                    <?php include __DIR__ . '/blocks/adBlock.php'?>
 
-        <?php endforeach; ?>
+                </li>
+
+            <?php endforeach; ?>
+
+        <?php else: ?>
+
+            <div class="alert alert-info" style="padding: 10px; margin: 10px 0;">
+                <strong>
+                    <span class="glyphicon glyphicon-exclamation-sign"></span>
+                    <span class="sr-only">Информация!</span>
+                    <span>Объявлений не найдено</span>
+                </strong>
+            </div>
+
+        <?php endif; ?>
 
     </ul>
 

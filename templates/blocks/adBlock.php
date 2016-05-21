@@ -23,7 +23,7 @@ $isCabinet = '/'. Constants::EMPLOYER_ROLE . '/cabinet' === parse_url($_SERVER['
     <?php else: ?>
 
         <div class="col-lg-1 col-md-1 col-xs-2 thumbnail">
-            <img src="<?php echo $ad->getUser()->getImgUrl(); ?>" alt="<?php echo $ad->getUser()->getLastName(); ?>">
+            <img src="<?php echo $ad->getPerson()->getUser()->getImgUrl(); ?>" alt="<?php echo $ad->getPerson()->getLastName(); ?>">
         </div>
 
     <?php endif ?>
@@ -40,12 +40,12 @@ $isCabinet = '/'. Constants::EMPLOYER_ROLE . '/cabinet' === parse_url($_SERVER['
 
             <?php else: ?>
 
-                <h2 class="margin-none">
-                    <a href="#" class="ellipsis-box" style="width: 75%"><?php echo ucfirst($ad->getName()); ?></a>
-                </h2>
-                <?php echo $ad->getUser()->getFullName(); ?>
+                <h3 class="margin-none">
+                    <a href="#" class="ellipsis-box font-size-xs" style="width: 70%"><?php echo ucfirst($ad->getName()); ?></a>
+                </h3>
+                <?php echo $ad->getPerson()->getFullName(); ?>
 
-                <?php if ($org = $ad->getUser()->getOrganisation()): ?>
+                <?php if ($org = $ad->getPerson()->getOrganisation()): ?>
 
                     (<?php echo $org; ?>)
 
