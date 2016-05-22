@@ -10,7 +10,7 @@
 
     <div class="col-lg-12 col-md-12 col-xs-12">
         <div class="thumbnail">
-            <img src="<?php echo Constants::getHttpHost(); ?>/assets/img/signup-request.jpg" alt="подача заявки">
+            <img src="<?php echo Utils::getHttpHost(); ?>/assets/img/signup-request.jpg" alt="подача заявки">
         </div>
     </div>
 

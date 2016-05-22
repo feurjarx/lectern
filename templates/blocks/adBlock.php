@@ -31,7 +31,7 @@ $isCabinet = '/'. Constants::EMPLOYER_ROLE . '/cabinet' === parse_url($_SERVER['
     <div class="col-lg-11 col-lg-11 col-xs-10">
 
         <div class="list-group-item-heading" data-target="#ad-details-<?php echo $ad->getId(); ?>" data-toggle="collapse" aria-expanded="false">
-
+            
             <?php if ($isCabinet): ?>
 
                 <a href="#" class="ellipsis-box" style="width: 75%">

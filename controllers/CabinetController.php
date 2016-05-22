@@ -21,7 +21,7 @@ class CabinetController extends BaseController
     {
         parent::__construct($options);
         if ($this->isVerify && is_null($this->currentUser)) {
-            header('Location: ' . Constants::getHttpHost() . '/' . 'access/denied');
+            header('Location: ' . Utils::getHttpHost() . '/' . 'access/denied');
             exit();
         }
     }
@@ -37,7 +37,7 @@ class CabinetController extends BaseController
     function indexAction($role) {
         
         if ($this->currentUser->getRole() !== $role) {
-            header('Location: ' . Constants::getHttpHost() . '/' . 'access/denied');
+            header('Location: ' . Utils::getHttpHost() . '/' . 'access/denied');
             exit();
         }
 
@@ -80,21 +80,21 @@ class CabinetController extends BaseController
             $this->em->persist($ad);
             $this->em->flush();
 
-            $jsonResult = json_encode([
+            $result = [
                 'complete_id' => $ad->getId(),
                 'type' => 'success',
                 'message' => 'Объявление о работе успешно создано и опубликовано!'
-            ]);
+            ];
 
         } else {
 
-            $jsonResult = json_encode([
+            $result = [
                 'type' => 'error',
                 'message' => 'Неверные данные'
-            ]);
+            ];
         }
         
-        echo $jsonResult;
+        echo json_encode($result);
     }
 
     /**
@@ -130,45 +130,46 @@ class CabinetController extends BaseController
             switch(true) {
                 case (count($request['ids']) == count($badAdsIds)):
 
-                    $jsonResult = json_encode([
+                    $result = [
                         'type' => 'error',
                         'message' => 'Внимание! Ни одно объявление не удалено. Обратитесь в тех. поддержку'
-                    ]);
+                    ];
                     break;
 
                 case (count($badAdsIds) > 0):
 
-                    $jsonResult = json_encode([
+                    $result = [
                         'type' => 'warning',
                         'message' => 'Внимание! Некоторые объявление не были удалены. Обратитесь в тех. поддержку',
                         'complete_ids' => array_diff($request['ids'], $badAdsIds)
-                    ]);
+                    ];
                     break;
 
                 case (count($badAdsIds) == 0):
 
-                    $jsonResult = json_encode([
+                    $result = [
                         'type' => 'success',
                         'message' => 'Успешно! Отмеченные объявления были удалены',
                         'complete_ids' => $request['ids']
-                    ]);
+                    ];
                     break;
 
                 default:
-                    $jsonResult = json_encode([
+
+                    $result = [
                         'type' => 'error',
                         'message' => 'Серверная ошибка!'
-                    ]);
+                    ];
             }
 
         } else {
 
-            $jsonResult = json_encode([
+            $jsonResult = [
                 'type' => 'error',
                 'message' => 'Неверные данные'
-            ]);
+            ];
         }
 
-        echo $jsonResult;
+        echo json_encode($jsonResult);
     }
 }

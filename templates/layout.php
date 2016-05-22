@@ -11,33 +11,34 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <!--  vendor styles  -->
-    <link href="<?php echo Constants::getHttpHost(); ?>/node_modules/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link href="<?php echo Constants::getHttpHost(); ?>/bower_components/bootstrap-checkbox-x/css/checkbox-x.min.css" rel="stylesheet">
-    <link href="<?php echo Constants::getHttpHost(); ?>/bower_components/components-font-awesome/css/font-awesome.min.css" rel="stylesheet">
-    <link href="<?php echo Constants::getHttpHost(); ?>/bower_components/noty/demo/animate.css" rel="stylesheet">
+    <link href="<?php echo Utils::getHttpHost(); ?>/node_modules/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="<?php echo Utils::getHttpHost(); ?>/bower_components/bootstrap-checkbox-x/css/checkbox-x.min.css" rel="stylesheet">
+    <link href="<?php echo Utils::getHttpHost(); ?>/bower_components/components-font-awesome/css/font-awesome.min.css" rel="stylesheet">
+    <link href="<?php echo Utils::getHttpHost(); ?>/bower_components/noty/demo/animate.css" rel="stylesheet">
 
     <!--  vendor font styles  -->
 
     <!--  custom styles  -->
-    <link href="<?php echo Constants::getHttpHost(); ?>/assets/css/layout.css" rel="stylesheet">
-    <link href="<?php echo Constants::getHttpHost(); ?>/assets/css/bootstrap-overload.css" rel="stylesheet">
-    <link href="<?php echo Constants::getHttpHost(); ?>/assets/css/header.css" rel="stylesheet">
-    <link href="<?php echo Constants::getHttpHost(); ?>/assets/css/footer.css" rel="stylesheet">
+    <link href="<?php echo Utils::getHttpHost(); ?>/assets/css/layout.css" rel="stylesheet">
+    <link href="<?php echo Utils::getHttpHost(); ?>/assets/css/sweets.css" rel="stylesheet">
+    <link href="<?php echo Utils::getHttpHost(); ?>/assets/css/bootstrap-overload.css" rel="stylesheet">
+    <link href="<?php echo Utils::getHttpHost(); ?>/assets/css/header.css" rel="stylesheet">
+    <link href="<?php echo Utils::getHttpHost(); ?>/assets/css/footer.css" rel="stylesheet">
 
     <?php if (isset($css) && $css): ?>
         <?php echo $css ?>
     <?php endif; ?>
 
     <!--  vendor scripts  -->
-    <script src="<?php echo Constants::getHttpHost(); ?>/node_modules/jquery/dist/jquery.min.js"></script>
-    <script src="<?php echo Constants::getHttpHost(); ?>/node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
+    <script src="<?php echo Utils::getHttpHost(); ?>/node_modules/jquery/dist/jquery.min.js"></script>
+    <script src="<?php echo Utils::getHttpHost(); ?>/node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
 
-    <script src="<?php echo Constants::getHttpHost(); ?>/bower_components/bootstrap-checkbox-x/js/checkbox-x.min.js"></script>
-    <script src="<?php echo Constants::getHttpHost(); ?>/bower_components/jquery-serialize-object/dist/jquery.serialize-object.min.js"></script>
-    <script src="<?php echo Constants::getHttpHost(); ?>/bower_components/noty/js/noty/packaged/jquery.noty.packaged.min.js"></script>
+    <script src="<?php echo Utils::getHttpHost(); ?>/bower_components/bootstrap-checkbox-x/js/checkbox-x.min.js"></script>
+    <script src="<?php echo Utils::getHttpHost(); ?>/bower_components/jquery-serialize-object/dist/jquery.serialize-object.min.js"></script>
+    <script src="<?php echo Utils::getHttpHost(); ?>/bower_components/noty/js/noty/packaged/jquery.noty.packaged.min.js"></script>
 
     <!--  custom scripts  -->
-    <script src="<?php echo Constants::getHttpHost(); ?>/assets/js/main.js"></script>
+    <script src="<?php echo Utils::getHttpHost(); ?>/assets/js/main.js"></script>
     
     <?php if (isset($beforeJs) && $beforeJs): ?>
         <?php echo $beforeJs ?>
@@ -47,9 +48,9 @@
 
 <?php $active_item = (isset($active_item) and $active_item) ? $active_item : 'home' ?>
 
-<body>
+<body class="font-effect-outline">
 
-    <div class="container-fluid min-height-100 height-100" style="overflow: auto">
+    <div class="container-fluid min-height-100 height-100"> <!--style="overflow: auto"-->
 
         <!-- Header -->
         <div class="row header">

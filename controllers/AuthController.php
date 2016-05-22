@@ -43,7 +43,7 @@ class AuthController extends BaseController
 
                 $_SESSION['current_user'] = $user->getId();
 
-                header('Location: ' . Constants::getHttpHost());
+                header('Location: ' . Utils::getHttpHost());
                 exit();
             }
         }
@@ -69,7 +69,7 @@ class AuthController extends BaseController
 
                 session_unset();
 
-                header('Location: ' . Constants::getHttpHost());
+                header('Location: ' . Utils::getHttpHost());
                 exit();
             }
         }

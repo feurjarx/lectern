@@ -24,7 +24,7 @@ class BaseController
         $this->initCurrentUser($_COOKIE);
 
         if (isset($options['is_verify']) && $options['is_verify'] && is_null($this->currentUser)) {
-            header('Location: ' . Constants::getHttpHost() . '/' . 'access/denied');
+            header('Location: ' . Utils::getHttpHost() . '/' . 'access/denied');
             exit();
         }
     }

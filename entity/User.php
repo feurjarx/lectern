@@ -8,6 +8,7 @@
 namespace Entity;
 
 use Constants;
+use Utils;
 
 /**
  * @Entity @Table(name="user")
@@ -130,7 +131,7 @@ class User
      */
     public function getImgUrl()
     {
-        return Constants::getHttpHost() . ( $this->imgUrl ? (Constants::UPLOAD_PHOTOS_URL . $this->imgUrl) : Constants::DEFAULT_PHOTO_URL);
+        return Utils::getHttpHost() . ( $this->imgUrl ? (Constants::UPLOAD_PHOTOS_URL . $this->imgUrl) : Constants::DEFAULT_PHOTO_URL);
     }
 
     /**

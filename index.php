@@ -28,6 +28,10 @@ switch (true) {
     case ('/about' === $uri):
         (new HomeController($options))->aboutAction();
         break;
+    case ('/get/ads' === $uri && Utils::isAjax() && $_POST):
+        (new HomeController($options))->getAdsAjaxAction($_POST);
+        break;
+
     
 
     // SIGNUP

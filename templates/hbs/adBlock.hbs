@@ -1,0 +1,51 @@
+{{#if error }}
+
+    <div class="alert alert-danger" style="{{ alert_style }}">
+        <strong>
+            <span class="glyphicon glyphicon-exclamation-sign"></span>
+            <span class="sr-only">Ошибка!</span>{{ err_msg }}
+        </strong>
+    </div>
+
+{{else}}
+
+    <li class="col-lg-12 col-md-12 col-xs-12 list-group-item ad scroller-item">
+
+        <div class="col-lg-1 col-md-1 col-xs-2 thumbnail">
+            <img src="{{ user_img_url }}" alt="{{ person.last_name }}">
+        </div>
+
+        <div class="col-lg-11 col-lg-11 col-xs-10">
+            <div class="list-group-item-heading" data-target="#ad-details-{{ id }}" data-toggle="collapse" aria-expanded="false">
+
+                <h3 class="margin-none">
+                    <a href="#" class="ellipsis-box font-size-xs" style="width: 70%">{{ name }}</a>
+                </h3>
+
+                <span>{{ person.full_name }}</span>
+                <span>({{ person.organisation }})</span>
+                <br>
+                <small class="text-muted">размещено: {{ published_at }}</small>
+
+            </div>
+        </div>
+
+        <div class="col-lg-12 col-md-12 col-xs-12 padding-none">
+            <div class="collapse list-group-item-text" id="ad-details-{{ id }}">
+                <pre class="well margin-none">{{ details }}</pre>
+            </div>
+        </div>
+
+        <span class="badge badge-salary pull-right">
+
+            {{#if salary }}
+                {{ salary }}<i class="fa fa-rub" aria-hidden="true"></i>
+            {{else}}
+                Не указано
+            {{/if}}
+
+        </span>
+
+    </li>
+
+{{/if}}

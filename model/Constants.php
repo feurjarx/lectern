@@ -19,8 +19,4 @@ class Constants
         UPLOAD_PHOTOS_URL = '/uploads/photos/',
         DEFAULT_PHOTO_URL = '/assets/img/default-avatar.png'
     ;
-    
-    public static function getHttpHost(){
-        return 'http://' . $_SERVER['HTTP_HOST'];
-    }
 }

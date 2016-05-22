@@ -25,7 +25,7 @@ class SignUpController extends BaseController
     {
         parent::__construct($options);
         if ($this->currentUser) {
-            header('Location: ' . Constants::getHttpHost() . '/' . 'access/denied');
+            header('Location: ' . Utils::getHttpHost() . '/' . 'access/denied');
             exit();
         }
     }
@@ -261,7 +261,7 @@ class SignUpController extends BaseController
 
                         $this->em->flush();
 
-                        header('Location: ' . Constants::getHttpHost());
+                        header('Location: ' . Utils::getHttpHost());
                         exit();
 
                     } catch(Exception $exp) {
