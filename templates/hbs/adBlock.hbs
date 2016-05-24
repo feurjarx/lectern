@@ -1,9 +1,8 @@
-{{#if error }}
+{{#if notyfication }}
 
-    <div class="alert alert-danger" style="{{ alert_style }}">
+    <div class="alert alert-{{ type }}" style="{{ alert_style }}">
         <strong>
-            <span class="glyphicon glyphicon-exclamation-sign"></span>
-            <span class="sr-only">Ошибка!</span>{{ err_msg }}
+            <span class="sr-only">Внимание!</span>{{ message }}
         </strong>
     </div>
 

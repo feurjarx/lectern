@@ -3,7 +3,6 @@
 <?php ob_start() ?>
     <link href="../assets/css/signup.css" rel="stylesheet">
     <link href="../bower_components/cropper/dist/cropper.min.css" rel="stylesheet">
-    <link href="../assets/css/about.css" rel="stylesheet" type="text/css">
 <?php $css = ob_get_clean() ?>
 
 <?php ob_start() ?>

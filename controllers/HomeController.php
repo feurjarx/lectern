@@ -79,6 +79,7 @@ class HomeController extends BaseController
             /** @var Ad[] $ads */
             $ads = $qb->getQuery()->getResult();
 
+            $result = [];
             foreach ($ads as $ad) {
 
                 $person = $ad->getPerson();

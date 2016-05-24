@@ -12,6 +12,8 @@ require_once __DIR__ . '/../model/Cryptograph.php';
 
 class BaseController
 {
+    protected $isFlash = true;
+
     /**
      * BaseController constructor.
      * @param $options
@@ -21,12 +23,18 @@ class BaseController
         $this->em = $options['em'];
         $this->conf = $options['conf'];
 
+        Utils::isAjax() && $this->isFlash = false;
+
         $this->initCurrentUser($_COOKIE);
 
         if (isset($options['is_verify']) && $options['is_verify'] && is_null($this->currentUser)) {
             header('Location: ' . Utils::getHttpHost() . '/' . 'access/denied');
             exit();
         }
+    }
+
+    function __destruct() {
+        $this->isFlash && $_SESSION['previos_flash'] = isset($_SESSION['flash']) ? $_SESSION['flash'] : null;
     }
 
     /**
@@ -107,8 +115,7 @@ class BaseController
             }
         }
 
-        $_SESSION['previos_flash'] = isset($_SESSION['flash']) ? $_SESSION['flash'] : null;
-        $_SESSION['flash'] = $this->flash = $this->currentUser  ? md5(time() . $this->currentUser->getEmail()) : null;
+        $this->isFlash && $_SESSION['flash'] = $this->flash = $this->currentUser  ? md5(time() . $this->currentUser->getEmail()) : null;
 
         return $this;
     }

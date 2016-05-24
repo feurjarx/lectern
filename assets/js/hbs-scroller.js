@@ -16,8 +16,6 @@ function Scrollbox(options) {
     return this;
 }
 
-Scrollbox.prototype.render = null;
-
 Scrollbox.prototype.init = function () {
 
     var self = this;
@@ -71,8 +69,9 @@ Scrollbox.prototype.load = function () {
             console.error(err);
 
             self.$scrollbox.empty().append(render({
-                error: 1,
-                err_msg: self.message
+                notyfication: 1,
+                type: 'danger',
+                message: 'Ошибка сервера'
             }));
 
             self.error instanceof Function && self.error(err);
@@ -85,6 +84,7 @@ Scrollbox.prototype.load = function () {
     });
 };
 
+Scrollbox.prototype.render = null;
 Scrollbox.prototype.beforeSend = null;
 Scrollbox.prototype.success = null;
 Scrollbox.prototype.error = null;
