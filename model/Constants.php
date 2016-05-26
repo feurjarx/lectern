@@ -14,6 +14,7 @@ class Constants
 
         STUDENT_ROLE = 'student',
         EMPLOYER_ROLE = 'employer',
+        ADMIN_ROLE = 'root',
 
         UPLOAD_PHOTOS_DIR = __DIR__ . '/../uploads/photos/',
         UPLOAD_PHOTOS_URL = '/uploads/photos/',

@@ -5,11 +5,12 @@
  * Time: 20:58
  */
 ?>
-<?php $title = 'Личный кабинет'; ?>
+<?php $titlePage = 'Личный кабинет'; ?>
 
 <?php ob_start() ?>
-    <link href="../assets/css/cabinet.css" rel="stylesheet">
-    <link href="../assets/css/ads.css" rel="stylesheet">
+    <link href="<?php echo Utils::getHttpHost(); ?>/assets/css/cabinet.css" rel="stylesheet">
+    <link href="<?php echo Utils::getHttpHost(); ?>/assets/css/ads.css" rel="stylesheet">
+    <link href="<?php echo Utils::getHttpHost(); ?>/bower_components/bootstrap-select/dist/css/bootstrap-select.min.css" rel="stylesheet" >
 <?php $css = ob_get_clean() ?>
 
 <?php $active_item = 'cabinet' ?>

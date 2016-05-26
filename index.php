@@ -70,6 +70,9 @@ switch (true) {
     case ('/'. Constants::EMPLOYER_ROLE . '/cabinet' === $uri):
         (new CabinetController($options))->indexAction(Constants::EMPLOYER_ROLE);
         break;
+    case ('/'. Constants::ADMIN_ROLE . '/cabinet' === $uri):
+        (new CabinetController($options))->indexAction(Constants::EMPLOYER_ROLE);
+        break;
     case ('/employer/ad/plus' === $uri && isset($_POST)):
         (new CabinetController($options))->createAjaxAction($_POST);
         break;

@@ -4,7 +4,7 @@
 <head>
     
     <title>
-        <?php echo (isset($title) && $title) ? $title : 'Главная' ?>
+        <?php echo (isset($titlePage) && $titlePage) ? $titlePage : 'Главная' ?>
     </title>
 
     <meta charset="utf-8">

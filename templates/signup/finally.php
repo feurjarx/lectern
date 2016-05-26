@@ -63,7 +63,7 @@ use Entity\User;
         </div>
 
         <div class="form-group">
-            <label for="father-name-input">Пол</label>
+            <label>Пол</label>
             <br>
             <div class="btn-group" data-toggle="buttons">
                 <label class="btn btn-default active">

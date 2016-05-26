@@ -25,7 +25,7 @@
             <div class="btn-group btn-group-md cabinet-actions">
 
                 <button class="btn btn-success" type="button" data-toggle="modal" data-target="#ad-plus-modal">
-                    <em class="glyphicon glyphicon glyphicon-plus"></em> Добавить
+                    <em class="glyphicon glyphicon-plus"></em> Добавить
                 </button>
                 <button class="btn btn-danger" type="button" id="ad-remove-button">
                     <em class="glyphicon glyphicon-trash"></em> Удалить

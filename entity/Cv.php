@@ -25,11 +25,14 @@ class Cv
     /** @Id @Column(name="id", type="integer") @GeneratedValue **/
     private $id;
 
+    /** @Column(name="sphere", type="string") **/
+    private $sphere;
+
     /** @Column(name="access_type", type="string") **/
     private $accessType;
 
-    /** @Column(name="desire_functions", type="string") **/
-    private $desireFunctions;
+    /** @Column(name="hobbies", type="string") **/
+    private $hobbies;
 
     /** @Column(name="created_at", type="integer") **/
     private $createdAt;
@@ -102,18 +105,18 @@ class Cv
     /**
      * @return mixed
      */
-    public function getDesireFunctions()
+    public function getHobbies()
     {
-        return $this->desireFunctions;
+        return $this->hobbies;
     }
 
     /**
-     * @param mixed $desireFunctions
+     * @param mixed $hobbies
      * @return $this
      */
-    public function setDesireFunctions($desireFunctions)
+    public function setHobbies($hobbies)
     {
-        $this->desireFunctions = $desireFunctions;
+        $this->hobbies = $hobbies;
         return $this;
     }
 
@@ -350,4 +353,22 @@ class Cv
         $this->about = $about;
         return $this;
     }
+
+    /**
+     * @return mixed
+     */
+    public function getSphere()
+    {
+        return $this->sphere;
+    }
+
+    /**
+     * @param mixed $sphere
+     */
+    public function setSphere($sphere)
+    {
+        $this->sphere = $sphere;
+    }
+
+
 }

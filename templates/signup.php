@@ -1,4 +1,4 @@
-<?php $title = 'Регистрация'; ?>
+<?php $titlePage = 'Регистрация'; ?>
 
 <?php ob_start() ?>
     <link href="../assets/css/signup.css" rel="stylesheet">

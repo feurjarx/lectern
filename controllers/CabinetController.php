@@ -43,10 +43,20 @@ class CabinetController extends BaseController
 
         switch ($role) {
             case Constants::STUDENT_ROLE:
+
+                $cv = $this->currentUser->getPerson()->getCvs()->first();
                 break;
             case Constants::EMPLOYER_ROLE:
 
                 /** @var Ad[] $ads */
+                // TODO: вывод штук 10 сразу с is_confirm = 1
+                $ads = $this->currentUser->getPerson()->getAds();
+                break;
+
+            case Constants::ADMIN_ROLE:
+
+                /** @var Ad[] $ads */
+                // TODO: вывод штук 10 сразу с is_confirm = 0
                 $ads = $this->currentUser->getPerson()->getAds();
                 break;
         }
@@ -164,12 +174,12 @@ class CabinetController extends BaseController
 
         } else {
 
-            $jsonResult = [
+            $result = [
                 'type' => 'error',
                 'message' => 'Неверные данные'
             ];
         }
 
-        echo json_encode($jsonResult);
+        echo json_encode($result);
     }
 }

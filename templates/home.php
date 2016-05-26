@@ -1,4 +1,4 @@
-<?php $title = 'Доска объявлений'; ?>
+<?php $titlePage = 'Доска объявлений'; ?>
 
 <?php ob_start() ?>
     <link href="../assets/css/ads.css" rel="stylesheet">

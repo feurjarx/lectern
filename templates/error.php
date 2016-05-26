@@ -1,4 +1,4 @@
-<?php $title = 'Ошибка' ?>
+<?php $titlePage = 'Ошибка' ?>
 
 <?php ob_start() ?>
 
