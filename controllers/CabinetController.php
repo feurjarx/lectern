@@ -42,8 +42,7 @@ class CabinetController extends BaseController
 
         switch ($this->getCurrentUser()->getRole()) {
             case Constants::STUDENT_ROLE:
-
-                $cv = $this->currentUser->getPerson()->getCvs()->first();
+                
                 break;
             case Constants::EMPLOYER_ROLE:
 
@@ -185,41 +184,57 @@ class CabinetController extends BaseController
     public function saveCvAction($request)
     {
         $params = Utils::arraySerialization([
+            'flash',
             'access_type',
             'skills',
             'work_experience',
             'education'
             
         ], $request);
-        
+
         if (!in_array(null, $params)) {
-            
-            $params = Utils::arraySerialization([
-                'sphere',
-                'hobbies',
-                'ext_education',
-                'desire_salary',
-                'schedule',
-                'foreign_languages',
-                'is_drivers_license',
-                'is_smoking',
-                'is_married',
-                'about',
 
-            ], $request, $params);
+            if ($params['flash'] === $_SESSION['previos_flash']) {
 
-            try {
 
-                $em = $this->em;
+                $params = Utils::arraySerialization([
+                    'id',
+                    'sphere',
+                    'hobbies',
+                    'ext_education',
+                    'desire_salary',
+                    'schedule',
+                    'foreign_languages',
+                    'is_drivers_license',
+                    'is_smoking',
+                    'is_married',
+                    'about',
 
-                $cv = Utils::fillCv($params);
-                $cv->setPerson($em->getReference('Entity\Person', $this->currentUser->getPerson()->getId()));
+                ], $request, $params);
 
-                $em->persist($cv);
-                $em->flush($cv);
+                try {
 
-            } catch (Exception $exp) {
+                    $em = $this->em;
 
+                    $cv = (($cvId = $params['id']) && is_numeric($cvId)) ? $em->find('Entity\Cv', $cvId) : new Cv();
+
+                    $cv = Utils::fillCv($params, $cv);
+                    $cv->setPerson($em->getReference('Entity\Person', $this->currentUser->getPerson()->getId()));
+
+                    $em->persist($cv);
+                    $em->flush($cv);
+
+                    header('Location: ' . Utils::getHttpHost() . '/cabinet');
+                    exit();
+
+                } catch (Exception $exp) {
+
+                }
+
+            } else {
+
+                header('Location: /access/denied');
+                exit();
             }
 
         } else {

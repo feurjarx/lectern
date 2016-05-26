@@ -4,8 +4,15 @@
  * Date: 05.05.2016
  * Time: 21:05
  */
+
+use Entity\Cv;
+
 /** @var $this BaseController */
+/** @var Cv $cv */
+$cv = ($user = $this->getCurrentUser()) ? $user->getPerson()->getCvs()->first() : null;
+
 ?>
+
 <?php ob_start() ?>
     <script src="<?php echo Utils::getHttpHost(); ?>/bower_components/bootstrap-select/dist/js/bootstrap-select.min.js"></script>
 <?php $afterJs = ob_get_clean(); ?>
@@ -21,7 +28,7 @@
 
                 <?php foreach (Utils::getSpheresTitles() as $sphere => $title): ?>
 
-                    <option value="<?php echo $sphere; ?>"><?php echo $title ?></option>
+                    <option <?php echo $cv ? ( $cv->getSphere() === $sphere ? 'selected' : '' ) : '' ?> value="<?php echo $sphere; ?>"><?php echo $title; ?></option>
 
                 <?php endforeach; ?>
 
@@ -36,7 +43,7 @@
                 <span class="input-group-addon">
                     <i class="fa fa-hand-rock-o"></i>
                 </span>
-                <textarea required style="resize: vertical" rows="7" class="form-control" name="skills" id="skills-textarea" placeholder="Перечислите навыки и языки программирования, которыми владеете"></textarea>
+                <textarea required style="resize: vertical" rows="7" class="form-control" name="skills" id="skills-textarea" placeholder="Перечислите навыки и языки программирования, которыми владеете"><?php echo $cv ? $cv->getSkills() : '' ?></textarea>
                 <span class="input-group-addon">
                     <span class="glyphicon glyphicon-asterisk"></span>
                 </span>
@@ -53,7 +60,7 @@
 
                 <?php foreach (Utils::getWorkExperiencesTitles() as $experience => $title): ?>
 
-                    <option value="<?php echo $experience; ?>"><?php echo $title ?></option>
+                    <option <?php echo $cv ? ( $cv->getWorkExperience() === $experience ? 'selected' : '' ) : '' ?> value="<?php echo $experience; ?>"><?php echo $title ?></option>
 
                 <?php endforeach; ?>
 
@@ -69,7 +76,7 @@
 
                 <?php foreach (Utils::getEducationsTitles() as $education => $title): ?>
 
-                    <option value="<?php echo $education; ?>"><?php echo $title ?></option>
+                    <option <?php echo $cv ? ( $cv->getEducation() === $education ? 'selected' : '' ) : '' ?>  value="<?php echo $education; ?>"><?php echo $title ?></option>
 
                 <?php endforeach; ?>
 
@@ -85,7 +92,7 @@
 
                 <?php foreach (Utils::getSchedulesTitles() as $schedule => $title): ?>
 
-                    <option value="<?php echo $schedule; ?>"><?php echo $title ?></option>
+                    <option <?php echo $cv ? ( $cv->getSchedule() === $schedule ? 'selected' : '' ) : '' ?> value="<?php echo $schedule; ?>"><?php echo $title ?></option>
 
                 <?php endforeach; ?>
 
@@ -98,7 +105,8 @@
             <label for="desire-salary-input">Заработная плата</label>
             <div class="input-group">
                 <span class="input-group-addon"><i class="fa fa-money" aria-hidden="true"></i></span>
-                <input type="number" step="100" class="form-control" name="desire_salary" id="desire-salary-input" placeholder="Введите желаемую з/п">
+                <input value="<?php echo $cv ? $cv->getDesireSalary() : '' ?>"
+                    type="number" step="100" class="form-control" name="desire_salary" id="desire-salary-input" placeholder="Введите желаемую з/п">
                 <span class="input-group-addon"><i class="fa fa-rub" aria-hidden="true"></i></span>
             </div>
         </div>
@@ -111,7 +119,8 @@
                 <span class="input-group-addon">
                     <i class="fa fa-language"></i>
                 </span>
-                <input type="text" class="form-control" name="foreign_languages" id="foreign-languages-input" placeholder="Перечислите через запятую">
+                <input value="<?php echo $cv ? $cv->getForeignLanguages() : '' ?>"
+                    type="text" class="form-control" name="foreign_languages" id="foreign-languages-input" placeholder="Перечислите через запятую">
             </div>
         </div>
     </div>
@@ -123,7 +132,7 @@
                 <span class="input-group-addon">
                     <i class="fa fa-graduation-cap"></i>
                 </span>
-                <textarea style="resize: vertical" rows="3" class="form-control" name="ext_education" id="ext-education-textarea" placeholder="Если есть, то укажите сведения о доп. образовании"></textarea>
+                <textarea style="resize: vertical" rows="3" class="form-control" name="ext_education" id="ext-education-textarea" placeholder="Если есть, то укажите сведения о доп. образовании"><?php echo $cv ? $cv->getExtEducation() : '' ?></textarea>
             </div>
         </div>
     </div>
@@ -135,7 +144,7 @@
             <span class="input-group-addon">
                 <i class="fa fa-comment-o"></i>
             </span>
-                <textarea style="resize: vertical" rows="5" class="form-control" name="about" id="about-textarea" placeholder="Напишите о себе то, что считаете желательно знать будущему работодателю"></textarea>
+                <textarea style="resize: vertical" rows="5" class="form-control" name="about" id="about-textarea" placeholder="Напишите о себе то, что считаете желательно знать будущему работодателю"><?php echo $cv ? $cv->getAbout() : '' ?></textarea>
             </div>
         </div>
     </div>
@@ -147,21 +156,26 @@
             <span class="input-group-addon">
                 <i class="fa fa-arrow-circle-o-right"></i>
             </span>
-                <textarea style="resize: vertical" rows="5" class="form-control" name="hobbies" id="hobbies-textarea" placeholder="Напишите о своих увлечениях, а также то, чем бы желали заниматься"></textarea>
+                <textarea style="resize: vertical" rows="5" class="form-control" name="hobbies" id="hobbies-textarea" placeholder="Напишите о своих увлечениях, а также то, чем бы желали заниматься"><?php echo $cv ? $cv->getHobbies() : '' ?></textarea>
             </div>
         </div>
     </div>
 
-
     <div class="col-lg-6 col-md-6 col-xs-12">
         <div class="form-group">
-            <input id="is-drivers-license-checkbox" name="is_drivers_license" type="checkbox" data-toggle="checkbox-x" data-size="sm" data-three-state="false">
+            <input value="<?php echo $cv ? $cv->getIsDriversLicense() : '' ?>" <?php echo $cv ? ($cv->getIsDriversLicense() ? 'checked' : '') : '' ?>
+                id="is-drivers-license-checkbox" name="is_drivers_license" type="checkbox" data-toggle="checkbox-x" data-size="sm" data-three-state="false"
+            />
             <label for="is-drivers-license-checkbox">Водительское удостоверение</label>
             <br>
-            <input id="is-smoking-checkbox" name="is_smoking" type="checkbox" data-toggle="checkbox-x" data-size="sm" data-three-state="false">
+            <input value="<?php echo $cv ? $cv->getIsSmoking() : '' ?>" <?php echo $cv ? ($cv->getIsSmoking() ? 'checked' : '') : '' ?>
+                id="is-smoking-checkbox" name="is_smoking" type="checkbox" data-toggle="checkbox-x" data-size="sm" data-three-state="false"
+            />
             <label for="is-smoking-checkbox">Курение сигарет</label>
             <br>
-            <input id="is-married-checkbox" name="is_married" type="checkbox" data-toggle="checkbox-x" data-size="sm" data-three-state="false">
+            <input value="<?php echo $cv ? $cv->getIsMarried() : '' ?>" <?php echo $cv ? ($cv->getIsMarried() ? 'checked' : '') : '' ?>
+                id="is-married-checkbox" name="is_married" type="checkbox" data-toggle="checkbox-x" data-size="sm" data-three-state="false"
+            />
             <label for="is-married-checkbox">В браке</label>
         </div>
 
@@ -175,14 +189,18 @@
 
         <div class="col-lg-9 col-md-9 col-xs-9 padding-none">
             <div class="btn-group" data-toggle="buttons">
-                <label class="btn btn-default active">
+                <label class="btn btn-default<?php echo $cv ? ( $cv->getAccessType() === 'public' ? ' active' : '' ) : '' ?>">
                     <span class="fa fa-unlock"></span>
-                    <input type="radio" name="access_type" value="public" autocomplete="off" checked>
+                    <input <?php echo $cv ? ( $cv->getAccessType() === 'public' ? 'checked' : '' ) : '' ?>
+                        type="radio" name="access_type" value="public" autocomplete="off"
+                    />
                     <span> Публичный</span>
                 </label>
-                <label class="btn btn-default">
+                <label class="btn btn-default<?php echo $cv ? ( $cv->getAccessType() === 'private' ? ' active' : '' ) : '' ?>">
                     <span class="fa fa-unlock-alt"></span>
-                    <input type="radio" name="access_type" value="private" autocomplete="off">
+                    <input <?php echo $cv ? ( $cv->getAccessType() === 'private' ? 'checked' : '' ) : '' ?>
+                        type="radio" name="access_type" value="private" autocomplete="off"
+                    />
                     <span> Закрытый</span>
                 </label>
             </div>
@@ -190,11 +208,13 @@
 
         <div class="col-lg-3 col-md-3 col-xs-3 padding-none">
             <div class="btn-group btn-group-md pull-right">
-                <button class="btn btn-success pull-right" type="submit">
+                <button name="id" value="<?php echo $cv ? $cv->getId() : ''; ?>" class="btn btn-success pull-right" type="submit">
                     <em class="glyphicon glyphicon-floppy-disk"></em>
                     <span class="hidden-xs">Сохранить</span>
                 </button>
             </div>
         </div>
     </div>
+
+    <input type="hidden" name="flash" value="<?php echo $_SESSION['flash']; ?>">
 </form>

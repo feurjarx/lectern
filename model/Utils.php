@@ -111,10 +111,8 @@ class Utils
      * @param array $params
      * @return Cv
      */
-    public static function fillCv(array $params)
+    public static function fillCv(array $params, Cv $cv)
     {
-        $cv = new Cv();
-
         foreach ($params as $key => $value) {
             switch ($key) {
                 case 'sphere': $cv->setSphere($value); break;
