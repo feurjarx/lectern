@@ -147,7 +147,7 @@ class Cv
     }
 
     /**
-     * @param Person $person
+     * @param $person
      * @return $this
      */
     public function setPerson($person)
@@ -363,12 +363,12 @@ class Cv
     }
 
     /**
-     * @param mixed $sphere
+     * @param $sphere
+     * @return $this
      */
     public function setSphere($sphere)
     {
         $this->sphere = $sphere;
+        return $this;
     }
-
-
 }

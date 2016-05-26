@@ -6,9 +6,13 @@
  */
 require_once __DIR__ . '/../entity/User.php';
 require_once __DIR__ . '/../entity/Ad.php';
+require_once __DIR__ . '/../entity/Cv.php';
 require_once __DIR__ . '/../entity/Person.php';
 
+use Entity\User;
 use Entity\Ad;
+use Entity\Cv;
+use Entity\Person;
 
 class CabinetController extends BaseController
 {
@@ -32,16 +36,11 @@ class CabinetController extends BaseController
     private $templatePath = __DIR__ . '/../templates/cabinet.php';
 
     /**
-     * @param $role
+     * index Cabinet
      */
-    function indexAction($role) {
-        
-        if ($this->currentUser->getRole() !== $role) {
-            header('Location: ' . Utils::getHttpHost() . '/' . 'access/denied');
-            exit();
-        }
+    function indexAction() {
 
-        switch ($role) {
+        switch ($this->getCurrentUser()->getRole()) {
             case Constants::STUDENT_ROLE:
 
                 $cv = $this->currentUser->getPerson()->getCvs()->first();
@@ -68,7 +67,7 @@ class CabinetController extends BaseController
      * @param $request
      * @throws \Doctrine\ORM\ORMException
      */
-    public function createAjaxAction($request)
+    public function createAdAjaxAction($request)
     {
         $params = Utils::arraySerialization([
             'name',
@@ -111,7 +110,7 @@ class CabinetController extends BaseController
      * @param $request
      * @throws \Doctrine\ORM\ORMException
      */
-    public function removeAjaxAction($request)
+    public function removeAdAjaxAction($request)
     {
         if (isset($request['ids']) && $request['ids']) {
 
@@ -181,5 +180,53 @@ class CabinetController extends BaseController
         }
 
         echo json_encode($result);
+    }
+
+    public function saveCvAction($request)
+    {
+        $params = Utils::arraySerialization([
+            'access_type',
+            'skills',
+            'work_experience',
+            'education'
+            
+        ], $request);
+        
+        if (!in_array(null, $params)) {
+            
+            $params = Utils::arraySerialization([
+                'sphere',
+                'hobbies',
+                'ext_education',
+                'desire_salary',
+                'schedule',
+                'foreign_languages',
+                'is_drivers_license',
+                'is_smoking',
+                'is_married',
+                'about',
+
+            ], $request, $params);
+
+            try {
+
+                $em = $this->em;
+
+                $cv = Utils::fillCv($params);
+                $cv->setPerson($em->getReference('Entity\Person', $this->currentUser->getPerson()->getId()));
+
+                $em->persist($cv);
+                $em->flush($cv);
+
+            } catch (Exception $exp) {
+
+            }
+
+        } else {
+            
+            
+        }
+
+        require_once $this->templatePath;
     }
 }

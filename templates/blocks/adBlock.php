@@ -6,7 +6,7 @@
  */
 use Entity\Ad;
 
-$isCabinet = '/'. Constants::EMPLOYER_ROLE . '/cabinet' === parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
+$isCabinet = '/cabinet' === parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
 
 /** @var Ad $ad */
 ?>

@@ -35,7 +35,7 @@
                 <?php if ($this->currentUser): ?>
 
                     <li class="<?php echo isset($active_item) && $active_item === 'cabinet' ? 'active' : '' ?>">
-                        <a href="/<?php echo $this->currentUser->getRole(); ?>/cabinet">
+                        <a href="/cabinet">
 
                             <?php if ($this->currentUser->getRole() === Constants::STUDENT_ROLE): ?>
 

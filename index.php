@@ -64,20 +64,21 @@ switch (true) {
         break;
 
     // CABINET
-    case ('/'. Constants::STUDENT_ROLE . '/cabinet' === $uri):
-        (new CabinetController($options))->indexAction(Constants::STUDENT_ROLE);
+    case ('/cabinet' === $uri):
+        (new CabinetController($options))->indexAction();
         break;
-    case ('/'. Constants::EMPLOYER_ROLE . '/cabinet' === $uri):
-        (new CabinetController($options))->indexAction(Constants::EMPLOYER_ROLE);
-        break;
-    case ('/'. Constants::ADMIN_ROLE . '/cabinet' === $uri):
-        (new CabinetController($options))->indexAction(Constants::EMPLOYER_ROLE);
-        break;
+    
+    // AD
     case ('/employer/ad/plus' === $uri && isset($_POST)):
-        (new CabinetController($options))->createAjaxAction($_POST);
+        (new CabinetController($options))->createAdAjaxAction($_POST);
         break;
     case ('/employer/ad/remove' === $uri && isset($_POST)):
-        (new CabinetController($options))->removeAjaxAction($_POST);
+        (new CabinetController($options))->removeAdAjaxAction($_POST);
+        break;
+    
+    // CV
+    case ('/student/cv/save' === $uri && isset($_POST)):
+        (new CabinetController($options))->saveCvAction($_POST);
         break;
 
     // ERRORS

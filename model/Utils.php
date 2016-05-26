@@ -5,6 +5,12 @@
  * Date: 21.05.2016
  * Time: 13:10
  */
+
+use Entity\Cv;
+
+require_once __DIR__ . '/../entity/Cv.php';
+
+
 class Utils
 {
     /**
@@ -99,5 +105,35 @@ class Utils
             'elastic' => 'Гибкий',
             'shift'   => 'Сменный'
         ];
+    }
+
+    /**
+     * @param array $params
+     * @return Cv
+     */
+    public static function fillCv(array $params)
+    {
+        $cv = new Cv();
+
+        foreach ($params as $key => $value) {
+            switch ($key) {
+                case 'sphere': $cv->setSphere($value); break;
+                case 'access_type': $cv->setAccessType($value); break;
+                case 'hobbies': $cv->setHobbies($value); break;
+                case 'skills': $cv->setSkills($value); break;
+                case 'work_experience': $cv->setWorkExperience($value); break;
+                case 'education': $cv->setEducation($value); break;
+                case 'ext_education': $cv->setExtEducation($value); break;
+                case 'desire_salary': $cv->setDesireSalary($value); break;
+                case 'schedule': $cv->setSchedule($value); break;
+                case 'foreign_languages': $cv->setForeignLanguages($value); break;
+                case 'is_drivers_license': $cv->setIsDriversLicense($value); break;
+                case 'is_smoking': $cv->setIsSmoking($value); break;
+                case 'is_married': $cv->setIsMarried($value); break;
+                case 'about': $cv->setAbout($value); break;
+            }
+        }
+
+        return $cv;
     }
 }
