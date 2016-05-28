@@ -25,7 +25,7 @@ class HomeController extends BaseController
     
     public function indexAction()
     {
-        /*$em = $this->em;
+        $em = $this->em;
 
         $qb = $em->createQueryBuilder();
 
@@ -34,10 +34,10 @@ class HomeController extends BaseController
             ->from('Entity\Ad', 'ad')
             ->orderBy('ad.publishedAt', 'DESC')
             ->setMaxResults(10)
-        ;*/
+        ;
 
         /** @var Ad[] $ads */
-//        $ads = $qb->getQuery()->getResult();
+        $ads = $qb->getQuery()->getResult();
 
         $active_item = 'home';
         

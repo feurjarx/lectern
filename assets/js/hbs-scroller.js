@@ -5,11 +5,17 @@ function Scrollbox(options) {
 
     this.$scrollbox = $('.scrollbox');
 
+    Object.defineProperty(this.$scrollbox, 'count', {
+        get: function () {
+            return $(this).find('.scroller-item').length;
+        }
+    });
+
     this.params = $.extend({}, {
         limit: 10,
         message: 'Ничего не найдено',
         hbs: this.$scrollbox.data('hbs'),
-        ajax_url: this.$scrollbox.data('ajax-url'),
+        ajax_url: this.$scrollbox.data('ajax-url')
 
     }, options);
 
@@ -20,18 +26,16 @@ Scrollbox.prototype.init = function () {
 
     var self = this;
 
+    $(window).scroll(function (e) {
+        $(window).scrollTop() + $(window).height() == $(document).height() && !$('#scroller-spinner').length && self.load();
+    });
+
     Object.isFill(this.params) && $.ajax({
+
         url: this.params['hbs'],
         cache: true,
         success: function (source) {
-
             self.render = Handlebars.compile(source);
-
-            $(window).scroll(function (e) {
-                $(window).scrollTop() + $(window).height() == $(document).height() && !$('#scroller-spinner').length && self.load();
-            });
-
-            self.load();
         }
     });
 };
@@ -41,11 +45,12 @@ Scrollbox.prototype.load = function () {
     var self = this;
 
     $.ajax({
+
         url: self.params['ajax_url'],
         type: 'POST',
         dataType: 'JSON',
         data: {
-            offset: self.$scrollbox.find('.scroller-item').length,
+            offset: self.$scrollbox.count,
             limit: self.params['limit']
         },
         beforeSend: function () {
@@ -64,6 +69,10 @@ Scrollbox.prototype.load = function () {
         },
         success: function (data) {
             self.success instanceof Function && self.success(data, self.$scrollbox, self.render);
+
+            if (data.length < self.params.limit) {
+                $(window).off('scroll');
+            }
         },
         error: function (err) {
             console.error(err);

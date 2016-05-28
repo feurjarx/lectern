@@ -26,18 +26,14 @@ $(function () {
                 data.forEach(function (it) {
                     self.$scrollbox.append(self.render(it));
                 });
-                
-            } else {
+
+            } else if (!self.$scrollbox.count) {
 
                 self.$scrollbox.append(self.render({
                     notyfication: 1,
                     type: 'info',
                     message: self.params.message
                 }));
-            }
-
-            if (data.length < self.params.limit) {
-                $(window).off('scroll');
             }
         }
     };

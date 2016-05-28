@@ -43,14 +43,9 @@ $isCabinet = '/cabinet' === parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
                 <h3 class="margin-none">
                     <a href="#" class="ellipsis-box font-size-xs" style="width: 70%"><?php echo ucfirst($ad->getName()); ?></a>
                 </h3>
-                <?php echo $ad->getPerson()->getFullName(); ?>
 
-                <?php if ($org = $ad->getPerson()->getOrganisation()): ?>
-
-                    (<?php echo $org; ?>)
-
-                <?php endif; ?>
-
+                <span><?php echo $ad->getPerson()->getFullName(); ?></span>
+                <span>(<?php echo $ad->getPerson()->getOrganisation(); ?>)</span>
                 <br>
 
             <?php endif; ?>
@@ -84,4 +79,3 @@ $isCabinet = '/cabinet' === parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
     </span>
 
 <?php endif; ?>
-
