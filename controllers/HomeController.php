@@ -135,11 +135,18 @@ class HomeController extends BaseController
 
             if ($params['flash'] === $_SESSION['previos_flash']) {
 
+                /** @var Ad $ad */
                 if ($ad = $this->em->find('Entity\Ad', $params['ad_id'])) {
                     /** @var Cv $cv */
                     $cv = $user->getPerson()->getCvs()[0];
 
-                    // TODO: sending cv
+                    (new Letter())
+                        ->setTo([ $ad->getPerson()->getUser()->getEmail() => '' ])
+                        ->setFrom("yakoann03@gmail.com", "Ваш lectern")
+                        ->setSubject("Резюме от " . $cv->getPerson()->getFullName())
+                        ->setBody('')
+                        ->send()
+                    ;
 
                     $result = [
                         'type' => 'success',

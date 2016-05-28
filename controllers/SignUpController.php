@@ -69,25 +69,17 @@ class SignUpController extends BaseController
                     $em->persist($person);
 
                     $em->flush();
-
-                    $transport = Swift_SmtpTransport::newInstance('smtp.gmail.com', 465, 'ssl')
-                        ->setUsername('yakoann03@gmail.com')
-                        ->setPassword('Pm4h1nCkCZd4');
-
-                    $mailer = Swift_Mailer::newInstance($transport);
-
+                    
                     $confirmUrl = $_SERVER['HTTP_HOST'] . '/signup/confirm?' . 'id=' . $user->getId() . '&hash=' . md5( strval($user->getCreatedAt()) . $user->getPassword() );
 
-                    $message = Swift_Message::newInstance();
-                    $message
+                    (new Letter())
                         ->setTo([ $params['email'] => '' ])
                         ->setFrom("yakoann03@gmail.com", "Ваш lectern")
                         ->setSubject("Подтверждение регистрации")
-                        ->setBody('Добро пожаловать на <a href="http://lectern/">lectern</a>. Для подтверждения регистрации перейдите по <a href="' . $confirmUrl . '">http://'. $confirmUrl .'</a>', 'text/html')
+                        ->setBody('Добро пожаловать на <a href="http://lectern/">lectern</a>. Для подтверждения регистрации перейдите по <a href="' . $confirmUrl . '">http://'. $confirmUrl .'</a>')
+                        ->send()
                     ;
-
-                    $mailer->send($message);
-
+                    
                     $isSuccess = 1;
                     $doneMsg = 'Заявка принята. На почтовый ящик ' . $params['email'] . ' отправлено письмо с подтверждением.';
 
