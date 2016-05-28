@@ -13,6 +13,7 @@
     "noty": "^2.3.8",
     "google-fonts": "*",
     "handlebars": "^4.0.5",
-    "bootstrap-select": "^1.10.0"
+    "bootstrap-select": "^1.10.0",
+    "qtip2": "^2.2.1"
   }
 }

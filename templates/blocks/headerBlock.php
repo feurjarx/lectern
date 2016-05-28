@@ -4,6 +4,8 @@
  * Date: 18.05.2016
  * Time: 22:29
  */
+
+/** @var $this BaseController */
 ?>
 
 <nav class="navbar navbar-default margin-none-xs">
@@ -48,7 +50,11 @@
                             <?php endif; ?>
 
                             <span>Личный кабинет</span>
-                            
+
+                            <?php if (($user = $this->getCurrentUser()) && $user->getRole() === Constants::STUDENT_ROLE && !$user->getPerson()->getCvs()->count()): ?>
+                                <span style="color: darkorange" class="fa fa-exclamation-circle" data-qtip-theme="dark" data-qtip-at="right center" title="Создайте резюме"></span>
+                            <?php endif; ?>
+
                         </a>
                     </li>
 

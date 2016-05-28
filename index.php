@@ -69,16 +69,16 @@ switch (true) {
         break;
     
     // AD
-    case ('/employer/ad/plus' === $uri && isset($_POST)):
+    case ('/employer/ad/plus' === $uri && isset($_POST) && Utils::isAjax()):
         (new CabinetController($options))->createAdAjaxAction($_POST);
         break;
-    case ('/employer/ad/remove' === $uri && isset($_POST)):
+    case ('/employer/ad/remove' === $uri && isset($_POST) && Utils::isAjax()):
         (new CabinetController($options))->removeAdAjaxAction($_POST);
         break;
     
     // CV
-    case ('/student/cv/save' === $uri && isset($_POST)):
-        (new CabinetController($options))->saveCvAction($_POST);
+    case ('/student/cv/save' === $uri && isset($_POST) && Utils::isAjax()):
+        (new CabinetController($options))->saveCvAjaxAction($_POST);
         break;
 
     // ERRORS

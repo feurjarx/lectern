@@ -50,5 +50,9 @@ $(function () {
         });
     };
 
-    scrollbox .init();
+    'Handlebars'.waiting({
+        done: function () {
+            scrollbox.init();
+        }
+    });
 });

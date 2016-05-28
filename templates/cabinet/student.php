@@ -15,10 +15,11 @@ $cv = ($user = $this->getCurrentUser()) ? $user->getPerson()->getCvs()->first() 
 
 <?php ob_start() ?>
     <script src="<?php echo Utils::getHttpHost(); ?>/bower_components/bootstrap-select/dist/js/bootstrap-select.min.js"></script>
+    <script src="<?php echo Utils::getHttpHost(); ?>/assets/js/cv-save.js"></script>
 <?php $afterJs = ob_get_clean(); ?>
 
 <h1 class="text-center">Заполнение резюме</h1>
-<form action="/student/cv/save" method="post">
+<form id="cv-save-form" action="/student/cv/save" method="post">
 
     <div class="col-lg-12 col-md-12 col-xs-12">
         <div class="form-group">
@@ -189,9 +190,9 @@ $cv = ($user = $this->getCurrentUser()) ? $user->getPerson()->getCvs()->first() 
 
         <div class="col-lg-9 col-md-9 col-xs-9 padding-none">
             <div class="btn-group" data-toggle="buttons">
-                <label class="btn btn-default<?php echo $cv ? ( $cv->getAccessType() === 'public' ? ' active' : '' ) : '' ?>">
+                <label class="btn btn-default<?php echo $cv ? ( $cv->getAccessType() === 'public' ? ' active' : '' ) : ' active' ?>">
                     <span class="fa fa-unlock"></span>
-                    <input <?php echo $cv ? ( $cv->getAccessType() === 'public' ? 'checked' : '' ) : '' ?>
+                    <input <?php echo $cv ? ( $cv->getAccessType() === 'public' ? 'checked' : '' ) : 'checked' ?>
                         type="radio" name="access_type" value="public" autocomplete="off"
                     />
                     <span> Публичный</span>

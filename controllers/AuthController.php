@@ -41,7 +41,7 @@ class AuthController extends BaseController
                 setcookie('uid', $crypto->encrypt($user->getId(), $_SERVER['HTTP_HOST']), time() + 24*3600);
                 setcookie('vid', $crypto->getIvToBase64(), time() + 24*3600);
 
-                $_SESSION['current_user'] = $user->getId();
+                $_SESSION['current_user_id'] = $user->getId();
 
                 header('Location: ' . Utils::getHttpHost());
                 exit();

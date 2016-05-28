@@ -78,6 +78,16 @@ class BaseController
 
             $this->currentUser = $this->em->getRepository('Entity\User')->find($_SESSION['current_user_id']);
 
+            if (!$this->currentUser) {
+
+                unset($_COOKIE['uid']);
+                unset($_COOKIE['vid']);
+                setcookie('uid', null, -1, '/');
+                setcookie('vid', null, -1, '/');
+
+                session_unset();
+            }
+
         } else {
 
             if (isset($cookie['uid']) && $cookie['uid'] && isset($cookie['vid']) && $cookie['vid']) {

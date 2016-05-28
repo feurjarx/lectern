@@ -181,7 +181,7 @@ class CabinetController extends BaseController
         echo json_encode($result);
     }
 
-    public function saveCvAction($request)
+    public function saveCvAjaxAction($request)
     {
         $params = Utils::arraySerialization([
             'flash',
@@ -195,7 +195,6 @@ class CabinetController extends BaseController
         if (!in_array(null, $params)) {
 
             if ($params['flash'] === $_SESSION['previos_flash']) {
-
 
                 $params = Utils::arraySerialization([
                     'id',
@@ -224,24 +223,36 @@ class CabinetController extends BaseController
                     $em->persist($cv);
                     $em->flush($cv);
 
-                    header('Location: ' . Utils::getHttpHost() . '/cabinet');
-                    exit();
+                    $result = [
+                        'complete_id' => $cv->getId(),
+                        'type'        => 'success',
+                        'message'     => 'Резюме успешно сохранено!'
+                    ];
 
                 } catch (Exception $exp) {
 
+                    $result = [
+                        'type' => 'error',
+                        'message' => 'Ошибка на сервере'
+                    ];
                 }
 
             } else {
 
-                header('Location: /access/denied');
-                exit();
+                $result = [
+                    'type' => 'error',
+                    'message' => 'Ошибка доступа'
+                ];
             }
 
         } else {
-            
-            
+
+            $result = [
+                'type' => 'error',
+                'message' => 'Неверные данные'
+            ];
         }
 
-        require_once $this->templatePath;
+        echo json_encode($result);
     }
 }

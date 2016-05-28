@@ -15,6 +15,7 @@
     <link href="<?php echo Utils::getHttpHost(); ?>/bower_components/bootstrap-checkbox-x/css/checkbox-x.min.css" rel="stylesheet">
     <link href="<?php echo Utils::getHttpHost(); ?>/bower_components/components-font-awesome/css/font-awesome.min.css" rel="stylesheet">
     <link href="<?php echo Utils::getHttpHost(); ?>/bower_components/noty/demo/animate.css" rel="stylesheet">
+    <link href="<?php echo Utils::getHttpHost(); ?>/bower_components/qtip2/basic/jquery.qtip.min.css" rel="stylesheet">
 
     <!--  vendor font styles  -->
 
@@ -36,6 +37,7 @@
     <script src="<?php echo Utils::getHttpHost(); ?>/bower_components/bootstrap-checkbox-x/js/checkbox-x.min.js"></script>
     <script src="<?php echo Utils::getHttpHost(); ?>/bower_components/jquery-serialize-object/dist/jquery.serialize-object.min.js"></script>
     <script src="<?php echo Utils::getHttpHost(); ?>/bower_components/noty/js/noty/packaged/jquery.noty.packaged.min.js"></script>
+    <script src="<?php echo Utils::getHttpHost(); ?>/bower_components/qtip2/basic/jquery.qtip.min.js"></script>
 
     <!--  custom scripts  -->
     <script src="<?php echo Utils::getHttpHost(); ?>/assets/js/main.js"></script>
