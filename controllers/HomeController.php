@@ -8,6 +8,7 @@
 
 use Entity\Ad;
 use Entity\Cv;
+use Handlebars\Handlebars;
 
 class HomeController extends BaseController
 {
@@ -140,18 +141,39 @@ class HomeController extends BaseController
                     /** @var Cv $cv */
                     $cv = $user->getPerson()->getCvs()[0];
 
-                    (new Letter())
-                        ->setTo([ $ad->getPerson()->getUser()->getEmail() => '' ])
-                        ->setFrom("yakoann03@gmail.com", "Ваш lectern")
-                        ->setSubject("Резюме от " . $cv->getPerson()->getFullName())
-                        ->setBody('')
-                        ->send()
-                    ;
+                    /** @var Handlebars $engine */
+                    $engine = new Handlebars;
 
-                    $result = [
-                        'type' => 'success',
-                        'message' => 'Ваше резюме успешно отправлено работодателю!'
-                    ];
+                    try {
+
+                        $html = $engine->render(
+                            file_get_contents(__DIR__ . '/../templates/hbs/cv.hbs'), [
+                                'cv' => Utils::cvToArray($cv, false),
+                                'student' => Utils::personInformationToArray($cv->getPerson())
+                            ]
+                        );
+
+                        (new Letter())
+                            ->setTo([ $ad->getPerson()->getUser()->getEmail() => '' ])
+                            ->setFrom("yakoann03@gmail.com", "Ваш lectern")
+                            ->setSubject("Резюме от " . $cv->getPerson()->getFullName())
+                            ->setBody($html)
+                            ->send()
+                        ;
+                        
+                        $result = [
+                            'type' => 'success',
+                            'message' => 'Ваше резюме успешно отправлено работодателю!'
+                        ];
+
+                    } catch (Exception $exc) {
+
+                        $result = [
+                            'type' => 'error',
+                            'message' => 'Ошибка сервера №' . $exc->getCode()
+                        ];
+
+                    }
 
                 } else {
 

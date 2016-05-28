@@ -1,0 +1,17 @@
+Резюме от пользователя {{ student.full_name }}
+
+<hr>
+
+{{#each student }}
+    {{@key}}: {{this}}
+    <br>
+{{/each}}
+
+<hr>
+
+{{#each cv }}
+    {{@key}}: {{this}}
+    <br>
+{{/each}}
+
+<hr>
