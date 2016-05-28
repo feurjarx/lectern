@@ -8,9 +8,6 @@
 
 use Entity\Cv;
 
-require_once __DIR__ . '/../entity/Cv.php';
-
-
 class Utils
 {
     /**

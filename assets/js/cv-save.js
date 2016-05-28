@@ -7,7 +7,6 @@ $(function () {
     $('#cv-save-form').submit(function (event) {
         event.preventDefault();
 
-        debugger
         var sendData = $(this).serializeObject(),
             $submitButton = $(this).find('button[type="submit"]')
         ;

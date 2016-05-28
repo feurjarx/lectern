@@ -4,10 +4,6 @@
  * Date: 05.05.2016
  * Time: 22:17
  */
-require_once __DIR__ . '/../entity/User.php';
-require_once __DIR__ . '/../entity/Ad.php';
-require_once __DIR__ . '/../entity/Cv.php';
-require_once __DIR__ . '/../entity/Person.php';
 
 use Entity\User;
 use Entity\Ad;

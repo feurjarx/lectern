@@ -5,11 +5,6 @@
  * Time: 21:34
  */
 
-require_once __DIR__ . '/../entity/User.php';
-require_once __DIR__ . '/../entity/Person.php';
-require_once __DIR__ . '/../entity/Address.php';
-require_once __DIR__ . '/../entity/Contact.php';
-
 use Entity\User;
 use Entity\Person;
 use Entity\Address;

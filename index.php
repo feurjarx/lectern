@@ -1,14 +1,5 @@
 <?php
-require_once 'bootstrap.php';
-require_once 'model/Constants.php';
-require_once 'model/Utils.php';
-require_once 'controllers/BaseController.php';
-
-foreach (scandir(__DIR__ . '/controllers') as $f) {
-    if  (!($f === '.' || $f === '..' || $f === 'BaseController.php')) {
-        require_once __DIR__ . '/controllers/' . $f;
-    }
-}
+include 'requires.php';
 
 $options = [
     'em'   => $em,
@@ -32,7 +23,6 @@ switch (true) {
         (new HomeController($options))->getAdsAjaxAction($_POST);
         break;
 
-    
 
     // SIGNUP
     case ('/signup' === $uri):
@@ -41,9 +31,11 @@ switch (true) {
             'FILES' => $_FILES
         ]);
         break;
+
     case ('/signup/confirm' === $uri && isset($_GET['id']) && isset($_POST['password']) && isset($_POST['new_pass_session'])):
         (new SignUpController($options))->signUpFinallyAction($_REQUEST);
         break;
+
     case ('/signup/confirm' === $uri && isset($_GET['id']) && isset($_GET['hash'])):
         (new SignUpController($options))->signUpConfirmAction($_GET);
         break;
@@ -51,9 +43,11 @@ switch (true) {
     case ('/auth' === $uri && isset($_POST['login']) && isset($_POST['password'])):
         (new AuthController($options))->signInAction($_POST);
         break;
+
     case ('/logout' === $uri && isset($_POST['flash'])):
         (new AuthController($options))->logoutAction($_POST);
         break;
+
 
     // UPLOAD
     case ('/upload' === $uri && isset($_POST) && isset($_FILES)):
@@ -63,11 +57,13 @@ switch (true) {
         ]);
         break;
 
+
     // CABINET
     case ('/cabinet' === $uri):
         (new CabinetController($options))->indexAction();
         break;
     
+
     // AD
     case ('/employer/ad/plus' === $uri && isset($_POST) && Utils::isAjax()):
         (new CabinetController($options))->createAdAjaxAction($_POST);
@@ -76,15 +72,21 @@ switch (true) {
         (new CabinetController($options))->removeAdAjaxAction($_POST);
         break;
     
+    
     // CV
     case ('/student/cv/save' === $uri && isset($_POST) && Utils::isAjax()):
         (new CabinetController($options))->saveCvAjaxAction($_POST);
+        break;
+
+    case ('/student/cv/send' === $uri && isset($_POST) && Utils::isAjax()):
+        (new HomeController($options))->cvSendingAjaxAction($_POST);
         break;
 
     // ERRORS
     case ('/access/denied' === $uri):
         (new ErrorController($options))->errorRenderAction(Constants::ERROR_ACCESS_DENIED);
         break;
+
     default:
         header('Status: 404 Not Found');
         (new ErrorController($options))->errorRenderAction(Constants::ERROR_NOT_FOUND);

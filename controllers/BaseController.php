@@ -8,8 +8,6 @@
 use Doctrine\ORM\EntityManager;
 use Entity\User;
 
-require_once __DIR__ . '/../model/Cryptograph.php';
-
 class BaseController
 {
     protected $isFlash = true;

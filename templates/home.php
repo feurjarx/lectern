@@ -25,7 +25,7 @@
             <?php /** @var \Entity\Ad[] $ads */ ?>
             <?php foreach ($ads as $index => $ad): ?>
 
-                <li class="col-lg-12 col-md-12 col-xs-12 list-group-item ad scroller-item">
+                <li class="col-lg-12 col-md-12 col-xs-12 list-group-item ad scroller-item" data-id="<?php echo $ad->getId(); ?>">
 
                     <?php include __DIR__ . '/blocks/adBlock.php'?>
 
@@ -34,7 +34,7 @@
             <?php endforeach; ?>
 
         <?php else: ?>
-            
+
             <li class="alert alert-info">
                 <strong>
                     <span class="sr-only">Внимание!</span>
@@ -45,6 +45,8 @@
         <?php endif; ?>
 
     </ul>
+
+    <input type="hidden" name="flash" value="<?php $_SESSION['flash'] ?>">
 
 <?php $content = ob_get_clean() ?>
 

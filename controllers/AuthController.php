@@ -5,7 +5,6 @@
  * Date: 02.05.2016
  * Time: 22:17
  */
-require_once __DIR__ . '/../entity/User.php';
 
 use Entity\User;
 

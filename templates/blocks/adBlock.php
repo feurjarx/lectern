@@ -6,7 +6,15 @@
  */
 use Entity\Ad;
 
+/** @var BaseController $this */
+
 $isCabinet = '/cabinet' === parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
+
+$self = $this;
+
+$isCvSendAble = function() use ($self) {
+    return ($user = $self->getCurrentUser()) && $user->getRole() === Constants::STUDENT_ROLE && $user->getPerson()->getCvs()->count();
+};
 
 /** @var Ad $ad */
 ?>
@@ -58,6 +66,16 @@ $isCabinet = '/cabinet' === parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
 
         </div>
     </div>
+
+    <?php if ($isCvSendAble()):?>
+
+        <div class="pull-right">
+            <button type="button" class="cv-send btn btn-default btn-xs">
+                <span class="glyphicon glyphicon-star" aria-hidden="true"></span> Отправить резюме
+            </button>
+        </div>
+
+    <?php endif; ?>
 
     <div class="col-lg-12 col-md-12 col-xs-12 padding-none">
         <div class="collapse list-group-item-text" id="ad-details-<?php echo $ad->getId(); ?>">

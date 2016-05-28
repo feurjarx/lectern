@@ -42,3 +42,11 @@ div[id^="ad-details-"] {
 .thumbnail img {
     width: 80%;
 }
+
+.cv-send {
+    display: none;
+}
+
+.ads > .ad:hover .cv-send {
+    display: block;
+}

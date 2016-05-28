@@ -13,9 +13,6 @@ use Doctrine\ORM\PersistentCollection;
 use Entity\Contact;
 use Entity\Cv;
 
-require_once __DIR__ . '/../entity/Contact.php';
-require_once __DIR__ . '/../entity/Cv.php';
-
 /**
  * @Entity @Table(name="person")
  **/
