@@ -126,7 +126,7 @@ class Utils
                 case 'is_drivers_license': $cv->setIsDriversLicense($value); break;
                 case 'is_smoking': $cv->setIsSmoking($value); break;
                 case 'is_married': $cv->setIsMarried($value); break;
-                case 'about': $cv->setAbout(); break;
+                case 'about': $cv->setAbout($value); break;
             }
         }
 
