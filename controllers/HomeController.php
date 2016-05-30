@@ -8,6 +8,7 @@
 
 use Entity\Ad;
 use Entity\Cv;
+use Entity\User;
 use Handlebars\Handlebars;
 
 class HomeController extends BaseController
@@ -25,22 +26,64 @@ class HomeController extends BaseController
     
     public function indexAction()
     {
+        $role = $this->getRole();
+
         $em = $this->em;
 
-        $qb = $em->createQueryBuilder();
+        $qbuilder = function($limit, $type) use($em) {
 
-        $qb
-            ->select('ad')
-            ->from('Entity\Ad', 'ad')
-            ->orderBy('ad.publishedAt', 'DESC')
-            ->setMaxResults(10)
-        ;
+            $qb = $em->createQueryBuilder();
 
-        /** @var Ad[] $ads */
-        $ads = $qb->getQuery()->getResult();
+            switch ($type) {
+
+                case Ad::class:
+
+                    $qb
+                        ->select('ad')
+                        ->from('Entity\Ad', 'ad')
+                        ->orderBy('ad.publishedAt', 'DESC')
+                        ->setMaxResults($limit)
+                    ;
+
+                    break;
+
+                case Cv::class:
+
+                    $qb
+                        ->select('cv')
+                        ->from('Entity\Cv', 'cv')
+                        ->orderBy('cv.createdAt', 'DESC')
+                        ->setMaxResults($limit)
+                    ;
+
+                    break;
+
+                default:
+                    $qb = null;
+            }
+
+            return $qb;
+        };
+
+        switch (true){
+
+            case Constants::STUDENT_ROLE === $role:
+                /** @var Ad[] $ads */
+                $ads = $qbuilder(10, Ad::class)->getQuery()->getResult();
+                break;
+
+            case Constants::EMPLOYER_ROLE === $role:
+                /** @var Cv[] $cvs */
+                $cvs = $qbuilder(10, Cv::class)->getQuery()->getResult();
+                break;
+
+            default:
+
+                $cvs = $qbuilder(3, Cv::class)->getQuery()->getResult();
+                $ads = $qbuilder(3, Ad::class)->getQuery()->getResult();
+        }
 
         $active_item = 'home';
-        
         require $this->templatePath;
     }
     
@@ -115,15 +158,19 @@ class HomeController extends BaseController
 
     /**
      * @param $request
+     * @throws Exception
+     * @throws \Doctrine\ORM\ORMException
+     * @throws \Doctrine\ORM\OptimisticLockException
+     * @throws \Doctrine\ORM\TransactionRequiredException
      */
     public function cvSendingAjaxAction($request)
     {
         if (!($user = $this->currentUser)) {
-            throw new \Symfony\Component\Finder\Exception\AccessDeniedException();
+            throw new Exception('Access denied');
         }
 
         if ($user->getRole() !== Constants::STUDENT_ROLE || !$user->getPerson()->getCvs()->count()) {
-            throw new \Symfony\Component\Finder\Exception\AccessDeniedException();
+            throw new Exception('Access denied');
         }
 
         $params = Utils::arraySerialization([
@@ -200,5 +247,76 @@ class HomeController extends BaseController
         }
 
         echo json_encode($result);
+    }
+
+
+    /**
+     * @param $request
+     */
+    public function getCvsAjaxAction($request)
+    {
+        $params = Utils::arraySerialization(['offset'], $request);
+
+        if (!in_array(null, $params)) {
+
+            $params = Utils::arraySerialization(['limit'], $request, $params);
+
+            $em = $this->em;
+
+            $qb = $em->createQueryBuilder();
+            $expr = $qb->expr();
+
+            $qb
+                ->select('cv')
+                ->from('Entity\Cv', 'cv')
+                ->where($expr->eq('cv.accessType', $expr->literal(Constants::ACCESS_TYPE_PUBLIC)))
+                ->orderBy('cv.createdAt', 'DESC')
+                ->setFirstResult($params['offset'])
+                ->setMaxResults($params['limit'] ? $params['limit'] : 10)
+            ;
+
+            /** @var Cv[] $cvs */
+            $cvs = $qb->getQuery()->getResult();
+
+            $result = [];
+            foreach ($cvs as $cv) {
+
+                $person = $cv->getPerson();
+
+                $result[] = [
+                    'id'              => $cv->getId(),
+                    'sphere'          => Utils::getSpheresTitles()[ $cv->getSphere() ],
+                    'education'       => Utils::getEducationsTitles()[ $cv->getEducation() ],
+                    'skills'          => $cv->getSkills(),
+                    'work_experience' => Utils::getWorkExperiencesTitles()[ $cv->getWorkExperience() ],
+                    'hobbies'         => $cv->getHobbies(),
+                    'about'           => $cv->getAbout(),
+                    'user_img_url'    => $cv->getPerson()->getUser()->getImgUrl(),
+                    'created_at'      => date('d/m/Y', $cv->getCreatedAt()),
+                    'person'          => [
+                        'last_name'    => $person->getLastName(),
+                        'full_name'    => $person->getFullName(),
+                        'organisation' => $person->getOrganisation()
+                    ],
+                ];
+            }
+
+        } else {
+
+            $result = [
+                'error' => 1,
+                'message' => 'Неверные данные'
+            ];
+        }
+
+        echo json_encode($result);
+    }
+
+    /**
+     * IFRAME LOAD
+     */
+    public function animationAction()
+    {
+        require __DIR__ . '/../templates/blocks/animation.php';
     }
 }

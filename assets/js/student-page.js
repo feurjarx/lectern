@@ -15,7 +15,7 @@ $(function () {
         if (data.error) {
 
             notification({
-                text: 'Ошибка! <br> ' + 'Объявления на найдено',
+                text: 'Ошибка! <br> ' + 'Объявления не найдено',
                 type: 'error'
             });
 
@@ -54,7 +54,7 @@ $(function () {
                 
                 var $submitButton = $(this),
                     sendData = {
-                        ad_id: $(this).closest('.ad').data('id'),
+                        ad_id: $(this).closest('.brick').data('id'),
                         flash: $('[name="flash"]').val()
                     };
 

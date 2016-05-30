@@ -8,17 +8,17 @@
 
 {{else}}
 
-    <li class="col-lg-12 col-md-12 col-xs-12 list-group-item ad scroller-item" data-id="{{ id }}">
+    <li class="col-lg-12 col-md-12 col-xs-12 list-group-item brick scroller-item" data-id="{{ id }}">
 
         <div class="col-lg-1 col-md-1 col-xs-2 thumbnail">
             <img src="{{ user_img_url }}" alt="{{ person.last_name }}">
         </div>
 
         <div class="col-lg-11 col-lg-11 col-xs-10">
-            <div class="list-group-item-heading" data-target="#ad-details-{{ id }}" data-toggle="collapse" aria-expanded="false">
+            <div class="list-group-item-heading" data-target="#brick-details-{{ id }}" data-toggle="collapse" aria-expanded="false">
 
                 <h3 class="margin-none">
-                    <a href="#" class="ellipsis-box font-size-xs" style="width: 70%">{{ name }}</a>
+                    <a href="javascript: void(0)" class="ellipsis-box font-size-xs" style="width: 70%">{{ name }}</a>
                 </h3>
 
                 <span>{{ person.full_name }}</span>
@@ -40,7 +40,7 @@
         {{/if}}
 
         <div class="col-lg-12 col-md-12 col-xs-12 padding-none">
-            <div class="collapse list-group-item-text" id="ad-details-{{ id }}">
+            <div class="collapse list-group-item-text" id="brick-details-{{ id }}">
                 <pre class="well margin-none">{{ details }}</pre>
             </div>
         </div>

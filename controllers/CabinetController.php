@@ -12,7 +12,6 @@ use Entity\Person;
 
 class CabinetController extends BaseController
 {
-    private $isVerify = true;
     /**
      * CabinetController constructor.
      * @param $options
@@ -20,7 +19,8 @@ class CabinetController extends BaseController
     function __construct($options)
     {
         parent::__construct($options);
-        if ($this->isVerify && is_null($this->currentUser)) {
+
+        if (is_null($this->currentUser)) {
             header('Location: ' . Utils::getHttpHost() . '/' . 'access/denied');
             exit();
         }
@@ -38,7 +38,6 @@ class CabinetController extends BaseController
 
         switch ($this->getCurrentUser()->getRole()) {
             case Constants::STUDENT_ROLE:
-                
                 break;
             case Constants::EMPLOYER_ROLE:
 

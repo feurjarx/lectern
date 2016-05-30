@@ -10,30 +10,14 @@ use Entity\User;
 
 class BaseController
 {
+    /** @var string */
+    protected $route;
+
+    /** @var  string */
+    private $role;
+
+    /** @var bool  */
     protected $isFlash = true;
-
-    /**
-     * BaseController constructor.
-     * @param $options
-     */
-    function __construct($options) {
-
-        $this->em = $options['em'];
-        $this->conf = $options['conf'];
-
-        Utils::isAjax() && $this->isFlash = false;
-
-        $this->initCurrentUser($_COOKIE);
-
-        if (isset($options['is_verify']) && $options['is_verify'] && is_null($this->currentUser)) {
-            header('Location: ' . Utils::getHttpHost() . '/' . 'access/denied');
-            exit();
-        }
-    }
-
-    function __destruct() {
-        $this->isFlash && $_SESSION['previos_flash'] = isset($_SESSION['flash']) ? $_SESSION['flash'] : null;
-    }
 
     /**
      * @var EntityManager
@@ -54,6 +38,33 @@ class BaseController
      * @var string
      */
     protected $flash;
+
+    /**
+     * BaseController constructor.
+     * @param $options
+     */
+    function __construct($options) {
+
+        $this->em = $options['em'];
+        $this->conf = $options['conf'];
+        $this->route = $options['route'];
+
+        isset($options['is_flash']) && $this->isFlash = $options['is_flash'];
+        Utils::isAjax() && $this->isFlash = false;
+
+        $this->initCurrentUser($_COOKIE);
+
+        $this->role = $this->currentUser ? $this->currentUser->getRole() : null;
+
+        if (isset($options['is_verify']) && $options['is_verify'] && is_null($this->currentUser)) {
+            header('Location: ' . Utils::getHttpHost() . '/' . 'access/denied');
+            exit();
+        }
+    }
+
+    function __destruct() {
+        $this->isFlash && $_SESSION['previos_flash'] = isset($_SESSION['flash']) ? $_SESSION['flash'] : null;
+    }
     
     /**
      * @return User
@@ -144,5 +155,13 @@ class BaseController
     {
         $this->conf = $conf;
         return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function getRole()
+    {
+        return $this->role;
     }
 }

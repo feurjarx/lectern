@@ -51,13 +51,13 @@ class Utils
     public static function getSpheresTitles()
     {
         return [
-            'programmer'       => 'Программист',
-            'system_admin'     => 'Системный администратор',
-            'security_admin'   => 'Администратор ИБ',
-            'web_designer'     => 'Веб дизайнер',
-            'project_manager'  => 'Проект менеджер',
-            'software_testing' => 'Тестировщик ПО',
-            'web_developer'    => 'Веб-разработчик',
+            'programmer'       => 'программист',
+            'system_admin'     => 'системный администратор',
+            'security_admin'   => 'администратор ИБ',
+            'web_designer'     => 'веб дизайнер',
+            'project_manager'  => 'проект менеджер',
+            'software_testing' => 'тестировщик ПО',
+            'web_developer'    => 'веб-разработчик',
         ];
     }
 
@@ -67,11 +67,11 @@ class Utils
     public static function getWorkExperiencesTitles()
     {
         return [
-            'nope' => 'Без опыта',
-            '<1'   => 'Менее года',
+            'nope' => 'без опыта',
+            '<1'   => 'менее года',
             '1-3'  => '1-3 года',
             '3-5'  => '3-5 лет',
-            '5>'   => 'Более 5 лет'
+            '5>'   => 'более 5 лет'
         ];
     }
 
@@ -81,14 +81,14 @@ class Utils
     public static function getEducationsTitles()
     {
         return [
-            '<middle'          => 'Неполное среднее',
-            'middle'           => 'Среднее',
-            'middle>'          => 'Среднее профессиональное',
-            '>high'            => 'Высшее (бакалавриат)',
-            'high'             => 'Высшее (магистратура)',
-            'many_high'        => 'Два высших',
-            'fulltime_student' => 'Студент-очник',
-            'distance_student' => 'Студент-заочник',
+            '<middle'          => 'неполное среднее',
+            'middle'           => 'среднее',
+            'middle>'          => 'среднее профессиональное',
+            '>high'            => 'высшее (бакалавриат)',
+            'high'             => 'высшее (магистратура)',
+            'many_high'        => 'два высших',
+            'fulltime_student' => 'студент-очник',
+            'distance_student' => 'студент-заочник',
         ];
     }
 
@@ -98,10 +98,10 @@ class Utils
     public static function getSchedulesTitles()
     {
         return [
-            'full'    => 'Полный рабочий день',
-            'remote'  => 'Удаленная работа',
-            'elastic' => 'Гибкий',
-            'shift'   => 'Сменный'
+            'full'    => 'полный рабочий день',
+            'remote'  => 'удаленная работа',
+            'elastic' => 'гибкий',
+            'shift'   => 'сменный'
         ];
     }
 

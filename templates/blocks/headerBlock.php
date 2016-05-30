@@ -5,7 +5,12 @@
  * Time: 22:29
  */
 
+use Entity\User;
+
 /** @var $this BaseController */
+
+/** @var User $currentUser */
+$currentUser = $this->currentUser;
 ?>
 
 <nav class="navbar navbar-default margin-none-xs">
@@ -27,23 +32,49 @@
             <ul class="nav navbar-nav">
 
                 <li class="<?php echo isset($active_item) && $active_item === 'home' ? 'active' : '' ?>">
-                    <a href="/">Главная</a>
+
+                    <?php if ($currentUser): ?>
+
+                        <?php if (Constants::EMPLOYER_ROLE === $currentUser->getRole()): ?>
+                            <a href="/"><span class="fa fa-group"></span> Резюме</a>
+                        <?php endif ?>
+
+                        <?php if (Constants::STUDENT_ROLE === $currentUser->getRole()): ?>
+                            <a href="/"><span class="fa fa-life-saver"></span> Вакансии</a>
+                        <?php endif ?>
+
+                    <?php else: ?>
+                        <a href="/"><span class="fa fa-home"></span> Главная</a>
+                    <?php endif; ?>
+
                 </li>
+
+                <?php if ($currentUser): ?>
+                    <?php if (Constants::EMPLOYER_ROLE === $currentUser->getRole()): ?>
+
+                        <li class="<?php echo isset($active_item) && $active_item === 'vacancies' ? 'active' : '' ?>">
+                            <a href="/vacancies">
+                                <span class="fa fa-wpforms"></span> Вакансии
+                            </a>
+                        </li>
+
+                    <?php endif; ?>
+                <?php endif; ?>
 
                 <li class="<?php echo isset($active_item) && $active_item === 'about' ? 'active' : '' ?>">
                     <a href="/about">О нас</a>
                 </li>
 
-                <?php if ($this->currentUser): ?>
+                <?php if ($currentUser): ?>
 
                     <li class="<?php echo isset($active_item) && $active_item === 'cabinet' ? 'active' : '' ?>">
                         <a href="/cabinet">
 
-                            <?php if ($this->currentUser->getRole() === Constants::STUDENT_ROLE): ?>
+                            <?php if ($currentUser->getRole() === Constants::STUDENT_ROLE): ?>
 
                                 <span class="glyphicon glyphicon-education"></span>
 
-                            <?php elseif ($this->currentUser->getRole() === Constants::EMPLOYER_ROLE): ?>
+                            <?php elseif ($currentUser->getRole() === Constants::EMPLOYER_ROLE): ?>
 
                                 <span class="glyphicon glyphicon-briefcase"></span>
 
@@ -62,7 +93,7 @@
 
             </ul>
 
-            <?php if ($this->currentUser): ?>
+            <?php if ($currentUser): ?>
 
                 <?php include __DIR__ . '/../forms/profileForm.php'; ?>
 

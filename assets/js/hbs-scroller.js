@@ -36,6 +36,10 @@ Scrollbox.prototype.init = function () {
         cache: true,
         success: function (source) {
             self.render = Handlebars.compile(source);
+
+            if (!self.$scrollbox.count) {
+                self.load();
+            }
         }
     });
 };
@@ -77,7 +81,7 @@ Scrollbox.prototype.load = function () {
         error: function (err) {
             console.error(err);
 
-            self.$scrollbox.empty().append(render({
+            render && self.$scrollbox.empty().append(render({
                 notyfication: 1,
                 type: 'danger',
                 message: 'Ошибка сервера'

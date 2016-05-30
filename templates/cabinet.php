@@ -5,12 +5,13 @@
  * Time: 20:58
  */
 /** @var $this BaseController */
+
 ?>
 <?php $titlePage = 'Личный кабинет'; ?>
 
 <?php ob_start() ?>
     <link href="<?php echo Utils::getHttpHost(); ?>/assets/css/cabinet.css" rel="stylesheet">
-    <link href="<?php echo Utils::getHttpHost(); ?>/assets/css/ads.css" rel="stylesheet">
+    <link href="<?php echo Utils::getHttpHost(); ?>/assets/css/brick-wall.css" rel="stylesheet">
     <link href="<?php echo Utils::getHttpHost(); ?>/bower_components/bootstrap-select/dist/css/bootstrap-select.min.css" rel="stylesheet" >
 <?php $css = ob_get_clean() ?>
 

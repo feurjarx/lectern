@@ -1,41 +1,40 @@
-.ads {
+.brick-wall {
     display: inline-block;
 }
 
-.ads > .ad > .checkbox-block {
+.brick-wall > .brick > .checkbox-block {
     width: auto;
 }
 
-.ads .badge-salary {
+.brick-wall .badge-salary {
     position: absolute;
     right: 10px;
     top: 10px;
 }
 
-.ads > .ad {
+.brick-wall > .brick {
     cursor: pointer;
 }
-
-.ads > .ad:hover {
+.brick-wall > .brick:hover {
     background-color: lightyellow;
 }
 
-.list-group.ads {
+.list-group.brick-wall {
     width: 100%;
     margin-bottom: -5px;
     margin-top: 10px;
 }
 
-a[href^="#ad-details-"] {
+a[href^="#brick-details-"] {
     vertical-align: sub;
 }
 
-div[id^="ad-details-"] {
+div[id^="brick-details-"] {
     width: 100%;
     margin-top: 10px;
 }
 
-.ad .thumbnail {
+.brick .thumbnail {
     margin-bottom: 0;
 }
 
@@ -44,9 +43,9 @@ div[id^="ad-details-"] {
 }
 
 .cv-send {
-    display: none;
+    visibility: hidden;
 }
 
-.ads > .ad:hover .cv-send {
-    display: block;
+.brick-wall > .brick:hover .cv-send {
+    visibility: visible;
 }

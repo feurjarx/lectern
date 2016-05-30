@@ -38,14 +38,14 @@
 
 <div class="tab-content">
     <div id="ads" class="tab-pane fade in active">
-        <ul class="list-group ads">
+        <ul class="list-group brick-wall">
 
             <?php if (isset($ads) && count($ads)): ?>
 
                 <?php /** @var \Entity\Ad[] $ads */ ?>
                 <?php foreach ($ads as $index => $ad): ?>
 
-                    <li class="col-lg-12 col-md-12 col-xs-12 list-group-item ad">
+                    <li class="col-lg-12 col-md-12 col-xs-12 list-group-item brick">
                         <?php include __DIR__ . '/../blocks/adBlock.php'?>
                     </li>
                     

@@ -50,7 +50,7 @@ $('#ad-remove-button').on('click', function () {
                             if ('success' === data['type']) {
 
                                 data['complete_ids'].forEach(function (id) {
-                                    $('#ad-details-' + id).closest('li').remove();
+                                    $('#brick-details-' + id).closest('li').remove();
                                 });
 
                                 var $adsList = $('#ads').find('ul');

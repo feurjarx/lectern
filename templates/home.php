@@ -1,50 +1,66 @@
-<?php $titlePage = 'Доска объявлений'; ?>
+<?php
+use Entity\User;
+/** @var BaseController $this */
+/** @var string $role */
+?>
 
 <?php ob_start() ?>
-    <link href="../assets/css/ads.css" rel="stylesheet">
+    <link href="../assets/css/brick-wall.css" rel="stylesheet">
+    <link href="../assets/css/home.css" rel="stylesheet">
 <?php $css = ob_get_clean() ?>
 
-<?php ob_start() ?>
-<?php $beforeJs = ob_get_clean() ?>
+<?php ob_start() ?><?php $beforeJs = ob_get_clean() ?>
 
 <?php ob_start() ?>
     <script src="<?php echo Utils::getHttpHost(); ?>/assets/js/hbs-scroller.js"></script>
-    <script src="<?php echo Utils::getHttpHost(); ?>/assets/js/home-page.js"></script>
+
+    <?php if ($this->getRole()): ?>
+        <script src="<?php echo Utils::getHttpHost(); ?>/assets/js/<?php echo $this->getRole(); ?>-page.js"></script>
+    <?php endif; ?>
+    
 <?php $afterJs = ob_get_clean() ?>
 
 <?php ob_start() ?>
 
-    <div class="row margin-none">
-        <h2 class="content-title">Свежие объявления</h2>
-    </div>
+    <?php if (is_null($this->getRole())): ?>
+        <?php $titlePage = 'Главная'; ?>
 
-    <ul class="scrollbox list-group ads" data-hbs="<?php echo Utils::getHttpHost()?>/templates/hbs/adBlock.hbs" data-ajax-url="/get/ads">
+        <div class="jumbotron margin-none">
+            <h2>Добро пожаловать на кафедру!</h2>
+            <p>Если ты студент - найди себе работу, если ты работодатель - предложи вакансию студентам!</p>
+        </div>
 
-        <?php if (isset($ads) and count($ads)):?>
+    <?php endif ?>
 
-            <?php /** @var \Entity\Ad[] $ads */ ?>
-            <?php foreach ($ads as $index => $ad): ?>
+    <iframe class="col-lg-12 col-md-12 hidden-sm hidden-xs" src="/animation"></iframe>
 
-                <li class="col-lg-12 col-md-12 col-xs-12 list-group-item ad scroller-item" data-id="<?php echo $ad->getId(); ?>">
+    <?php if ($this->getRole()): ?>
 
-                    <?php include __DIR__ . '/blocks/adBlock.php'?>
+        <?php if (Constants::EMPLOYER_ROLE === $this->getRole()):?>
+            <?php $titlePage = 'Вакансии'; ?>
+            <?php include 'home/employer.php' ?>
+        <?php endif ?>
 
-                </li>
+        <?php if (Constants::STUDENT_ROLE === $this->getRole()):?>
+            <?php $titlePage = 'Резюме студентов'; ?>
+            <?php include 'home/student.php' ?>
+        <?php endif ?>
 
-            <?php endforeach; ?>
+    <?php else: ?>
 
-        <?php else: ?>
+        <div class="col-lg-6 col-md-6 col-xs-12">
+            
+            <?php include 'home/student.php' ?>
+            
+        </div>
 
-            <li class="alert alert-info">
-                <strong>
-                    <span class="sr-only">Внимание!</span>
-                    <span>Объявлений не найдено</span>
-                </strong>
-            </li>
+        <div class="col-lg-6 col-md-6 col-xs-12">
 
-        <?php endif; ?>
+            <?php include 'home/employer.php' ?>
+            
+        </div>
 
-    </ul>
+    <?php endif; ?>
 
     <input type="hidden" name="flash" value="<?php $_SESSION['flash'] ?>">
 

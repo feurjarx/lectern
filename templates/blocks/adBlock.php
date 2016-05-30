@@ -7,7 +7,6 @@
 use Entity\Ad;
 
 /** @var BaseController $this */
-
 $isCabinet = '/cabinet' === parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
 
 $self = $this;
@@ -38,7 +37,7 @@ $isCvSendAble = function() use ($self) {
 
     <div class="col-lg-11 col-lg-11 col-xs-10">
 
-        <div class="list-group-item-heading" data-target="#ad-details-<?php echo $ad->getId(); ?>" data-toggle="collapse" aria-expanded="false">
+        <div class="list-group-item-heading" data-target="#brick-details-<?php echo $ad->getId(); ?>" data-toggle="collapse" aria-expanded="false">
             
             <?php if ($isCabinet): ?>
 
@@ -49,7 +48,7 @@ $isCvSendAble = function() use ($self) {
             <?php else: ?>
 
                 <h3 class="margin-none">
-                    <a href="#" class="ellipsis-box font-size-xs" style="width: 70%"><?php echo ucfirst($ad->getName()); ?></a>
+                    <a href="javascript: void(0)" class="ellipsis-box font-size-xs" style="width: 70%"><?php echo ucfirst($ad->getName()); ?></a>
                 </h3>
 
                 <span><?php echo $ad->getPerson()->getFullName(); ?></span>
@@ -77,11 +76,15 @@ $isCvSendAble = function() use ($self) {
 
     <?php endif; ?>
 
-    <div class="col-lg-12 col-md-12 col-xs-12 padding-none">
-        <div class="collapse list-group-item-text" id="ad-details-<?php echo $ad->getId(); ?>">
-            <pre class="well margin-none"><?php echo trim(strip_tags(ucfirst($ad->getDetails()))); ?></pre>
+    <?php if (Constants::STUDENT_ROLE === $this->getRole() || Constants::EMPLOYER_ROLE === $this->getRole()): ?>
+
+        <div class="col-lg-12 col-md-12 col-xs-12 padding-none">
+            <div class="collapse list-group-item-text" id="brick-details-<?php echo $ad->getId(); ?>">
+                <pre class="well margin-none"><?php echo trim(strip_tags(ucfirst($ad->getDetails()))); ?></pre>
+            </div>
         </div>
-    </div>
+
+    <?php endif; ?>
 
     <span class="badge badge-salary pull-right">
 

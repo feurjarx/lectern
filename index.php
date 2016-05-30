@@ -1,14 +1,15 @@
 <?php
 include 'requires.php';
 
-$options = [
-    'em'   => $em,
-    'conf' => [
-        'root_dir' => $_SERVER['DOCUMENT_ROOT']
-    ]
-];
-
 $uri = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
+
+$options = [
+    'em'    => $em,
+    'conf'  => [
+        'root_dir' => $_SERVER['DOCUMENT_ROOT']
+    ],
+    'route' => $uri
+];
 
 switch (true) {
 
@@ -19,10 +20,6 @@ switch (true) {
     case ('/about' === $uri):
         (new HomeController($options))->aboutAction();
         break;
-    case ('/get/ads' === $uri && Utils::isAjax() && $_POST):
-        (new HomeController($options))->getAdsAjaxAction($_POST);
-        break;
-
 
     // SIGNUP
     case ('/signup' === $uri):
@@ -57,12 +54,10 @@ switch (true) {
         ]);
         break;
 
-
     // CABINET
     case ('/cabinet' === $uri):
         (new CabinetController($options))->indexAction();
         break;
-    
 
     // AD
     case ('/employer/ad/plus' === $uri && isset($_POST) && Utils::isAjax()):
@@ -71,15 +66,26 @@ switch (true) {
     case ('/employer/ad/remove' === $uri && isset($_POST) && Utils::isAjax()):
         (new CabinetController($options))->removeAdAjaxAction($_POST);
         break;
-    
-    
+    case ('/get/ads' === $uri && Utils::isAjax() && $_POST):
+        (new HomeController($options))->getAdsAjaxAction($_POST);
+        break;
+
     // CV
     case ('/student/cv/save' === $uri && isset($_POST) && Utils::isAjax()):
         (new CabinetController($options))->saveCvAjaxAction($_POST);
         break;
+    
+    case ('/get/cvs' === $uri && Utils::isAjax() && $_POST):
+        (new HomeController($options))->getCvsAjaxAction($_POST);
+        break;
 
     case ('/student/cv/send' === $uri && isset($_POST) && Utils::isAjax()):
         (new HomeController($options))->cvSendingAjaxAction($_POST);
+        break;
+
+    // VACANCIES
+    case ('/vacancies' === $uri):
+        (new VacanciesController($options))->indexAction();
         break;
 
     // ERRORS
@@ -87,6 +93,14 @@ switch (true) {
         (new ErrorController($options))->errorRenderAction(Constants::ERROR_ACCESS_DENIED);
         break;
 
+    // IFRAME ANIMATION
+    case ('/animation' === $uri):
+
+        $options['is_flash'] = false;
+
+        (new HomeController($options))->animationAction();
+        break;
+    
     default:
         header('Status: 404 Not Found');
         (new ErrorController($options))->errorRenderAction(Constants::ERROR_NOT_FOUND);

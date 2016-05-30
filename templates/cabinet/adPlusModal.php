@@ -35,10 +35,10 @@
                 </div>
 
                 <div class="form-group">
-                    <label for="ad-details-input">Описание</label>
+                    <label for="brick-details-input">Описание</label>
                     <div class="input-group">
                         <span class="input-group-addon"><i class="glyphicon glyphicon-pencil"></i></span>
-                        <textarea required style="resize: vertical" rows="7" class="form-control" name="details" id="ad-details-input" placeholder="Укажите необходимые требования и обязанности"></textarea>
+                        <textarea required style="resize: vertical" rows="7" class="form-control" name="details" id="brick-details-input" placeholder="Укажите необходимые требования и обязанности"></textarea>
                         <span class="input-group-addon"><span class="glyphicon glyphicon-asterisk"></span></span>
                     </div>
                 </div>

@@ -33,7 +33,7 @@ $('#ad-plus-modal')
                     var $adsList = $('#ads').find('ul');
 
                     var $newAd = $('<li>', {
-                        class: 'col-lg-12 col-md-12 col-xs-12 list-group-item ad',
+                        class: 'col-lg-12 col-md-12 col-xs-12 list-group-item brick',
                         html: [
                             $('<div>', {
                                 class: 'col-lg-1 col-md-1 col-xs-2 checkbox-block padding-none',
@@ -50,7 +50,7 @@ $('#ad-plus-modal')
                                 html: [
                                     $('<div>', {
                                         class: 'list-group-item-heading',
-                                        'data-target': '#ad-details-' + data['complete_id'],
+                                        'data-target': '#brick-details-' + data['complete_id'],
                                         'data-toggle': 'collapse',
                                         'aria-expanded': 'false',
                                         html: [
@@ -74,7 +74,7 @@ $('#ad-plus-modal')
                                 class: 'col-lg-12 col-md-12 col-xs-12 padding-none',
                                 html: $('<div>', {
                                     class: 'collapse list-group-item-text',
-                                    id: 'ad-details-' + data['complete_id'],
+                                    id: 'brick-details-' + data['complete_id'],
                                     html: $('<pre>', {
                                         class: 'well margin-none',
                                         text: sendData['details'].ucfirst()

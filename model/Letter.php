@@ -23,8 +23,12 @@ class Letter
     public function __construct()
     {
         $transport = Swift_SmtpTransport::newInstance('smtp.gmail.com', 465, 'ssl')
-            ->setUsername('yakoann03@gmail.com')
-            ->setPassword('Pm4h1nCkCZd4');
+            ->setUsername('rabota.ivtib@gmail.com')
+            ->setPassword('9037n6zx')
+//            ->setUsername('yakoann03@gmail.com')
+//            ->setPassword('Pm4h1nCkCZd4')
+        ;
+
 
         $this->mailer = Swift_Mailer::newInstance($transport);
 
