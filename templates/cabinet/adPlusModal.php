@@ -27,6 +27,20 @@
                 </div>
 
                 <div class="form-group">
+                    <label for="sphere-select">Сфера деятельности</label>
+                    <br>
+                    <select required name="sphere" id="sphere-select" class="selectpicker show-tick">
+
+                        <?php foreach (Utils::getSpheresTitles() as $sphere => $title): ?>
+
+                            <option value="<?php echo $sphere; ?>"><?php echo $title; ?></option>
+
+                        <?php endforeach; ?>
+
+                    </select>
+                </div>
+
+                <div class="form-group">
                     <label for="ad-salary-input">Средняя заработная плата</label>
                     <div class="input-group">
                         <input type="number" step="100" class="form-control" name="salary" id="ad-salary-input" placeholder="Введите среднию заработную оплату">

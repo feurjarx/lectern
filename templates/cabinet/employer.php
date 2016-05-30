@@ -7,6 +7,7 @@
 ?>
 
 <?php ob_start() ?>
+    <script src="<?php echo Utils::getHttpHost(); ?>/bower_components/bootstrap-select/dist/js/bootstrap-select.min.js"></script>
     <script src="<?php echo Utils::getHttpHost(); ?>/assets/js/ad-plus.js"></script>
     <script src="<?php echo Utils::getHttpHost(); ?>/assets/js/ad-remove.js"></script>
 <?php $afterJs = ob_get_clean(); ?>

@@ -65,7 +65,8 @@ class CabinetController extends BaseController
     {
         $params = Utils::arraySerialization([
             'name',
-            'details'
+            'details',
+            'sphere'
 
         ], $request);
 
@@ -78,6 +79,7 @@ class CabinetController extends BaseController
                 ->setDetails($params['details'])
                 ->setPerson($this->em->getReference('Entity\Person', $this->currentUser->getPerson()->getId()))
                 ->setSalary($params['salary'])
+                ->setSphere($params['sphere'])
             ;
 
             $this->em->persist($ad);

@@ -42,6 +42,12 @@ class Ad
      */
     private $person;
 
+    /** @Column(name="sphere", type="string") **/
+    private $sphere;
+
+    /** @Column(name="is_confirmed", type="integer") **/
+    private $isConfirmed = 0;
+
     /**
      * @return int
      */
@@ -137,6 +143,42 @@ class Ad
     public function setPerson($person)
     {
         $this->person = $person;
+        return $this;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getSphere()
+    {
+        return $this->sphere;
+    }
+
+    /**
+     * @param mixed $sphere
+     * @return $this
+     */
+    public function setSphere($sphere)
+    {
+        $this->sphere = $sphere;
+        return $this;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getIsConfirmed()
+    {
+        return $this->isConfirmed;
+    }
+
+    /**
+     * @param mixed $isConfirmed
+     * @return $this
+     */
+    public function setIsConfirmed($isConfirmed)
+    {
+        $this->isConfirmed = $isConfirmed;
         return $this;
     }
 }
