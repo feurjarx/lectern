@@ -9,7 +9,7 @@
 
 <?php ob_start() ?>
     <script src="<?php echo Utils::getHttpHost(); ?>/assets/js/hbs-scroller.js"></script>
-    <script src="<?php echo Utils::getHttpHost(); ?>/assets/js/employer-page.js"></script>
+    <script src="<?php echo Utils::getHttpHost(); ?>/assets/js/student-page.js"></script>
 <?php $afterJs = ob_get_clean() ?>
 
 <?php ob_start() ?>
@@ -35,7 +35,7 @@
 
         <?php else: ?>
 
-            <li class="alert alert-info">
+            <li class="alert alert-info scroller-item">
                 <strong>
                     <span class="sr-only">Внимание!</span>
                     <span>Объявлений не найдено</span>

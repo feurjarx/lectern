@@ -76,7 +76,7 @@ $isCvSendAble = function() use ($self) {
 
     <?php endif; ?>
 
-    <?php if (Constants::STUDENT_ROLE === $this->getRole() || Constants::EMPLOYER_ROLE === $this->getRole()): ?>
+    <?php if ($this->getRole()): ?>
 
         <div class="col-lg-12 col-md-12 col-xs-12 padding-none">
             <div class="collapse list-group-item-text" id="brick-details-<?php echo $ad->getId(); ?>">

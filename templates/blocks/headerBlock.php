@@ -61,35 +61,39 @@ $currentUser = $this->currentUser;
                     <?php endif; ?>
                 <?php endif; ?>
 
-                <li class="<?php echo isset($active_item) && $active_item === 'about' ? 'active' : '' ?>">
-                    <a href="/about">О нас</a>
-                </li>
+                <?php if (Constants::ADMIN_ROLE !== $this->getRole()): ?>
 
-                <?php if ($currentUser): ?>
-
-                    <li class="<?php echo isset($active_item) && $active_item === 'cabinet' ? 'active' : '' ?>">
-                        <a href="/cabinet">
-
-                            <?php if ($currentUser->getRole() === Constants::STUDENT_ROLE): ?>
-
-                                <span class="glyphicon glyphicon-education"></span>
-
-                            <?php elseif ($currentUser->getRole() === Constants::EMPLOYER_ROLE): ?>
-
-                                <span class="glyphicon glyphicon-briefcase"></span>
-
-                            <?php endif; ?>
-
-                            <span>Личный кабинет</span>
-
-                            <?php if (($user = $this->getCurrentUser()) && $user->getRole() === Constants::STUDENT_ROLE && !$user->getPerson()->getCvs()->count()): ?>
-                                <span style="color: darkorange" class="fa fa-exclamation-circle" data-qtip-theme="dark" data-qtip-at="right center" title="Создайте резюме"></span>
-                            <?php endif; ?>
-
-                        </a>
+                    <li class="<?php echo isset($active_item) && $active_item === 'about' ? 'active' : '' ?>">
+                        <a href="/about">О нас</a>
                     </li>
 
-                <?php endif ?>
+                    <?php if ($currentUser): ?>
+
+                        <li class="<?php echo isset($active_item) && $active_item === 'cabinet' ? 'active' : '' ?>">
+                            <a href="/cabinet">
+
+                                <?php if ($currentUser->getRole() === Constants::STUDENT_ROLE): ?>
+
+                                    <span class="glyphicon glyphicon-education"></span>
+
+                                <?php elseif ($currentUser->getRole() === Constants::EMPLOYER_ROLE): ?>
+
+                                    <span class="glyphicon glyphicon-briefcase"></span>
+
+                                <?php endif; ?>
+
+                                <span>Личный кабинет</span>
+
+                                <?php if (($user = $this->getCurrentUser()) && $user->getRole() === Constants::STUDENT_ROLE && !$user->getPerson()->getCvs()->count()): ?>
+                                    <span style="color: darkorange" class="fa fa-exclamation-circle" data-qtip-theme="dark" data-qtip-at="right center" title="Создайте резюме"></span>
+                                <?php endif; ?>
+
+                            </a>
+                        </li>
+
+                    <?php endif ?>
+
+                <?php endif; ?>
 
             </ul>
 

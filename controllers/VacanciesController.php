@@ -43,6 +43,7 @@ class VacanciesController extends BaseController
         $qb
             ->select('ad')
             ->from('Entity\Ad', 'ad')
+            ->where($qb->expr()->eq('ad.isConfirmed', 1))
             ->orderBy('ad.publishedAt', 'DESC')
             ->setMaxResults(10)
         ;

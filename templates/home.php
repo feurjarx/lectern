@@ -14,9 +14,17 @@ use Entity\User;
 <?php ob_start() ?>
     <script src="<?php echo Utils::getHttpHost(); ?>/assets/js/hbs-scroller.js"></script>
 
-    <?php if ($this->getRole()): ?>
-        <script src="<?php echo Utils::getHttpHost(); ?>/assets/js/<?php echo $this->getRole(); ?>-page.js"></script>
+    <?php if (Constants::ADMIN_ROLE === $this->getRole()): ?>
+
+        <script src="<?php echo Utils::getHttpHost(); ?>/assets/js/student-page.js"></script>
+
+    <?php else: ?>
+        <?php if ($this->getRole()): ?>
+            <script src="<?php echo Utils::getHttpHost(); ?>/assets/js/<?php echo $this->getRole(); ?>-page.js"></script>
+        <?php endif ?>
     <?php endif; ?>
+
+
     
 <?php $afterJs = ob_get_clean() ?>
 
@@ -32,17 +40,24 @@ use Entity\User;
 
     <?php endif ?>
 
-    <iframe class="col-lg-12 col-md-12 hidden-sm hidden-xs" src="/animation"></iframe>
+    <?php if (Constants::ADMIN_ROLE !== $this->getRole()): ?>
+        <iframe class="col-lg-12 col-md-12 hidden-sm hidden-xs" src="/animation"></iframe>
+    <?php endif ?>
 
     <?php if ($this->getRole()): ?>
 
         <?php if (Constants::EMPLOYER_ROLE === $this->getRole()):?>
-            <?php $titlePage = 'Вакансии'; ?>
+            <?php $titlePage = 'Резюме студентов'; ?>
             <?php include 'home/employer.php' ?>
         <?php endif ?>
 
         <?php if (Constants::STUDENT_ROLE === $this->getRole()):?>
-            <?php $titlePage = 'Резюме студентов'; ?>
+            <?php $titlePage = 'Вакансии'; ?>
+            <?php include 'home/student.php' ?>
+        <?php endif ?>
+
+        <?php if (Constants::ADMIN_ROLE === $this->getRole()):?>
+            <?php $titlePage = 'Предлагаемые объявления'; ?>
             <?php include 'home/student.php' ?>
         <?php endif ?>
 

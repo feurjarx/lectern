@@ -38,7 +38,7 @@
 
     <?php else: ?>
 
-        <li class="alert alert-info">
+        <li class="alert alert-info scroller-item">
             <strong>
                 <span class="sr-only">Внимание!</span>
                 <span>Объявлений не найдено</span>

@@ -41,6 +41,7 @@ class HomeController extends BaseController
                     $qb
                         ->select('ad')
                         ->from('Entity\Ad', 'ad')
+                        ->where($qb->expr()->eq('ad.isConfirmed', 1))
                         ->orderBy('ad.publishedAt', 'DESC')
                         ->setMaxResults($limit)
                     ;
@@ -75,6 +76,14 @@ class HomeController extends BaseController
             case Constants::EMPLOYER_ROLE === $role:
                 /** @var Cv[] $cvs */
                 $cvs = $qbuilder(10, Cv::class)->getQuery()->getResult();
+                break;
+
+            case Constants::ADMIN_ROLE === $role:
+                /** @var \Doctrine\ORM\QueryBuilder $qb */
+                $qb = $qbuilder(10, Ad::class);
+                $qb->resetDQLPart('where');
+                $qb->where($qb->expr()->eq('ad.isConfirmed', 0));
+                $ads = $qb->getQuery()->getResult();
                 break;
 
             default:
@@ -114,6 +123,7 @@ class HomeController extends BaseController
             $qb
                 ->select('ad')
                 ->from('Entity\Ad', 'ad')
+                ->where($qb->expr()->eq('ad.isConfirmed', $this->getRole() === Constants::ADMIN_ROLE ? 0 : 1))
                 ->orderBy('ad.publishedAt', 'DESC')
                 ->setFirstResult($params['offset'])
                 ->setMaxResults($params['limit'] ? $params['limit'] : 10)
