@@ -88,7 +88,7 @@ class CabinetController extends BaseController
             $result = [
                 'complete_id' => $ad->getId(),
                 'type' => 'success',
-                'message' => 'Объявление о работе успешно создано и опубликовано!'
+                'message' => 'Успешно! Объявление подано на рассмотрение'
             ];
 
         } else {

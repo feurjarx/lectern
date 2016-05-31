@@ -51,8 +51,15 @@ $isCvSendAble = function() use ($self) {
                     <a href="javascript: void(0)" class="ellipsis-box font-size-xs" style="width: 70%"><?php echo ucfirst($ad->getName()); ?></a>
                 </h3>
 
-                <span><?php echo $ad->getPerson()->getFullName(); ?></span>
-                <span>(<?php echo $ad->getPerson()->getOrganisation(); ?>)</span>
+                <?php if ($this->getRole()): ?>
+
+                    <span><?php echo $ad->getPerson()->getFullName(); ?></span>
+                    <span>(<?php echo $ad->getPerson()->getOrganisation(); ?>)</span>
+                    <br>
+
+                <?php endif ?>
+
+                <span>Требуется <?php echo Utils::getSpheresTitles()[$ad->getSphere()]; ?></span>
                 <br>
 
             <?php endif; ?>

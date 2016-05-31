@@ -116,16 +116,36 @@ class HomeController extends BaseController
 
         if (!in_array(null, $params)) {
 
-            $params = Utils::arraySerialization(['limit'], $request, $params);
+            $params = Utils::arraySerialization([
+                'limit',
+                'filters'
+
+            ], $request, $params);
 
             $em = $this->em;
 
             $qb = $em->createQueryBuilder();
+            $expr = $qb->expr();
 
             $qb
                 ->select('ad')
                 ->from('Entity\Ad', 'ad')
-                ->where($qb->expr()->eq('ad.isConfirmed', $this->getRole() === Constants::ADMIN_ROLE ? 0 : 1))
+                ->where($qb->expr()->eq('ad.isConfirmed', $this->getRole() === Constants::ADMIN_ROLE ? 0 : 1));
+
+
+            if ($params['filters']) {
+                foreach ($params['filters'] as $filter => $value) {
+
+                    switch (true) {
+                        case ('sphere' === $filter && $value !== '*'):
+                            $qb->andWhere($expr->eq('ad.sphere', $expr->literal($value)));
+                            break;
+                    }
+
+                }
+            }
+
+            $qb
                 ->orderBy('ad.publishedAt', 'DESC')
                 ->setFirstResult($params['offset'])
                 ->setMaxResults($params['limit'] ? $params['limit'] : 10)
@@ -136,9 +156,13 @@ class HomeController extends BaseController
 
             $isCvSendAble = ($user = $this->currentUser) && $user->getRole() === Constants::STUDENT_ROLE && $user->getPerson()->getCvs()->count();
 
-            /** @var Handlebars $engine */
-            $engine = new Handlebars;
-            $rootActionsBlockHtml = $engine->render(file_get_contents(__DIR__ . '/../templates/hbs/rootActionsBlock.hbs'), []);
+            $rootActionsBlockHtml = null;
+            if (Constants::ADMIN_ROLE === $this->getRole()) {
+
+                /** @var Handlebars $engine */
+                $engine = new Handlebars;
+                $rootActionsBlockHtml = $engine->render(file_get_contents(__DIR__ . '/../templates/hbs/rootActionsBlock.hbs'), []);
+            }
 
             $result = [];
             foreach ($ads as $ad) {
@@ -152,6 +176,7 @@ class HomeController extends BaseController
                     'salary'          => $ad->getSalary(),
                     'published_at'    => date('d/m/Y H:i:s', $ad->getPublishedAt()),
                     'user_img_url'    => $person->getUser()->getImgUrl(),
+                    'sphere'          => Utils::getSpheresTitles()[ $ad->getSphere() ],
                     'person'          => [
                         'last_name'    => $person->getLastName(),
                         'full_name'    => $person->getFullName(),

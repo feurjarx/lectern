@@ -83,3 +83,14 @@ a {
 hr {
     border-color: #34495e;
 }
+
+.bg-white {
+    background-color: white;
+}
+
+.flexbox {
+    display: -webkit-box;
+    display: -moz-box;
+    display: -ms-flexbox;
+    display: flex;
+}

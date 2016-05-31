@@ -7,12 +7,14 @@ use Entity\User;
 <?php ob_start() ?>
     <link href="../assets/css/brick-wall.css" rel="stylesheet">
     <link href="../assets/css/home.css" rel="stylesheet">
+    <link href="<?php echo Utils::getHttpHost(); ?>/bower_components/bootstrap-select/dist/css/bootstrap-select.min.css" rel="stylesheet" >
 <?php $css = ob_get_clean() ?>
 
-<?php ob_start() ?><?php $beforeJs = ob_get_clean() ?>
 
 <?php ob_start() ?>
+
     <script src="<?php echo Utils::getHttpHost(); ?>/assets/js/hbs-scroller.js"></script>
+    <script src="<?php echo Utils::getHttpHost(); ?>/assets/js/filter-box.js"></script>
 
     <?php if (Constants::ADMIN_ROLE === $this->getRole()): ?>
 
@@ -25,8 +27,6 @@ use Entity\User;
         <?php endif ?>
     <?php endif; ?>
 
-
-    
 <?php $afterJs = ob_get_clean() ?>
 
 <?php ob_start() ?>

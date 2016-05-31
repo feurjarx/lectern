@@ -6,6 +6,10 @@
  */
 /** @var BaseController $this */
 ?>
+<?php ob_start() ?>
+    <script src="<?php echo Utils::getHttpHost(); ?>/bower_components/bootstrap-select/dist/js/bootstrap-select.min.js"></script>
+<?php $beforeJs = ob_get_clean() ?>
+
 
 <?php if ($this->getCurrentUser()): ?>
 
@@ -19,8 +23,43 @@
 
     <?php if (Constants::STUDENT_ROLE === $this->getRole()): ?>
 
-        <div class="row margin-none" style="display: inline-block">
-            <h2 class="content-title">Свежие вакансии</h2>
+        <?php $topPanelTitle = 'Свежие вакансии'; ?>
+
+        <div id="top-panel">
+            
+            <div class="visible-part col-lg-12 col-md-12 col-xs-12">
+    
+                <div class="col-lg-8 col-md-8 col-xs-12" style="order: 1">
+                    <h2 class="content-title"><?php echo isset($topPanelTitle) ? $topPanelTitle : 'Панель управления'; ?></h2>
+                </div>
+    
+                <div class="filter-toggle flexbox col-lg-4 col-md-4 col-xs-12" style="order: 2">
+                    <button class="btn btn-primary btn-sm" data-toggle="collapse" data-target="#filter-box" aria-expanded="false"
+                            onclick="$(this).toggleClass('btn-primary')">
+
+                        <b>Показать фильтр</b>
+                        <span class="glyphicon glyphicon-filter"></span>
+                    </button>
+                </div>
+            </div>
+
+            <div id="filter-box" class="collapse fade col-lg-12 col-md-12 col-xs-12">
+                <div class="col-lg-6 padding-none">
+                    <label for="sphere-select">Сфера деятельности:</label>
+                    <select name="sphere" id="sphere-select" class="selectpicker show-tick">
+    
+                        <option value="*">любая</option>
+    
+                        <?php foreach (Utils::getSpheresTitles() as $sphere => $title): ?>
+    
+                            <option value="<?php echo $sphere; ?>"><?php echo $title; ?></option>
+    
+                        <?php endforeach; ?>
+    
+                    </select>
+                </div>
+            </div>
+            
         </div>
 
     <?php endif; ?>

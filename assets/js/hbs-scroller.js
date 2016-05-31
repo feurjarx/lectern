@@ -15,20 +15,26 @@ function Scrollbox(options) {
         limit: 10,
         message: 'Ничего не найдено',
         hbs: this.$scrollbox.data('hbs'),
-        ajax_url: this.$scrollbox.data('ajax-url')
+        ajax_url: this.$scrollbox.data('ajax-url'),
+        filters: {}
 
     }, options);
 
     return this;
 }
 
+Scrollbox.prototype.listen = function () {
+    var self = this;
+    $(window).scroll(function (e) {
+        $(window).scrollTop() + $(window).height() == $(document).height() && !$('#scroller-spinner').length && self.load();
+    });
+};
+
 Scrollbox.prototype.init = function () {
 
     var self = this;
 
-    $(window).scroll(function (e) {
-        $(window).scrollTop() + $(window).height() == $(document).height() && !$('#scroller-spinner').length && self.load();
-    });
+    self.listen();
 
     Object.isFill(this.params) && $.ajax({
 
@@ -40,6 +46,8 @@ Scrollbox.prototype.init = function () {
             if (!self.$scrollbox.count) {
                 self.load();
             }
+
+            $('.scrollbox').data('scrollbox', self);
         }
     });
 };
@@ -55,7 +63,8 @@ Scrollbox.prototype.load = function () {
         dataType: 'JSON',
         data: {
             offset: self.$scrollbox.count,
-            limit: self.params['limit']
+            limit: self.params['limit'],
+            filters: self.params.filters
         },
         beforeSend: function () {
 
@@ -81,7 +90,7 @@ Scrollbox.prototype.load = function () {
         error: function (err) {
             console.error(err);
 
-            render && self.$scrollbox.empty().append(render({
+            self.render && self.$scrollbox.empty().append(self.render({
                 notyfication: 1,
                 type: 'danger',
                 message: 'Ошибка сервера'
