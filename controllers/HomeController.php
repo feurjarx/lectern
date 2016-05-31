@@ -104,8 +104,10 @@ class HomeController extends BaseController
 
         require __DIR__ . '/../templates/about.php';
     }
-
-
+    
+    /**
+     * @param $request
+     */
     public function getAdsAjaxAction($request)
     {
         $result = [];
@@ -133,7 +135,11 @@ class HomeController extends BaseController
             $ads = $qb->getQuery()->getResult();
 
             $isCvSendAble = ($user = $this->currentUser) && $user->getRole() === Constants::STUDENT_ROLE && $user->getPerson()->getCvs()->count();
-            
+
+            /** @var Handlebars $engine */
+            $engine = new Handlebars;
+            $rootActionsBlockHtml = $engine->render(file_get_contents(__DIR__ . '/../templates/hbs/rootActionsBlock.hbs'), []);
+
             $result = [];
             foreach ($ads as $ad) {
 
@@ -151,7 +157,8 @@ class HomeController extends BaseController
                         'full_name'    => $person->getFullName(),
                         'organisation' => $person->getOrganisation()
                     ],
-                    'is_cv_send_able' => $isCvSendAble
+                    'is_cv_send_able' => $isCvSendAble,
+                    'html'            => $rootActionsBlockHtml
                 ];
             }
 

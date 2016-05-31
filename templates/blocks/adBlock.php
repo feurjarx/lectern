@@ -69,8 +69,23 @@ $isCvSendAble = function() use ($self) {
     <?php if ($isCvSendAble()):?>
 
         <div class="pull-right">
-            <button type="button" class="cv-send btn btn-default btn-xs">
+            <button type="button" class="actions cv-send btn btn-default btn-xs">
                 <span class="glyphicon glyphicon-star" aria-hidden="true"></span> Отправить резюме
+            </button>
+        </div>
+
+    <?php endif; ?>
+
+    <?php if (Constants::ADMIN_ROLE === $this->getRole()):?>
+
+        <div class="btn-group actions pull-right col-lg-2 col-md-2 col-xs-12 padding-none">
+            <button type="button" data-type="accept" class="ad-action btn btn-success btn-xs col-xs-6">
+                <span class="glyphicon glyphicon-ok" aria-hidden="true"></span>
+                <span> Разрешить</span>
+            </button>
+            <button type="button" data-type="remove" class="ad-action btn btn-danger btn-xs col-xs-6">
+                <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
+                <span> Удалить</span>
             </button>
         </div>
 

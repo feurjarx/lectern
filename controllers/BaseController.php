@@ -81,7 +81,7 @@ class BaseController
      */
     public function initCurrentUser($cookie)
     {
-        session_start();
+        //session_start();
 
         if (isset($_SESSION['current_user_id']) && $_SESSION['current_user_id']) {
 

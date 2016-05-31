@@ -28,19 +28,15 @@ switch (true) {
             'FILES' => $_FILES
         ]);
         break;
-
     case ('/signup/confirm' === $uri && isset($_GET['id']) && isset($_POST['password']) && isset($_POST['new_pass_session'])):
         (new SignUpController($options))->signUpFinallyAction($_REQUEST);
         break;
-
     case ('/signup/confirm' === $uri && isset($_GET['id']) && isset($_GET['hash'])):
         (new SignUpController($options))->signUpConfirmAction($_GET);
         break;
-
     case ('/auth' === $uri && isset($_POST['login']) && isset($_POST['password'])):
         (new AuthController($options))->signInAction($_POST);
         break;
-
     case ('/logout' === $uri && isset($_POST['flash'])):
         (new AuthController($options))->logoutAction($_POST);
         break;
@@ -69,12 +65,15 @@ switch (true) {
     case ('/get/ads' === $uri && Utils::isAjax() && $_POST):
         (new HomeController($options))->getAdsAjaxAction($_POST);
         break;
+    case (isset($_SESSION['flash']) && ('/ad/accept/' . $_SESSION['flash']) === $uri && Utils::isAjax() && $_POST):
+        (new AdminController($options))->adProcessingAction($_POST);
+        break;
+        
 
     // CV
     case ('/student/cv/save' === $uri && isset($_POST) && Utils::isAjax()):
         (new CabinetController($options))->saveCvAjaxAction($_POST);
         break;
-    
     case ('/get/cvs' === $uri && Utils::isAjax() && $_POST):
         (new HomeController($options))->getCvsAjaxAction($_POST);
         break;

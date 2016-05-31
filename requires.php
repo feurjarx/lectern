@@ -5,6 +5,8 @@
  * Time: 22:20
  */
 
+session_start();
+
 require_once 'bootstrap.php';
 require_once 'model/Constants.php';
 require_once 'model/Utils.php';

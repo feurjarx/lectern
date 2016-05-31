@@ -17,6 +17,7 @@ use Entity\User;
     <?php if (Constants::ADMIN_ROLE === $this->getRole()): ?>
 
         <script src="<?php echo Utils::getHttpHost(); ?>/assets/js/student-page.js"></script>
+        <script src="<?php echo Utils::getHttpHost(); ?>/assets/js/admin-actions.js"></script>
 
     <?php else: ?>
         <?php if ($this->getRole()): ?>
@@ -77,7 +78,7 @@ use Entity\User;
 
     <?php endif; ?>
 
-    <input type="hidden" name="flash" value="<?php $_SESSION['flash'] ?>">
+    <input type="hidden" name="flash" value="<?php echo $_SESSION['flash']; ?>">
 
 <?php $content = ob_get_clean() ?>
 

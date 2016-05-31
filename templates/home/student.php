@@ -9,9 +9,21 @@
 
 <?php if ($this->getCurrentUser()): ?>
 
-    <div class="row margin-none" style="display: inline-block">
-        <h2 class="content-title">Свежие вакансии</h2>
-    </div>
+    <?php if (Constants::ADMIN_ROLE === $this->getRole()): ?>
+
+        <div class="row margin-none">
+            <h2 class="content-title">Ожидающие подтверждения объявления вакансий</h2>
+        </div>
+
+    <?php endif; ?>
+
+    <?php if (Constants::STUDENT_ROLE === $this->getRole()): ?>
+
+        <div class="row margin-none" style="display: inline-block">
+            <h2 class="content-title">Свежие вакансии</h2>
+        </div>
+
+    <?php endif; ?>
 
 <?php else: ?>
 

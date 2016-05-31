@@ -42,10 +42,10 @@ div[id^="brick-details-"] {
     width: 80%;
 }
 
-.cv-send {
+.actions {
     visibility: hidden;
 }
 
-.brick-wall > .brick:hover .cv-send {
+.brick-wall > .brick:hover .actions {
     visibility: visible;
 }

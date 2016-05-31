@@ -46,7 +46,7 @@ use Entity\Cv;
     <?php if (Constants::EMPLOYER_ROLE === $this->getRole()): ?>
 
         <div class="pull-right">
-            <button type="button" class="cv-send btn btn-default btn-xs">
+            <button type="button" class="actions btn btn-default btn-xs">
                 <span class="glyphicon glyphicon-star" aria-hidden="true"></span> Запросить резюме
             </button>
         </div>
