@@ -4,6 +4,7 @@
 
 $(function () {
 
+    // TODO: made refresh
     $('#sphere-select').on('changed.bs.select', function () {
 
         var scrollbox = $('.scrollbox').data('scrollbox');

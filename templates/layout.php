@@ -10,12 +10,15 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
+    <link href="favicon.ico" rel="shortcut icon" type="image/x-icon" />
+
     <!--  vendor styles  -->
     <link href="<?php echo Utils::getHttpHost(); ?>/node_modules/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="<?php echo Utils::getHttpHost(); ?>/bower_components/bootstrap-checkbox-x/css/checkbox-x.min.css" rel="stylesheet">
     <link href="<?php echo Utils::getHttpHost(); ?>/bower_components/components-font-awesome/css/font-awesome.min.css" rel="stylesheet">
     <link href="<?php echo Utils::getHttpHost(); ?>/bower_components/noty/demo/animate.css" rel="stylesheet">
     <link href="<?php echo Utils::getHttpHost(); ?>/bower_components/qtip2/basic/jquery.qtip.min.css" rel="stylesheet">
+    <link href="<?php echo Utils::getHttpHost(); ?>/bower_components/hover/css/hover-min.css" rel="stylesheet">
 
     <!--  vendor font styles  -->
 
@@ -25,6 +28,7 @@
     <link href="<?php echo Utils::getHttpHost(); ?>/assets/css/bootstrap-overload.css" rel="stylesheet">
     <link href="<?php echo Utils::getHttpHost(); ?>/assets/css/header.css" rel="stylesheet">
     <link href="<?php echo Utils::getHttpHost(); ?>/assets/css/footer.css" rel="stylesheet">
+    <link href="<?php echo Utils::getHttpHost(); ?>/assets/css/top-panel.css" rel="stylesheet">
 
     <?php if (isset($css) && $css): ?>
         <?php echo $css ?>
@@ -72,7 +76,7 @@
 
         <!-- Footer -->
         <div id="footer" class="row well well-sm">
-            <span class="label label-primary pull-right">АлтГТУ им. И.И. Ползунова, 2016</span>
+            <span class="label label-primary pull-right">АлтГТУ им. И.И. Ползунова <i class="fa fa-copyright"></i> <?php echo date('Y'); ?></span>
         </div>
         
     </div>

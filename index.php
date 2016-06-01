@@ -86,6 +86,15 @@ switch (true) {
     case ('/vacancies' === $uri):
         (new VacanciesController($options))->indexAction();
         break;
+    
+    // REVIEWS
+    case ('/reviews' === $uri):
+        (new ReviewsController($options))->indexAction();
+        break;
+    case ('/review/new' === $uri && Utils::isAjax() && $_POST):
+        (new ReviewsController($options))->createReviewAction($_POST);
+        break;
+    
 
     // ERRORS
     case ('/access/denied' === $uri):

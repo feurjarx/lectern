@@ -95,7 +95,10 @@ class HomeController extends BaseController
         $active_item = 'home';
         require $this->templatePath;
     }
-    
+
+    /**
+     * About
+     */
     public function aboutAction()
     {
         $active_item = 'about';
@@ -110,8 +113,6 @@ class HomeController extends BaseController
      */
     public function getAdsAjaxAction($request)
     {
-        $result = [];
-        
         $params = Utils::arraySerialization(['offset'], $request);
 
         if (!in_array(null, $params)) {
@@ -346,7 +347,7 @@ class HomeController extends BaseController
         } else {
 
             $result = [
-                'error' => 1,
+                'type' => 'error',
                 'message' => 'Неверные данные'
             ];
         }

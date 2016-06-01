@@ -16,3 +16,14 @@
     margin-bottom: 10px;
     padding: 0;
 }
+
+ul.navbar-nav > li {
+    -webkit-transition: background-color 0.4s ease-out;
+    -moz-transition: background-color 0.4s ease-out;
+    -o-transition: background-color 0.4s ease-out;
+    transition: background-color 0.4s ease-out;
+}
+
+ul.navbar-nav > li:hover {
+    background-color: #e7e7e7;
+}

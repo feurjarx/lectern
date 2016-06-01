@@ -40,8 +40,17 @@
 
     </div>
 
-    <div class="pull-left"><i class="fa-5x fa fa-graduation-cap" aria-hidden="true"></i></div>
-    <div class="pull-right"><i class="fa-5x fa fa-briefcase" aria-hidden="true"></i></div>
+    <div class="flexbox" style="height: 220px">
+        <div style="order: 1; align-self: center">
+            <i class="fa-5x fa fa-graduation-cap" aria-hidden="true"></i>
+        </div>
+
+        <div style="order: 2; flex: 1"></div>
+
+        <div style="order: 3; align-self: center">
+            <i class="fa-5x fa fa-briefcase" aria-hidden="true"></i>
+        </div>
+    </div>
 
 <?php $content = ob_get_clean() ?>
 

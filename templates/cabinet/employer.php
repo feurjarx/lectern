@@ -37,7 +37,7 @@
 
 </div>
 
-<div class="tab-content">
+<div class="col-lg-12 col-md-12 col-xs-12 tab-content padding-none" style="margin-top: 15px">
     <div id="ads" class="tab-pane fade in active">
         <ul class="list-group brick-wall">
 

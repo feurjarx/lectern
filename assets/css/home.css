@@ -2,28 +2,3 @@ iframe {
     height: 150px; border: 0; background-color: #34495e;
     padding: 0;
 }
-
-#top-panel > .visible-part {
-    display: -webkit-box;
-    display: -moz-box;
-    display: -ms-flexbox;
-    display: flex;
-    padding: 0;
-}
-
-#top-panel > .visible-part > div {
-    padding: 0;
-}
-
-#top-panel .filter-toggle > button.btn {
-    align-self: center;
-    margin-left: auto
-}
-
-#filter-box {
-    background-color: white;
-
-    padding: 20px;
-    margin-bottom: 10px;
-    border-radius: 15px;
-}

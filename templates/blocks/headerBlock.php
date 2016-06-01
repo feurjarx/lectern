@@ -64,7 +64,11 @@ $currentUser = $this->currentUser;
                 <?php if (Constants::ADMIN_ROLE !== $this->getRole()): ?>
 
                     <li class="<?php echo isset($active_item) && $active_item === 'about' ? 'active' : '' ?>">
-                        <a href="/about">О нас</a>
+                        <a href="/about"><i class="fa fa-info"></i> О нас</a>
+                    </li>
+
+                    <li class="<?php echo isset($active_item) && $active_item === 'reviews' ? 'active' : '' ?>">
+                        <a href="/reviews"><i class="fa fa-comments-o"></i> Отзывы</a>
                     </li>
 
                     <?php if ($currentUser): ?>

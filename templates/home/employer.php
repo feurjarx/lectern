@@ -8,7 +8,7 @@
 
 <?php if ($this->getCurrentUser()): ?>
 
-    <div class="row margin-none" style="display: inline-block">
+    <div class="row margin-none">
         <h2 class="content-title">Свежие резюме студентов</h2>
     </div>
 

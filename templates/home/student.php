@@ -33,17 +33,17 @@
                     <h2 class="content-title"><?php echo isset($topPanelTitle) ? $topPanelTitle : 'Панель управления'; ?></h2>
                 </div>
     
-                <div class="filter-toggle flexbox col-lg-4 col-md-4 col-xs-12" style="order: 2">
+                <div class="hidden-part-toggle flexbox col-lg-4 col-md-4 col-xs-12" style="order: 2">
                     <button class="btn btn-primary btn-sm" data-toggle="collapse" data-target="#filter-box" aria-expanded="false"
                             onclick="$(this).toggleClass('btn-primary')">
 
-                        <b>Показать фильтр</b>
+                        <b>Фильтр</b>
                         <span class="glyphicon glyphicon-filter"></span>
                     </button>
                 </div>
             </div>
 
-            <div id="filter-box" class="collapse fade col-lg-12 col-md-12 col-xs-12">
+            <div id="filter-box" class="hidden-part collapse fade col-lg-12 col-md-12 col-xs-12">
                 <div class="col-lg-6 padding-none">
                     <label for="sphere-select">Сфера деятельности:</label>
                     <select name="sphere" id="sphere-select" class="selectpicker show-tick">

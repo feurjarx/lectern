@@ -41,7 +41,7 @@ use Entity\User;
 
     <?php endif ?>
 
-    <?php if (Constants::ADMIN_ROLE !== $this->getRole()): ?>
+    <?php if (is_null($this->getRole())): ?>
         <iframe class="col-lg-12 col-md-12 hidden-sm hidden-xs" src="/animation"></iframe>
     <?php endif ?>
 
