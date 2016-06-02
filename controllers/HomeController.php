@@ -135,14 +135,36 @@ class HomeController extends BaseController
 
 
             if ($params['filters']) {
-                foreach ($params['filters'] as $filter => $value) {
+                
+                foreach ($params['filters'] as $filter => $v) {
 
                     switch (true) {
-                        case ('sphere' === $filter && $value !== '*'):
-                            $qb->andWhere($expr->eq('ad.sphere', $expr->literal($value)));
+                        case ('sphere' === $filter):
+
+                            if (is_array($v)) {
+
+                                $orX = $expr->orX();
+
+                                foreach ($v as $item) {
+                                    $orX->add($expr->eq('ad.sphere', $expr->literal($item)));
+                                }
+
+                                $qb->andWhere($orX);
+                            }
+
+                            break;
+                        case ('salary_range' === $filter && $v !== '*'):
+
+                            if ($v[0] === '>') {
+                                $qb->andWhere($expr->gt('ad.salary', substr($v, 1)));
+                            }
+
+                            if ($v[0] === '<') {
+                                $qb->andWhere($expr->lte('ad.salary', substr($v, 1)));
+                            }
+
                             break;
                     }
-
                 }
             }
 

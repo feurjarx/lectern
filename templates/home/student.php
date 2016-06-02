@@ -33,7 +33,7 @@
                     <h2 class="content-title"><?php echo isset($topPanelTitle) ? $topPanelTitle : 'Панель управления'; ?></h2>
                 </div>
     
-                <div class="hidden-part-toggle flexbox col-lg-4 col-md-4 col-xs-12" style="order: 2">
+                <div class="hidden-part-toggle flexbox col-lg-4 col-md-4 hidden-xs" style="order: 2">
                     <button class="btn btn-primary btn-sm" data-toggle="collapse" data-target="#filter-box" aria-expanded="false"
                             onclick="$(this).toggleClass('btn-primary')">
 
@@ -43,12 +43,19 @@
                 </div>
             </div>
 
-            <div id="filter-box" class="hidden-part collapse fade col-lg-12 col-md-12 col-xs-12">
-                <div class="col-lg-6 padding-none">
+            <div class="form-group col-xs-12 visible-xs">
+                <button class="btn-block btn btn-primary btn-sm" data-toggle="collapse" data-target="#filter-box" aria-expanded="false"
+                        onclick="$(this).toggleClass('btn-primary')">
+
+                    <b>Фильтр</b>
+                    <span class="glyphicon glyphicon-filter"></span>
+                </button>
+            </div>
+
+            <div id="filter-box" class="hidden-part collapse fade col-lg-12 col-md-12 col-xs-12 margin-none-xs">
+                <div class="col-lg-4 col-md-4 col-xs-12 padding-none">
                     <label for="sphere-select">Сфера деятельности:</label>
-                    <select name="sphere" id="sphere-select" class="selectpicker show-tick">
-    
-                        <option value="*">любая</option>
+                    <select name="sphere" id="sphere-select" class="selectpicker selectpicker-filter show-tick" multiple data-actions-box="true" title="Выберите сферу">
     
                         <?php foreach (Utils::getSpheresTitles() as $sphere => $title): ?>
     
@@ -56,6 +63,18 @@
     
                         <?php endforeach; ?>
     
+                    </select>
+                </div>
+                <div class="col-lg-4 col-md-4 col-xs-12 padding-none">
+                    <label for="salary-range-select">Предлагаемая з/п:</label>
+                    <select name="salary_range" id="salary-range-select" class="selectpicker selectpicker-filter show-tick">
+                        <option value="*">любая</option>
+                        <option value="<10000">До 10000р</i></option>
+                        <option value=">10000">От 10000р</i></option>
+                        <option value=">20000">От 20000р</i></option>
+                        <option value=">30000">От 30000р</i></option>
+                        <option value=">40000">От 40000р</i></option>
+                        <option value=">50000">От 50000р</i></option>7
                     </select>
                 </div>
             </div>

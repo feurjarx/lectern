@@ -16,6 +16,7 @@
     "bootstrap-select": "^1.10.0",
     "qtip2": "^2.2.1",
     "hover": "^2.0.2",
-    "jRate": "jrate#^1.2.7"
+    "jRate": "jrate#^1.2.7",
+    "jQuery.dotdotdot": "jquery.dotdotdot#^1.8.1"
   }
 }

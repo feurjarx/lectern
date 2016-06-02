@@ -106,6 +106,12 @@ Scrollbox.prototype.load = function () {
     });
 };
 
+Scrollbox.prototype.refresh = function () {
+    this.$scrollbox.empty();
+    this.listen();
+    this.load();
+};
+
 Scrollbox.prototype.render = null;
 Scrollbox.prototype.beforeSend = null;
 Scrollbox.prototype.success = null;

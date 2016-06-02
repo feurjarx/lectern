@@ -5,6 +5,8 @@ $(function () {
 
     var $jRate = $('#jRate');
     $jRate.jRate({
+        startColor: 'yellow',
+        endColor: 'orange',
         rating: 1,
         min: 0,
         max: 5,
@@ -81,4 +83,42 @@ $(function () {
             });
         }
     });
+
+    // get handlebars
+    $.ajax({
+        url: window.location.origin + '/bower_components/handlebars/handlebars.min.js',
+        cache: true,
+        dataType: 'script',
+        success: function (script) {
+
+            // get hbs template
+            $.ajax({
+                url: 'templates/hbs/reviewModal.hbs',
+                cache: true,
+                success: function (source) {
+                    var render = Handlebars.compile(source);
+
+                    $(document).on('click', '.popover-review', function () {
+
+                        var $modal = $(render({
+                            title: $(this).find('.popover-title').text(),
+                            description: $(this).find('.popover-content').text()
+                        }));
+
+                        $modal.on('hidden.bs.modal', function () {
+                            $(this).remove();
+                        });
+
+                        $('body').append($modal);
+
+                        $modal.modal();
+                    });
+                }
+            });
+        },
+        error: function (err) {
+            console.error(err);
+        }
+    });
 });
+

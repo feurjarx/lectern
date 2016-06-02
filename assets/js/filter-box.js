@@ -4,17 +4,10 @@
 
 $(function () {
 
-    // TODO: made refresh
-    $('#sphere-select').on('changed.bs.select', function () {
+    $('.selectpicker-filter').on('changed.bs.select', function () {
 
         var scrollbox = $('.scrollbox').data('scrollbox');
-
         scrollbox.params.filters[$(this).attr('name')] = $(this).val();
-
-        scrollbox.$scrollbox.empty();
-
-        scrollbox.listen();
-        scrollbox.load();
-
+        scrollbox.refresh();
     })
 });
