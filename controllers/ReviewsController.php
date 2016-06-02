@@ -20,11 +20,11 @@ class ReviewsController extends BaseController
     function __construct($options)
     {
         parent::__construct($options);
-        if (!$this->getCurrentUser()) {
+        /*if (!$this->getCurrentUser()) {
 
             header('Location: ' . Utils::getHttpHost() . '/' . 'access/denied');
             exit(0);
-        }
+        }*/
     }
 
     public function indexAction()
@@ -52,6 +52,11 @@ class ReviewsController extends BaseController
      */
     public function createReviewAction($post)
     {
+        if (!$this->getRole()) {
+            header('Location: ' . Utils::getHttpHost() . '/' . 'access/denied');
+            exit(0);
+        }
+
         $params = Utils::arraySerialization([
             'title',
             'description',

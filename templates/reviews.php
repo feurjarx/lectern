@@ -32,8 +32,26 @@
                 <h2 class="content-title">Отзывы пользователей <span class="hidden-xs">сайта</span></h2>
             </div>
 
-            <div class="hidden-part-toggle flexbox col-lg-4 col-md-4 hidden-xs" style="order: 2">
-                <button class="btn btn-primary btn-sm" data-toggle="collapse" data-target="#review-poster" aria-expanded="false"
+            <?php if ($this->getRole()): ?>
+
+                <div class="hidden-part-toggle flexbox col-lg-4 col-md-4 hidden-xs" style="order: 2">
+                    <button class="btn btn-primary btn-sm" data-toggle="collapse" data-target="#review-poster" aria-expanded="false"
+                            onclick="$(this).toggleClass('btn-primary')">
+
+                        <b>Оставить отзыв</b>
+                        &nbsp;
+                        <i class="fa fa-pencil"></i>
+                    </button>
+                </div>
+
+            <?php endif; ?>
+
+        </div>
+
+        <?php if ($this->getRole()): ?>
+
+            <div class="form-group col-xs-12 visible-xs">
+                <button class="btn-block btn btn-primary" data-toggle="collapse" data-target="#review-poster" aria-expanded="false"
                         onclick="$(this).toggleClass('btn-primary')">
 
                     <b>Оставить отзыв</b>
@@ -42,17 +60,7 @@
                 </button>
             </div>
 
-        </div>
-
-        <div class="form-group col-xs-12 visible-xs">
-            <button class="btn-block btn btn-primary" data-toggle="collapse" data-target="#review-poster" aria-expanded="false"
-                    onclick="$(this).toggleClass('btn-primary')">
-
-                <b>Оставить отзыв</b>
-                &nbsp;
-                <i class="fa fa-pencil"></i>
-            </button>
-        </div>
+        <?php endif; ?>
 
         <form id="review-poster" class="hidden-part collapse fade col-lg-12 col-md-12 col-xs-12">
             <div class="col-lg-10 col-md-10 col-xs-12">

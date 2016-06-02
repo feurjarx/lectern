@@ -26,8 +26,6 @@ $(function () {
 
         if (gRecaptchaResponse) {
 
-            debugger
-
             var dataSending = $.extend($(this).serializeObject(), {
                 'g-recaptcha-response': gRecaptchaResponse
             });
