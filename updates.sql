@@ -1,28 +1,19 @@
-CREATE TABLE `lectern`.`review` (
-  `id`          INT         NOT NULL AUTO_INCREMENT,
-  `title`       VARCHAR(50) NOT NULL,
-  `description` TEXT        NOT NULL,
-  `rating`      INT         NULL,
-  `user_id`     INT         NOT NULL,
+CREATE TABLE `lectern`.`request` (
+  `id`         INT                                     NOT NULL AUTO_INCREMENT,
+  `cv_id`      INT                                     NOT NULL,
+  `ad_id`      INT                                     NOT NULL,
+  `created_at` INT                                     NOT NULL,
+  `status`     ENUM ('waiting', 'accepted', 'ignored') NOT NULL DEFAULT 'waiting',
   PRIMARY KEY (`id`)
 )
   ENGINE = InnoDB;
 
-ALTER TABLE `review` ADD INDEX(`user_id`);
+ALTER TABLE `request` ADD INDEX(`cv_id`);
+ALTER TABLE `request` ADD INDEX(`ad_id`);
 
-ALTER TABLE `review` CHANGE `user_id` `user_id` INT(11) NULL;
-
-ALTER TABLE `review` ADD FOREIGN KEY (`user_id`) REFERENCES `lectern`.`user` (`id`)
-  ON DELETE SET NULL
+ALTER TABLE `request` ADD FOREIGN KEY (`cv_id`) REFERENCES `lectern`.`cv` (`id`)
+  ON DELETE CASCADE
   ON UPDATE RESTRICT;
-
-ALTER TABLE `ad` ADD INDEX(`salary`);
-ALTER TABLE `ad` ADD INDEX(`sphere`);
-
-ALTER TABLE `review` ADD `published_at` INT NOT NULL AFTER `description`;
-
-ALTER TABLE `review` ADD INDEX(`published_at`);
-
-
-
-
+ALTER TABLE `request` ADD FOREIGN KEY (`ad_id`) REFERENCES `lectern`.`ad` (`id`)
+  ON DELETE CASCADE
+  ON UPDATE RESTRICT;

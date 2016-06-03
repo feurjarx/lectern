@@ -1,4 +1,4 @@
-<?php $titlePage = 'Рынок вакансий'; ?>
+<?php $titlePage = 'Свежие вакансии'; ?>
 
 <?php ob_start() ?>
     <link href="../assets/css/brick-wall.css" rel="stylesheet">

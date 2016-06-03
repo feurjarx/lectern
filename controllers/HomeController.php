@@ -8,7 +8,7 @@
 
 use Entity\Ad;
 use Entity\Cv;
-use Entity\User;
+use Entity\Request;
 use Handlebars\Handlebars;
 
 class HomeController extends BaseController
@@ -24,6 +24,53 @@ class HomeController extends BaseController
         parent::__construct($options);
     }
     
+    /**
+     * get ads which already sending
+     * 
+     * @param $ads
+     * @return array
+     */
+    private function getNotSendableAdsIds($ads) {
+        
+        $em = $this->em;
+        
+        $adsIds = array_map(function($it) {
+            /** @var Ad $it */
+            return $it->getId();
+            
+        }, $ads);
+
+        $qb = $em->createQueryBuilder();
+        $expr = $qb->expr();
+
+        $qb
+            ->select('request')
+            ->from('Entity\Request', 'request')
+            ->join('request.cv', 'cv')
+            ->join('request.ad', 'ad')
+            ->join('cv.person', 'person')
+            ->where($expr->eq('person', $this->currentUser->getPerson()->getId()))
+            ->andWhere($expr->in('ad', $adsIds))
+        ;
+
+        $sql = $qb->getQuery()->getSQL();
+
+        $requests = $qb->getQuery()->getResult();
+
+        $notSendableAdsIds = [];
+        
+        if ($requests) {
+
+            $notSendableAdsIds = array_map(function($it) {
+                /** @var Request $it */
+                return $it->getAd()->getId();
+
+            }, $requests);
+        }
+        
+        return $notSendableAdsIds;
+    }
+
     public function indexAction()
     {
         $role = $this->getRole();
@@ -71,6 +118,12 @@ class HomeController extends BaseController
             case Constants::STUDENT_ROLE === $role:
                 /** @var Ad[] $ads */
                 $ads = $qbuilder(10, Ad::class)->getQuery()->getResult();
+
+                $notSendableAdsIds = [];
+                if ($this->getRole() && $ads && count($ads)) {
+                    $notSendableAdsIds = $this->getNotSendableAdsIds($ads);
+                }
+                
                 break;
 
             case Constants::EMPLOYER_ROLE === $role:
@@ -107,7 +160,7 @@ class HomeController extends BaseController
 
         require __DIR__ . '/../templates/about.php';
     }
-    
+
     /**
      * @param $request
      */
@@ -188,6 +241,12 @@ class HomeController extends BaseController
             }
 
             $result = [];
+
+            $notSendableAdsIds = [];
+            if ($this->getRole() && $ads && count($ads)) {
+                $notSendableAdsIds = $this->getNotSendableAdsIds($ads);
+            }
+
             foreach ($ads as $ad) {
 
                 $person = $ad->getPerson();
@@ -205,7 +264,7 @@ class HomeController extends BaseController
                         'full_name'    => $person->getFullName(),
                         'organisation' => $person->getOrganisation()
                     ],
-                    'is_cv_send_able' => $isCvSendAble,
+                    'is_cv_send_able' => $isCvSendAble && !in_array($ad->getId(), $notSendableAdsIds),
                     'html'            => $rootActionsBlockHtml
                 ];
             }
@@ -258,21 +317,49 @@ class HomeController extends BaseController
 
                     try {
 
-                        $html = $engine->render(
-                            file_get_contents(__DIR__ . '/../templates/hbs/cv.hbs'), [
-                                'cv' => Utils::cvToArray($cv, false),
-                                'student' => Utils::personInformationToArray($cv->getPerson())
-                            ]
-                        );
+                        $cvPerson = $cv->getPerson();
+
+                        $html = $engine->render(file_get_contents(__DIR__ . '/../templates/hbs/cvEmail.hbs'), [
+                            'fullname'           => $cvPerson->getFullName(),
+                            'city'               => $cvPerson->getContact()->getAddress()->getCity(),
+                            'organisation'       => $cvPerson->getOrganisation(),
+                            'education'          => Utils::getEducationsTitles()[ $cv->getEducation() ],
+                            'email'              => $cvPerson->getUser()->getEmail(),
+                            'phone'              => $cvPerson->getContact()->getPhone(),
+                            'website'            => $cvPerson->getContact()->getWebsites(),
+                            'sphere'             => Utils::getSpheresTitles()[ $cv->getSphere() ],
+                            'skills'             => $cv->getSkills(),
+                            'work_experience'    => Utils::getWorkExperiencesTitles()[ $cv->getWorkExperience() ],
+                            'schedule'           => Utils::getSchedulesTitles()[ $cv->getSchedule() ],
+                            'ext_education'      => $cv->getExtEducation(),
+                            'hobbies'            => $cv->getHobbies(),
+                            'foreign_languages'  => $cv->getForeignLanguages(),
+                            'about'              => $cv->getAbout(),
+                            'is_married'         => $cv->getIsMarried(),
+                            'is_drivers_license' => $cv->getIsDriversLicense(),
+                            'is_smoking'         => $cv->getIsSmoking(),
+                            'img_url'            => $cvPerson->getUser()->getImgUrl()
+                        ]);
 
                         (new Letter())
                             ->setTo([ $ad->getPerson()->getUser()->getEmail() => '' ])
-                            ->setFrom("yakoann03@gmail.com", "Ваш lectern")
-                            ->setSubject("Резюме от " . $cv->getPerson()->getFullName())
+                            ->setFrom("yakoann03@gmail.com", "Резюме от студента с сайта lectern")
+                            ->setSubject("Резюме")
                             ->setBody($html)
                             ->send()
                         ;
-                        
+
+                        $em = $this->em;
+
+                        $request = new Request();
+                        $request
+                            ->setAd($em->getReference('Entity\Ad', $ad->getId()))
+                            ->setCv($em->getReference('Entity\Cv', $cv->getId()))
+                        ;
+
+                        $em->persist($request);
+                        $em->flush();
+
                         $result = [
                             'type' => 'success',
                             'message' => 'Ваше резюме успешно отправлено работодателю!'

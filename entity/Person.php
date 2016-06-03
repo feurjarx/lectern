@@ -254,6 +254,6 @@ class Person
      */
     public function getFullName()
     {
-        return $this->firstName . ($this->lastName ? (' ' .$this->lastName) : '');
+        return ($this->lastName ? ($this->lastName . ' ') : '') . $this->firstName;
     }
 }

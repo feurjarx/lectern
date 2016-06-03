@@ -164,4 +164,12 @@ class BaseController
     {
         return $this->role;
     }
+
+    /**
+     * @return string
+     */
+    public function getRoute()
+    {
+        return $this->route;
+    }
 }

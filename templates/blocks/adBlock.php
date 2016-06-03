@@ -16,6 +16,8 @@ $isCvSendAble = function() use ($self) {
 };
 
 /** @var Ad $ad */
+
+$notSendableAdsIds = isset($notSendableAdsIds) ? $notSendableAdsIds : [];
 ?>
 
 <?php if (isset($ad) and $ad instanceof Ad and $ad): ?>
@@ -73,7 +75,7 @@ $isCvSendAble = function() use ($self) {
         </div>
     </div>
 
-    <?php if ($isCvSendAble()):?>
+    <?php if ($isCvSendAble() && !in_array($ad->getId(), $notSendableAdsIds)):?>
 
         <div class="pull-right">
             <button type="button" class="actions cv-send btn btn-default btn-xs">

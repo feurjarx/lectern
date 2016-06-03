@@ -134,62 +134,6 @@ class Utils
     }
 
     /**
-     * @param Cv $cv
-     * @return array
-     */
-    public static function cvToArray(Cv $cv, $isRaw = true)
-    {
-        $keys = [
-            'sphere'             => 'Желаемая сфера деятельности',
-            'access_type'        => 'Тип доступа к резюме',
-            'hobbies'            => 'Увлечения',
-            'skills'             => 'Опыт и навыки',
-            'work_experience'    => 'Рабочий стаж',
-            'education'          => 'Образование',
-            'ext_education'      => 'Доп. образование',
-            'desire_salary'      => 'Желаемая з/п',
-            'schedule'           => 'Рабочий график',
-            'foreign_languages'  => 'Владение иностранными языками',
-            'is_drivers_license' => 'Имеет водительское удостоверение',
-            'is_smoking'         => 'Курит',
-            'is_married'         => 'В браке',
-            'about'              => 'О себе'
-        ];
-
-        return $isRaw ? [
-            'sphere'             => $cv->getSphere(),
-            'access_type'        => $cv->getAccessType(),
-            'hobbies'            => $cv->getHobbies(),
-            'skills'             => $cv->getSkills(),
-            'work_experience'    => $cv->getWorkExperience(),
-            'education'          => $cv->getEducation(),
-            'ext_education'      => $cv->getExtEducation(),
-            'desire_salary'      => $cv->getDesireSalary(),
-            'schedule'           => $cv->getSchedule(),
-            'foreign_languages'  => $cv->getForeignLanguages(),
-            'is_drivers_license' => $cv->getIsDriversLicense(),
-            'is_smoking'         => $cv->getIsSmoking(),
-            'is_married'         => $cv->getIsMarried(),
-            'about'              => $cv->getAbout()
-        ] : [
-            $keys['sphere']             => $cv->getSphere(),
-            $keys['access_type']        => $cv->getAccessType(),
-            $keys['hobbies']            => $cv->getHobbies(),
-            $keys['skills']             => $cv->getSkills(),
-            $keys['work_experience']    => $cv->getWorkExperience(),
-            $keys['education']          => $cv->getEducation(),
-            $keys['ext_education']      => $cv->getExtEducation(),
-            $keys['desire_salary']      => $cv->getDesireSalary(),
-            $keys['schedule']           => $cv->getSchedule(),
-            $keys['foreign_languages']  => $cv->getForeignLanguages(),
-            $keys['is_drivers_license'] => $cv->getIsDriversLicense(),
-            $keys['is_smoking']         => $cv->getIsSmoking(),
-            $keys['is_married']         => $cv->getIsMarried(),
-            $keys['about']              => $cv->getAbout()
-        ];
-    }
-
-    /**
      * @param Person $person
      * @return array
      */

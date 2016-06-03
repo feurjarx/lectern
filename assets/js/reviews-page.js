@@ -100,7 +100,7 @@ $(function () {
 
                         var $modal = $(render({
                             title: $(this).find('.popover-title').text(),
-                            description: $(this).find('.popover-content').text()
+                            description: $(this).closest('.panel').find('.full-description').text()
                         }));
 
                         $modal.on('hidden.bs.modal', function () {

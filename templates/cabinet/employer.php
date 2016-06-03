@@ -17,7 +17,7 @@
     <div class="col-lg-9 col-xs-12 cabinet-menu-block">
         <ul class="nav nav-pills">
             <li class="active"><a data-toggle="pill" href="#ads">Объявления</a></li>
-            <li><a data-toggle="pill" href="#cvs">Заявки</a></li>
+            <li><a data-toggle="pill" href="#recieved-cvs">Заявки</a></li>
         </ul>
     </div>
 
@@ -67,8 +67,34 @@
         </ul>
     </div>
 
-    <div id="cvs" class="tab-pane fade">
-        <h3>тут будут резюме 1</h3>
+    <div id="recieved-cvs" class="tab-pane fade">
+        <ul class="list-group brick-wall">
+
+            <?php if (isset($recievedCvs) && count($recievedCvs)): ?>
+
+                <?php /** @var \Entity\Cv[] $recievedCvs */ ?>
+                <?php foreach ($recievedCvs as $index => $cv): ?>
+
+                    <li class="col-lg-12 col-md-12 col-xs-12 list-group-item brick">
+                        <?php include __DIR__ . '/../blocks/cvBlock.php'?>
+                    </li>
+
+                <?php endforeach; ?>
+
+            <?php else: ?>
+
+                <div class="col-lg-12 alert alert-info list-group-item">
+                    <strong>
+                        <span class="glyphicon glyphicon-info-sign"></span>
+                        <span class="sr-only">Информация!</span>
+                        <span>Ничего не найдено</span>
+                    </strong>
+                </div>
+
+            <?php endif ?>
+
+        </ul>
+        
     </div>
 </div>
 

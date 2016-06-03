@@ -32,6 +32,8 @@ $colors = ['danger', 'default', 'warning', 'primary', 'success'];
                 <div class="popover-content dot-ellipsis dot-resize-update"><?php echo $review->getDescription(); ?></div>
             </div>
         </div>
+
+        <textarea placeholder="" class="hidden full-description"><?php echo $review->getDescription(); ?></textarea>
     </div>
 
     <script>

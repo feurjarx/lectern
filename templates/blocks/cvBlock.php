@@ -45,11 +45,25 @@ use Entity\Cv;
 
     <?php if (Constants::EMPLOYER_ROLE === $this->getRole()): ?>
 
-        <div class="pull-right">
-            <button type="button" class="actions btn btn-default btn-xs">
-                <span class="glyphicon glyphicon-star" aria-hidden="true"></span> Запросить резюме
-            </button>
-        </div>
+        <?php if ($this->getRoute() === '/cabinet'): ?>
+
+            <div class="pull-right">
+                <button type="button" class="actions btn btn-success btn-sm">
+                    <span class="glyphicon glyphicon-ok" aria-hidden="true"></span> Пригласить на собеседование
+                </button>
+            </div>
+
+        <?php else: ?>
+
+            <div class="pull-right">
+                <button type="button" class="actions btn btn-default btn-xs">
+                    <span class="glyphicon glyphicon-star" aria-hidden="true"></span> Запросить резюме
+                </button>
+            </div>
+
+        <?php endif ?>
+
+
 
     <?php endif; ?>
 

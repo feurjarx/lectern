@@ -42,15 +42,25 @@ class CabinetController extends BaseController
             case Constants::EMPLOYER_ROLE:
 
                 /** @var Ad[] $ads */
-                // TODO: вывод штук 10 сразу с is_confirm = 1
                 $ads = $this->currentUser->getPerson()->getAds();
-                break;
 
-            case Constants::ADMIN_ROLE:
+                $em = $this->em;
 
-                /** @var Ad[] $ads */
-                // TODO: вывод штук 10 сразу с is_confirm = 0
-                $ads = $this->currentUser->getPerson()->getAds();
+                $qb = $em->createQueryBuilder();
+                $expr = $qb->expr();
+
+                $qb
+                    ->select('cv')
+                    ->from('Entity\Cv', 'cv')
+                    ->innerJoin('Entity\Request', 'request', 'WITH', 'cv = request.cv')
+                    ->join('request.ad', 'ad')
+                    ->join('ad.person', 'person')
+                    ->where($expr->eq('person', $this->currentUser->getPerson()->getId()))
+                ;
+
+                /** @var Cv[] $recievedCvs */
+                $recievedCvs = $qb->getQuery()->getResult();
+
                 break;
         }
 
