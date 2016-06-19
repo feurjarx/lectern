@@ -1,4 +1,4 @@
-<?php $titlePage = 'Свежие вакансии'; ?>
+<?php $titlePage = 'Вакансии'; ?>
 
 <?php ob_start() ?>
     <link href="../assets/css/brick-wall.css" rel="stylesheet">
@@ -15,7 +15,7 @@
 <?php ob_start() ?>
 
     <div class="row margin-none">
-        <h2 class="content-title">Свежие вакансии</h2>
+        <h2 class="content-title">Вакансии</h2>
     </div>
 
     <ul class="scrollbox list-group brick-wall list-unstyled" data-hbs="<?php echo Utils::getHttpHost()?>/templates/hbs/adBlock.hbs" data-ajax-url="/get/ads">

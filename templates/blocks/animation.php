@@ -28,7 +28,7 @@
 
 </head>
 
-<body class="font-effect-outline">
+<body class="font-effect-outline" style="overflow: hidden;">
 
     <div class="pull-left student-fa">
         <i class="fa fa-5x fa-graduation-cap" aria-hidden="true"></i>

@@ -23,7 +23,7 @@
 
     <?php if (Constants::STUDENT_ROLE === $this->getRole()): ?>
 
-        <?php $topPanelTitle = 'Свежие вакансии'; ?>
+        <?php $topPanelTitle = 'Вакансии'; ?>
 
         <div id="top-panel">
             
@@ -86,7 +86,7 @@
 <?php else: ?>
 
     <div class="row margin-none text-center">
-        <h2 class="content-title">Свежие вакансии</h2>
+        <h2 class="content-title">Вакансии</h2>
     </div>
 
 <?php endif ?>

@@ -61,8 +61,10 @@ $notSendableAdsIds = isset($notSendableAdsIds) ? $notSendableAdsIds : [];
 
                 <?php endif ?>
 
-                <span>Требуется <?php echo Utils::getSpheresTitles()[$ad->getSphere()]; ?></span>
-                <br>
+                <?php if (Utils::getSpheresString($ad->getSphere())): ?>
+                    <span>Требуется <?php echo Utils::getSpheresString($ad->getSphere()); ?></span>
+                    <br>
+                <?php endif; ?>
 
             <?php endif; ?>
 

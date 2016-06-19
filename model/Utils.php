@@ -152,4 +152,24 @@ class Utils
             'apartment_number' => $person->getContact()->getAddress()->getApartmentNumber(),
         ];
     }
+
+    /**
+     * @param $sphere
+     * @return array|string
+     */
+    public static function getSpheresString($sphere) {
+        $spheres = array_filter(explode(',', $sphere));
+
+        $result = '';
+        if ($spheres) {
+
+            $result = [];
+            foreach ($spheres as $item) {
+                $result[] = Utils::getSpheresTitles()[$item];
+            }
+            $result = implode(',', $result);
+        }
+
+        return $result;
+    }
 }

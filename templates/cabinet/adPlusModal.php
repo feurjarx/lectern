@@ -29,7 +29,7 @@
                 <div class="form-group">
                     <label for="sphere-select">Сфера деятельности</label>
                     <br>
-                    <select required name="sphere" id="sphere-select" class="selectpicker show-tick">
+                    <select required name="sphere" id="sphere-select" class="selectpicker show-tick" multiple data-actions-box="true">
 
                         <?php foreach (Utils::getSpheresTitles() as $sphere => $title): ?>
 

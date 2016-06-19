@@ -27,15 +27,21 @@ use Entity\Cv;
             <?php if (Constants::EMPLOYER_ROLE === $this->getRole()): ?>
 
                 <p>
-                    <span><b>Образование: </b><?php echo Utils::getEducationsTitles()[$cv->getEducation()]; ?></span>
-                    <br>
-                    <span><b>Желаемая занятость: </b><?php echo Utils::getSpheresTitles()[$cv->getSphere()]; ?></span>
+                    <span><b>Образование: </b><?php echo $cv->getEducation(); ?></span>
+                    <?php if ($spheresString = Utils::getSpheresString($cv->getSphere())): ?>
+                        <br>
+                        <span><b>Желаемая сфера занятости: </b><?php echo $spheresString ; ?></span>
+                    <?php endif ?>
                 </p>
 
             <?php else: ?>
 
-                <span><b>Желаемая сфера занятости: </b><?php echo Utils::getSpheresTitles()[$cv->getSphere()]; ?></span>
-                <br>
+
+                <?php if ($spheresString = Utils::getSpheresString($cv->getSphere())): ?>
+                    <span><b>Желаемая сфера занятости: </b><?php echo $spheresString ; ?></span>
+                    <br>
+                <?php endif ?>
+
                 <small class="text-muted">создано: <?php echo date('d/m/Y', $cv->getCreatedAt()); ?></small>
 
             <?php endif ?>

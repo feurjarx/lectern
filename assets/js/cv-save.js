@@ -11,6 +11,9 @@ $(function () {
             $submitButton = $(this).find('button[type="submit"]')
         ;
 
+        var $sphereSelect = $('#sphere-select');
+        sendData.sphere = $sphereSelect.length ? $sphereSelect.val().join(',') : '';
+
         sendData.id = $submitButton.val();
         
         $.ajax({

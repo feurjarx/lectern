@@ -258,7 +258,7 @@ class HomeController extends BaseController
                     'salary'          => $ad->getSalary(),
                     'published_at'    => date('d/m/Y H:i:s', $ad->getPublishedAt()),
                     'user_img_url'    => $person->getUser()->getImgUrl(),
-                    'sphere'          => Utils::getSpheresTitles()[ $ad->getSphere() ],
+                    'sphere'          => Utils::getSpheresString( $ad->getSphere() ),
                     'person'          => [
                         'last_name'    => $person->getLastName(),
                         'full_name'    => $person->getFullName(),
@@ -323,11 +323,11 @@ class HomeController extends BaseController
                             'fullname'           => $cvPerson->getFullName(),
                             'city'               => $cvPerson->getContact()->getAddress()->getCity(),
                             'organisation'       => $cvPerson->getOrganisation(),
-                            'education'          => Utils::getEducationsTitles()[ $cv->getEducation() ],
+                            'education'          => $cv->getEducation(),
                             'email'              => $cvPerson->getUser()->getEmail(),
                             'phone'              => $cvPerson->getContact()->getPhone(),
                             'website'            => $cvPerson->getContact()->getWebsites(),
-                            'sphere'             => Utils::getSpheresTitles()[ $cv->getSphere() ],
+                            'sphere'             => Utils::getSpheresString( $cv->getSphere()),
                             'skills'             => $cv->getSkills(),
                             'work_experience'    => Utils::getWorkExperiencesTitles()[ $cv->getWorkExperience() ],
                             'schedule'           => Utils::getSchedulesTitles()[ $cv->getSchedule() ],
@@ -411,7 +411,7 @@ class HomeController extends BaseController
 
         if (!in_array(null, $params)) {
 
-            $params = Utils::arraySerialization(['limit'], $request, $params);
+            $params = Utils::arraySerialization(['limit', 'filters'], $request, $params);
 
             $em = $this->em;
 
@@ -427,6 +427,29 @@ class HomeController extends BaseController
                 ->setMaxResults($params['limit'] ? $params['limit'] : 10)
             ;
 
+            if ($params['filters']) {
+
+                foreach ($params['filters'] as $filter => $v) {
+
+                    switch (true) {
+                        case ('sphere' === $filter):
+
+                            if (is_array($v)) {
+
+                                $orX = $expr->orX();
+
+                                foreach ($v as $item) {
+                                    $orX->add($expr->eq('cv.sphere', $expr->literal($item)));
+                                }
+
+                                $qb->andWhere($orX);
+                            }
+
+                            break;
+                    }
+                }
+            }
+
             /** @var Cv[] $cvs */
             $cvs = $qb->getQuery()->getResult();
 
@@ -437,8 +460,8 @@ class HomeController extends BaseController
 
                 $result[] = [
                     'id'              => $cv->getId(),
-                    'sphere'          => Utils::getSpheresTitles()[ $cv->getSphere() ],
-                    'education'       => Utils::getEducationsTitles()[ $cv->getEducation() ],
+                    'sphere'          => Utils::getSpheresString( $cv->getSphere()),
+                    'education'       => $cv->getEducation(),
                     'skills'          => $cv->getSkills(),
                     'work_experience' => Utils::getWorkExperiencesTitles()[ $cv->getWorkExperience() ],
                     'hobbies'         => $cv->getHobbies(),

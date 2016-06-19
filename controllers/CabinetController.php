@@ -194,8 +194,7 @@ class CabinetController extends BaseController
             'flash',
             'access_type',
             'skills',
-            'work_experience',
-            'education'
+            'work_experience'
             
         ], $request);
 
@@ -207,7 +206,7 @@ class CabinetController extends BaseController
                     'id',
                     'sphere',
                     'hobbies',
-                    'ext_education',
+                    'education',
                     'desire_salary',
                     'schedule',
                     'foreign_languages',

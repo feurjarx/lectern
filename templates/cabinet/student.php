@@ -25,11 +25,13 @@ $cv = ($user = $this->getCurrentUser()) ? $user->getPerson()->getCvs()->first() 
         <div class="form-group">
             <label for="sphere-select">Сфера деятельности</label>
             <br>
-            <select name="sphere" id="sphere-select" class="selectpicker show-tick">
+            <select name="sphere" id="sphere-select" class="selectpicker show-tick" multiple data-actions-box="true">
+
+                <?php $cvSpheres = $cv ? explode(',', $cv->getSphere()) : [] ?>
 
                 <?php foreach (Utils::getSpheresTitles() as $sphere => $title): ?>
 
-                    <option <?php echo $cv ? ( $cv->getSphere() === $sphere ? 'selected' : '' ) : '' ?> value="<?php echo $sphere; ?>"><?php echo $title; ?></option>
+                    <option <?php echo $cv ? ( in_array($sphere, $cvSpheres)? 'selected' : '' ) : '' ?> value="<?php echo $sphere; ?>"><?php echo $title; ?></option>
 
                 <?php endforeach; ?>
 
@@ -53,7 +55,7 @@ $cv = ($user = $this->getCurrentUser()) ? $user->getPerson()->getCvs()->first() 
     </div>
 
 
-    <div class="col-lg-3 col-md-3 col-xs-12">
+    <div class="col-lg-4 col-md-4 col-xs-12">
         <div class="form-group">
             <label for="work-experience-select">Рабочий стаж</label>
             <br>
@@ -69,23 +71,7 @@ $cv = ($user = $this->getCurrentUser()) ? $user->getPerson()->getCvs()->first() 
         </div>
     </div>
 
-    <div class="col-lg-3 col-md-3 col-xs-12">
-        <div class="form-group">
-            <label for="education-select">Образование</label>
-            <br>
-            <select name="education" id="education-select" class="selectpicker show-tick">
-
-                <?php foreach (Utils::getEducationsTitles() as $education => $title): ?>
-
-                    <option <?php echo $cv ? ( $cv->getEducation() === $education ? 'selected' : '' ) : '' ?>  value="<?php echo $education; ?>"><?php echo $title ?></option>
-
-                <?php endforeach; ?>
-
-            </select>
-        </div>
-    </div>
-
-    <div class="col-lg-3 col-md-3 col-xs-12">
+    <div class="col-lg-4 col-md-4 col-xs-12">
         <div class="form-group">
             <label for="schedule-select">Желаемый рабочий график</label>
             <br>
@@ -101,7 +87,7 @@ $cv = ($user = $this->getCurrentUser()) ? $user->getPerson()->getCvs()->first() 
         </div>
     </div>
 
-    <div class="col-lg-3 col-md-3 col-xs-12">
+    <div class="col-lg-4 col-md-4 col-xs-12">
         <div class="form-group">
             <label for="desire-salary-input">Заработная плата</label>
             <div class="input-group">
@@ -128,13 +114,8 @@ $cv = ($user = $this->getCurrentUser()) ? $user->getPerson()->getCvs()->first() 
 
     <div class="col-lg-12 col-md-12 col-xs-12">
         <div class="form-group">
-            <label for="ext-education-textarea">Дополнительное образование</label>
-            <div class="input-group">
-                <span class="input-group-addon">
-                    <i class="fa fa-graduation-cap"></i>
-                </span>
-                <textarea style="resize: vertical" rows="3" class="form-control" name="ext_education" id="ext-education-textarea" placeholder="Если есть, то укажите сведения о доп. образовании"><?php echo $cv ? $cv->getExtEducation() : '' ?></textarea>
-            </div>
+            <label for="education-textarea">Образование</label>
+            <textarea style="resize: vertical" rows="3" class="form-control" name="education" id="education-textarea" placeholder="Укажите сведения об образовании"><?php echo $cv ? $cv->getEducation() : '' ?></textarea>
         </div>
     </div>
 

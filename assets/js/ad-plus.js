@@ -12,6 +12,9 @@ $('#ad-plus-modal')
             sendData = $addPlusModal.serializeObject()
         ;
 
+        var $sphereSelect = $('#sphere-select');
+        sendData.sphere = $sphereSelect.length ? $sphereSelect.val().join(',') : '';
+
         $.ajax({
             url: '/employer/ad/plus',
             type: 'post',
